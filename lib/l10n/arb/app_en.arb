@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "appTitle": "Ruby Theft",
+    "@appTitle": {
+        "description": "Title of the App"
+    },
+    "appSubtitle": "Steal the ruby. All the rubies.",
+    "@appSubtitle": {},
+    "menuSettings": "Settings",
+    "@menuSettings": {},
+    "menuPlay": "Play",
+    "@menuPlay": {},
+    "menuLevels": "Levels",
+    "@menuLevels": {}
+}
