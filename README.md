@@ -118,3 +118,11 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
     }
 }
 ```
+
+## Generate Launcher Icons
+
+[flutter_launcher_icon]{https://pub.dev/packages/flutter_launcher_icons}.
+
+Adjust image path in flutter_launcher_icons.yaml.
+
+`flutter pub run flutter_launcher_icons:main`

@@ -17,19 +17,15 @@
     "@puzzleChallengeTitle": {
         "description": "Shown as the title of the puzzle"
     },
-    "puzzleNumberOfMoves": "Moves",
+    "puzzleNumberOfMoves": "Züge",
     "@puzzleNumberOfMoves": {
         "description": "Indicates how many moves have been made on the current puzzle"
     },
-    "puzzleNumberOfTilesLeft": "Tiles",
-    "@puzzleNumberOfTilesLeft": {
-        "description": "Indicates how many puzzle tiles are not in their correct position"
+    "puzzleRestart": "Neu laden",
+    "@puzzleRestart": {
+        "description": "Shown on the button that resets the puzzle"
     },
-    "puzzleShuffle": "Shuffle",
-    "@puzzleShuffle": {
-        "description": "Shown on the button that shuffle the puzzle"
-    },
-    "puzzleCompleted": "Well done. Congrats!",
+    "puzzleCompleted": "Der Rubin gehört dir!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
     }

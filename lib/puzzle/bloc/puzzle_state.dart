@@ -8,12 +8,11 @@ enum TileMovementStatus { nothingTapped, cannotBeMoved, moved }
 
 class PuzzleState extends Equatable {
   const PuzzleState({
-    this.puzzle = const Puzzle(tiles: []),
+    this.puzzle = const Puzzle(0,1,0,goal: Position(x: 2, y: 2),dimension: 3,tiles: [Tile(id: 'a', type: TileType.blocker, currentPositions: [Position(x: 0, y: 0)])]),
     this.puzzleStatus = PuzzleStatus.incomplete,
     this.tileMovementStatus = TileMovementStatus.nothingTapped,
-    this.numberOfCorrectTiles = 0,
-    this.numberOfMoves = 0,
     this.lastTappedTile,
+    this.numberOfMoves = 0,
   });
 
   /// [Puzzle] containing the current tile arrangement.
@@ -31,12 +30,6 @@ class PuzzleState extends Equatable {
   /// the puzzle yet.
   final Tile? lastTappedTile;
 
-  /// Number of tiles currently in their correct position.
-  final int numberOfCorrectTiles;
-
-  /// Number of tiles currently not in their correct position.
-  int get numberOfTilesLeft => puzzle.tiles.length - numberOfCorrectTiles - 1;
-
   /// Number representing how many moves have been made on the current puzzle.
   ///
   /// The number of moves is not always the same as the total number of tiles
@@ -48,7 +41,6 @@ class PuzzleState extends Equatable {
     Puzzle? puzzle,
     PuzzleStatus? puzzleStatus,
     TileMovementStatus? tileMovementStatus,
-    int? numberOfCorrectTiles,
     int? numberOfMoves,
     Tile? lastTappedTile,
   }) {
@@ -56,7 +48,6 @@ class PuzzleState extends Equatable {
       puzzle: puzzle ?? this.puzzle,
       puzzleStatus: puzzleStatus ?? this.puzzleStatus,
       tileMovementStatus: tileMovementStatus ?? this.tileMovementStatus,
-      numberOfCorrectTiles: numberOfCorrectTiles ?? this.numberOfCorrectTiles,
       numberOfMoves: numberOfMoves ?? this.numberOfMoves,
       lastTappedTile: lastTappedTile ?? this.lastTappedTile,
     );
@@ -67,8 +58,11 @@ class PuzzleState extends Equatable {
     puzzle,
     puzzleStatus,
     tileMovementStatus,
-    numberOfCorrectTiles,
     numberOfMoves,
     lastTappedTile,
   ];
+
+  getLevel() {
+    return puzzle.level;
+  }
 }

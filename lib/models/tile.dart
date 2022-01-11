@@ -7,40 +7,45 @@ import 'package:ruby_theft/models/models.dart';
 class Tile extends Equatable {
   /// {@macro tile}
   const Tile({
-    required this.value,
-    required this.correctPosition,
-    required this.currentPosition,
+    required this.id,
+    required this.type,
+    required this.currentPositions,
     this.isWhitespace = false,
   });
 
-  /// Value representing the correct position of [Tile] in a list.
-  final int value;
+  /// id of [Tile] to differ the puzzles tiles
+  final String id;
 
-  /// The correct 2D [Position] of the [Tile]. All tiles must be in their
-  /// correct position to complete the puzzle.
-  final Position correctPosition;
+  /// Value representing the type of [Tile].
+  final TileType type;
 
   /// The current 2D [Position] of the [Tile].
-  final Position currentPosition;
+  final List<Position> currentPositions;
 
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
 
   /// Create a copy of this [Tile] with updated current position.
-  Tile copyWith({required Position currentPosition}) {
+  Tile copyWith({required List<Position> currentPositions}) {
     return Tile(
-      value: value,
-      correctPosition: correctPosition,
-      currentPosition: currentPosition,
+      id: '',
+      type: type,
+      currentPositions: currentPositions,
       isWhitespace: isWhitespace,
     );
   }
 
   @override
   List<Object> get props => [
-    value,
-    correctPosition,
-    currentPosition,
+    type,
+    currentPositions,
     isWhitespace,
   ];
+}
+
+enum TileType {
+  ruby,
+  blocker,
+  diamond,
+  pearl,
 }

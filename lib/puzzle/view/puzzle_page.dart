@@ -38,29 +38,33 @@ class PuzzleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
 
-    /// Shuffle only if the current theme is Simple.
-    final shufflePuzzle = theme is SimpleTheme;
-
-    return Scaffold(
-      backgroundColor: theme.backgroundColor,
+    return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            repeat: ImageRepeat.repeat,
+            image: AssetImage('images/bg_pattern.png'),
+            scale: 15.0,
+            opacity: 0.2,
+            // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
+          )),
+      child: Scaffold(
+      backgroundColor: Colors.transparent,
       body: BlocProvider(
         create: (context) => TimerBloc(
           ticker: const Ticker(),
         ),
         child: BlocProvider(
-          create: (context) => PuzzleBloc(4)
+          create: (context) => PuzzleBloc(0)
             ..add(
-              PuzzleInitialized(
-                shufflePuzzle: shufflePuzzle,
-              ),
+              const PuzzleInitialized(level: 0),
             ),
           child: const _Puzzle(
             key: Key('puzzle_view_puzzle'),
           ),
         ),
       ),
+    )
     );
   }
 }
@@ -70,14 +74,10 @@ class _Puzzle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
           children: [
-            theme.layoutDelegate.backgroundBuilder(state),
             SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
@@ -85,9 +85,6 @@ class _Puzzle extends StatelessWidget {
                 ),
                 child: Column(
                   children: const [
-                    _PuzzleHeader(
-                      key: Key('puzzle_header'),
-                    ),
                     _PuzzleSections(
                       key: Key('puzzle_sections'),
                     ),
@@ -102,73 +99,6 @@ class _Puzzle extends StatelessWidget {
   }
 }
 
-class _PuzzleHeader extends StatelessWidget {
-  const _PuzzleHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 96,
-      child: ResponsiveLayoutBuilder(
-        small: (context, child) => const Center(
-          child: _PuzzleLogo(),
-        ),
-        medium: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            children: const [
-              _PuzzleLogo(),
-            ],
-          ),
-        ),
-        large: (context, child) => Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 50,
-          ),
-          child: Row(
-            children: const [
-              _PuzzleLogo(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PuzzleLogo extends StatelessWidget {
-  const _PuzzleLogo({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ResponsiveLayoutBuilder(
-      small: (context, child) => const SizedBox(
-        height: 24,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 86,
-        ),
-      ),
-      medium: (context, child) => const SizedBox(
-        height: 29,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 104,
-        ),
-      ),
-      large: (context, child) => const SizedBox(
-        height: 32,
-        child: FlutterLogo(
-          style: FlutterLogoStyle.horizontal,
-          size: 114,
-        ),
-      ),
-    );
-  }
-}
-
 class _PuzzleSections extends StatelessWidget {
   const _PuzzleSections({Key? key}) : super(key: key);
 
@@ -176,18 +106,19 @@ class _PuzzleSections extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
+    final level = context.select((PuzzleBloc bloc) => bloc.level);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
+          theme.layoutDelegate.startSectionBuilder(state, level),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state),
+          theme.layoutDelegate.startSectionBuilder(state, level),
           const PuzzleBoard(),
           theme.layoutDelegate.endSectionBuilder(state),
         ],
@@ -196,7 +127,7 @@ class _PuzzleSections extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: theme.layoutDelegate.startSectionBuilder(state),
+            child: theme.layoutDelegate.startSectionBuilder(state, level),
           ),
           const PuzzleBoard(),
           Expanded(
@@ -220,7 +151,7 @@ class PuzzleBoard extends StatelessWidget {
     final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
-    final size = puzzle.getDimension();
+    final size = puzzle.dimension;
     if (size == 0) return const CircularProgressIndicator();
 
     return BlocListener<PuzzleBloc, PuzzleState>(
@@ -234,7 +165,7 @@ class PuzzleBoard extends StatelessWidget {
         puzzle.tiles
             .map(
               (tile) => _PuzzleTile(
-            key: Key('puzzle_tile_${tile.value.toString()}'),
+            key: Key('puzzle_tile_${tile.id.toString()}'),
             tile: tile,
           ),
         )
@@ -255,11 +186,27 @@ class _PuzzleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
 
-    return tile.isWhitespace
-        ? theme.layoutDelegate.whitespaceTileBuilder()
-        : theme.layoutDelegate.tileBuilder(tile, state);
+    return ResponsiveLayoutBuilder(
+      small: (_, __) => SimplePuzzleTile(
+        key: Key('simple_puzzle_tile_${tile.id}_small'),
+        tile: tile,
+        tileFontSize: 36,
+        state: state,
+      ),
+      medium: (_, __) => SimplePuzzleTile(
+        key: Key('simple_puzzle_tile_${tile.id}_medium'),
+        tile: tile,
+        tileFontSize: 50,
+        state: state,
+      ),
+      large: (_, __) => SimplePuzzleTile(
+        key: Key('simple_puzzle_tile_${tile.id}_large'),
+        tile: tile,
+        tileFontSize: 54,
+        state: state,
+      ),
+    );
   }
 }
