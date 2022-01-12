@@ -184,19 +184,13 @@ class PuzzleBoard extends StatelessWidget {
       },
       child: _boardBuilder(
         size,
+        puzzle.goal,
         puzzle.tiles
-            .map(
-              (tile) => _PuzzleTile(
-            key: Key('puzzle_tile_${tile.id.toString()}'),
-            tile: tile,
-          ),
-        )
-            .toList(),
       ),
     );
   }
 
-  Widget _boardBuilder(int size, List<Widget> tiles) {
+  Widget _boardBuilder(int size, Position goal, List<Tile> tiles) {
     return Column(
       children: [
         const ResponsiveGap(
@@ -211,6 +205,7 @@ class PuzzleBoard extends StatelessWidget {
               key: const Key('simple_puzzle_board_small'),
               size: size,
               tiles: tiles,
+              goal: goal,
               spacing: 5,
             ),
           ),
@@ -220,6 +215,7 @@ class PuzzleBoard extends StatelessWidget {
               key: const Key('simple_puzzle_board_medium'),
               size: size,
               tiles: tiles,
+              goal: goal,
             ),
           ),
           large: (_, __) => SizedBox.square(
@@ -228,6 +224,7 @@ class PuzzleBoard extends StatelessWidget {
               key: const Key('simple_puzzle_board_large'),
               size: size,
               tiles: tiles,
+              goal: goal,
             ),
           ),
         ),
@@ -243,40 +240,4 @@ abstract class _BoardSize {
   static double small = 312;
   static double medium = 424;
   static double large = 472;
-}
-
-class _PuzzleTile extends StatelessWidget {
-  const _PuzzleTile({
-    Key? key,
-    required this.tile,
-  }) : super(key: key);
-
-  /// The tile to be displayed.
-  final Tile tile;
-
-  @override
-  Widget build(BuildContext context) {
-    final state = context.select((PuzzleBloc bloc) => bloc.state);
-
-    return ResponsiveLayoutBuilder(
-      small: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.id}_small'),
-        tile: tile,
-        tileFontSize: 36,
-        state: state,
-      ),
-      medium: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.id}_medium'),
-        tile: tile,
-        tileFontSize: 50,
-        state: state,
-      ),
-      large: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.id}_large'),
-        tile: tile,
-        tileFontSize: 54,
-        state: state,
-      ),
-    );
-  }
 }

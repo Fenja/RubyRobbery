@@ -16,13 +16,7 @@ import 'package:ruby_theft/typography/typography.dart';
 /// that uses a [SimpleTheme].
 /// {@endtemplate}
 class SimplePuzzleLayoutDelegate {
-  /// {@macro simple_puzzle_layout_delegate}
-  const SimplePuzzleLayoutDelegate();
 
-  @override
-
-
-  @override
   Widget backgroundBuilder(PuzzleState state) {
     return Positioned(
       right: 0,
@@ -61,26 +55,11 @@ class SimplePuzzleLayoutDelegate {
 
   @override
   Widget tileBuilder(Tile tile, PuzzleState state) {
-    return ResponsiveLayoutBuilder(
-      small: (_, __) => SimplePuzzleTile(
+    return SimplePuzzleTile(
         key: Key('simple_puzzle_tile_${tile.type}_small'),
         tile: tile,
-        tileFontSize: _TileFontSize.small,
         state: state,
-      ),
-      medium: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.type}_medium'),
-        tile: tile,
-        tileFontSize: _TileFontSize.medium,
-        state: state,
-      ),
-      large: (_, __) => SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.type}_large'),
-        tile: tile,
-        tileFontSize: _TileFontSize.large,
-        state: state,
-      ),
-    );
+      );
   }
 
   @override
@@ -186,6 +165,7 @@ class SimplePuzzleBoard extends StatelessWidget {
     Key? key,
     required this.size,
     required this.tiles,
+    required this.goal,
     this.spacing = 8,
   }) : super(key: key);
 
@@ -193,54 +173,41 @@ class SimplePuzzleBoard extends StatelessWidget {
   final int size;
 
   /// The tiles to be displayed on the board.
-  final List<Widget> tiles;
+  final List<Tile> tiles;
+
+  /// The boards goal for the ruby
+  final Position goal;
 
   /// The spacing between each tile from [tiles].
   final double spacing;
 
   @override
   Widget build(BuildContext context) {
-
-    const dummyTiles = [
-      SimplePuzzleTile(tile: Tile(id: 'a', type: TileType.blocker,
-          currentPositions: [Position(x: 0, y: 0)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-      SimplePuzzleTile(tile: Tile(id: 'b', type: TileType.diamond,
-          currentPositions: [Position(x: 0, y: 1)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-      SimplePuzzleTile(tile: Tile(id: 'c', type: TileType.diamond,
-          currentPositions: [Position(x: 0, y: 2)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-      SimplePuzzleTile(tile: Tile(id: 'd', type: TileType.ruby,
-          currentPositions: [Position(x: 1, y: 0)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-      SimplePuzzleTile(tile: Tile(id: 'e', type: TileType.pearl,
-          currentPositions: [Position(x: 1, y: 1)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-      SimplePuzzleTile(tile: Tile(id: 'f', type: TileType.pearl,
-          currentPositions: [Position(x: 1, y: 2)]),
-          tileFontSize: 20,
-        state: PuzzleState()),
-    ];
     return Stack(
       children: [
-        Container(color: Colors.black45, margin: const EdgeInsets.all(2.0),),
-        backgroundGrid(context, 3),
-        GridView.count(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: size,
-          mainAxisSpacing: spacing,
-          crossAxisSpacing: spacing,
-          children: dummyTiles,
-        ),
+        Container(color: Colors.black54, margin: const EdgeInsets.all(2.0),),
+        backgroundGrid(context, size),
+        jewels(context, size, tiles),
+        boardGoal(context, size, goal),
       ],
+    );
+  }
+
+  Widget jewels(BuildContext context, int dimension, List<Tile> tiles) {
+    List<Widget> widgets = List.filled(dimension * dimension, const SizedBox());
+    for (var tile in tiles) {
+      var replaceTileIndex = tile.currentPosition.x + tile.currentPosition.y * size;
+      widgets[replaceTileIndex] = SimplePuzzleTile(tile: tile, state: const PuzzleState());
+    }
+
+    return GridView.count(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: size,
+      mainAxisSpacing: spacing,
+      crossAxisSpacing: spacing,
+      children: widgets,
     );
   }
 
@@ -257,13 +224,24 @@ class SimplePuzzleBoard extends StatelessWidget {
       children: backgroundTiles,
     );
   }
+
+  Widget boardGoal(BuildContext context, int dimension, Position position) {
+    List<Widget> widgets = List.filled(dimension * dimension, const SizedBox());
+    var replaceTileIndex = position.x + position.y * size;
+    widgets[replaceTileIndex] = GoalTile(state: const PuzzleState());
+
+    return GridView.count(
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: size,
+      mainAxisSpacing: spacing,
+      crossAxisSpacing: spacing,
+      children: widgets,
+    );
+  }
 }
 
-abstract class _TileFontSize {
-  static double small = 36;
-  static double medium = 50;
-  static double large = 54;
-}
 
 /// {@template simple_puzzle_tile}
 /// Displays the puzzle tile associated with [tile] and
@@ -275,15 +253,11 @@ class SimplePuzzleTile extends StatelessWidget {
   const SimplePuzzleTile({
     Key? key,
     required this.tile,
-    required this.tileFontSize,
     required this.state,
   }) : super(key: key);
 
   /// The tile to be displayed.
   final Tile tile;
-
-  /// The font size of the tile to be displayed.
-  final double tileFontSize;
 
   /// The state of the puzzle.
   final PuzzleState state;
@@ -292,34 +266,52 @@ class SimplePuzzleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        primary: PuzzleColors.white,
-        textStyle: PuzzleTextStyle.headline2.copyWith(
-          fontSize: tileFontSize,
-        ),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(12),
+            Radius.circular(20),
           ),
         ),
-      ).copyWith(
-        foregroundColor: MaterialStateProperty.all(PuzzleColors.white),
-        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (states) {
-            if (tile.id == state.lastTappedTile?.id) {
-              return PuzzleColors.primary7;
-            } else if (states.contains(MaterialState.hovered)) {
-              return PuzzleColors.primary3;
-            } else {
-              return PuzzleColors.primary5;
-            }
-          },
-        ),
+        backgroundColor: _colorForType(tile.type),
       ),
       // TODO onDragged event or gesture listener
       onPressed: state.puzzleStatus == PuzzleStatus.incomplete
           ? () => context.read<PuzzleBloc>().add(TileDragged(tile,Direction.north))
           : null,
-      child: Text(tile.id.toString()),
+      child: Text(tile.id.toString(),
+          style: const TextStyle(color: Colors.black)),
+    );
+  }
+
+  _colorForType(TileType type) {
+    switch(type) {
+      case TileType.ruby: return Colors.red;
+      case TileType.pearl: return Colors.white;
+      case TileType.blocker: return Colors.black;
+      case TileType.diamond: return Colors.blue;
+    }
+  }
+}
+
+class GoalTile extends StatelessWidget {
+  /// {@macro simple_puzzle_tile}
+  const GoalTile({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
+
+  /// The state of the puzzle.
+  final PuzzleState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(3.0),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.orangeAccent,
+        ),
+      ),
     );
   }
 }

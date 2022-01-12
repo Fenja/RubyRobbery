@@ -61,7 +61,7 @@ class Puzzle extends Equatable {
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
-    return tiles.singleWhere((tile) => tile.type == TileType.ruby).currentPositions[0] == goal;
+    return tiles.singleWhere((tile) => tile.type == TileType.ruby).currentPosition == goal;
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
