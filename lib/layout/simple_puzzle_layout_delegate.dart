@@ -6,50 +6,21 @@ import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/direction.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/theme.dart';
+import 'package:ruby_theft/theme/widgets/number_of_moves.dart';
+import 'package:ruby_theft/theme/widgets/puzzle_button.dart';
+import 'package:ruby_theft/theme/widgets/puzzle_title.dart';
 import 'package:ruby_theft/typography/typography.dart';
 
 /// {@template simple_puzzle_layout_delegate}
 /// A delegate for computing the layout of the puzzle UI
 /// that uses a [SimpleTheme].
 /// {@endtemplate}
-class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
+class SimplePuzzleLayoutDelegate {
   /// {@macro simple_puzzle_layout_delegate}
   const SimplePuzzleLayoutDelegate();
 
   @override
-  Widget startSectionBuilder(PuzzleState state, int level) {
-    return ResponsiveLayoutBuilder(
-      small: (_, child) => child!,
-      medium: (_, child) => child!,
-      large: (_, child) => Padding(
-        padding: const EdgeInsets.only(left: 50, right: 32),
-        child: child,
-      ),
-      child: (_) => SimpleStartSection(state: state, level: level,),
-    );
-  }
 
-  @override
-  Widget endSectionBuilder(PuzzleState state) {
-    return Column(
-      children: [
-        const ResponsiveGap(
-          small: 32,
-          medium: 48,
-        ),
-        ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleShuffleButton(),
-          medium: (_, child) => const SimplePuzzleShuffleButton(),
-          large: (_, __) => const SizedBox(),
-        ),
-        const ResponsiveGap(
-          small: 32,
-          medium: 48,
-        ),
-      ],
-    );
-  }
 
   @override
   Widget backgroundBuilder(PuzzleState state) {
@@ -85,49 +56,6 @@ class SimplePuzzleLayoutDelegate extends PuzzleLayoutDelegate {
           ),
         ),
       ),
-    );
-  }
-
-  @override
-  Widget boardBuilder(int size, List<Widget> tiles) {
-    return Column(
-      children: [
-        const ResponsiveGap(
-          small: 32,
-          medium: 48,
-          large: 96,
-        ),
-        ResponsiveLayoutBuilder(
-          small: (_, __) => SizedBox.square(
-            dimension: _BoardSize.small,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_small'),
-              size: size,
-              tiles: tiles,
-              spacing: 5,
-            ),
-          ),
-          medium: (_, __) => SizedBox.square(
-            dimension: _BoardSize.medium,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_medium'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
-          large: (_, __) => SizedBox.square(
-            dimension: _BoardSize.large,
-            child: SimplePuzzleBoard(
-              key: const Key('simple_puzzle_board_large'),
-              size: size,
-              tiles: tiles,
-            ),
-          ),
-        ),
-        const ResponsiveGap(
-          large: 96,
-        ),
-      ],
     );
   }
 
@@ -191,7 +119,6 @@ class SimpleStartSection extends StatelessWidget {
           medium: 83,
           large: 151,
         ),
-        const PuzzleName(),
         const ResponsiveGap(large: 16),
         SimplePuzzleTitle(
           status: state.puzzleStatus,
@@ -247,11 +174,6 @@ class SimplePuzzleTitle extends StatelessWidget {
   }
 }
 
-abstract class _BoardSize {
-  static double small = 312;
-  static double medium = 424;
-  static double large = 472;
-}
 
 /// {@template simple_puzzle_board}
 /// Display the board of the puzzle in a [size]x[size] layout
@@ -368,8 +290,6 @@ class SimplePuzzleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
-
     return TextButton(
       style: TextButton.styleFrom(
         primary: PuzzleColors.white,
@@ -386,11 +306,11 @@ class SimplePuzzleTile extends StatelessWidget {
         backgroundColor: MaterialStateProperty.resolveWith<Color?>(
           (states) {
             if (tile.id == state.lastTappedTile?.id) {
-              return theme.pressedColor;
+              return PuzzleColors.primary7;
             } else if (states.contains(MaterialState.hovered)) {
-              return theme.hoverColor;
+              return PuzzleColors.primary3;
             } else {
-              return theme.defaultColor;
+              return PuzzleColors.primary5;
             }
           },
         ),

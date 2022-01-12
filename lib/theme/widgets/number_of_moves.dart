@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ruby_theft/colors/colors.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
-import 'package:ruby_theft/theme/theme.dart';
 import 'package:ruby_theft/typography/typography.dart';
 
 /// {@template number_of_moves}
@@ -25,9 +24,8 @@ class NumberOfMoves extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final l10n = context.l10n;
-    final textColor = color ?? theme.defaultColor;
+    final textColor = color ?? PuzzleColors.primary5;
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(child: child),

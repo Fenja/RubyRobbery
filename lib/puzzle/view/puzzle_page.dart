@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/theme.dart';
 import 'package:ruby_theft/timer/timer.dart';
 
 /// {@template puzzle_page}
@@ -18,14 +17,7 @@ class PuzzlePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeBloc(
-        themes: const [
-          SimpleTheme(),
-        ],
-      ),
-      child: const PuzzleView(),
-    );
+    return const PuzzleView();
   }
 }
 
@@ -104,37 +96,68 @@ class _PuzzleSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final state = context.select((PuzzleBloc bloc) => bloc.state);
     final level = context.select((PuzzleBloc bloc) => bloc.level);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state, level),
+          _startSectionBuilder(state, level),
           const PuzzleBoard(),
-          theme.layoutDelegate.endSectionBuilder(state),
+          _endSectionBuilder(state),
         ],
       ),
       medium: (context, child) => Column(
         children: [
-          theme.layoutDelegate.startSectionBuilder(state, level),
+          _startSectionBuilder(state, level),
           const PuzzleBoard(),
-          theme.layoutDelegate.endSectionBuilder(state),
+          _endSectionBuilder(state),
         ],
       ),
       large: (context, child) => Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: theme.layoutDelegate.startSectionBuilder(state, level),
+            child: _startSectionBuilder(state, level),
           ),
           const PuzzleBoard(),
           Expanded(
-            child: theme.layoutDelegate.endSectionBuilder(state),
+            child: _endSectionBuilder(state),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _startSectionBuilder(PuzzleState state, int level) {
+    return ResponsiveLayoutBuilder(
+      small: (_, child) => child!,
+      medium: (_, child) => child!,
+      large: (_, child) => Padding(
+        padding: const EdgeInsets.only(left: 50, right: 32),
+        child: child,
+      ),
+      child: (_) => SimpleStartSection(state: state, level: level,),
+    );
+  }
+
+  Widget _endSectionBuilder(PuzzleState state) {
+    return Column(
+      children: [
+        const ResponsiveGap(
+          small: 32,
+          medium: 48,
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, child) => const SimplePuzzleShuffleButton(),
+          medium: (_, child) => const SimplePuzzleShuffleButton(),
+          large: (_, __) => const SizedBox(),
+        ),
+        const ResponsiveGap(
+          small: 32,
+          medium: 48,
+        ),
+      ],
     );
   }
 }
@@ -148,7 +171,6 @@ class PuzzleBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.select((ThemeBloc bloc) => bloc.state.theme);
     final puzzle = context.select((PuzzleBloc bloc) => bloc.state.puzzle);
 
     final size = puzzle.dimension;
@@ -156,11 +178,11 @@ class PuzzleBoard extends StatelessWidget {
 
     return BlocListener<PuzzleBloc, PuzzleState>(
       listener: (context, state) {
-        if (theme.hasTimer && state.puzzleStatus == PuzzleStatus.complete) {
+        if (state.puzzleStatus == PuzzleStatus.complete) {
           context.read<TimerBloc>().add(const TimerStopped());
         }
       },
-      child: theme.layoutDelegate.boardBuilder(
+      child: _boardBuilder(
         size,
         puzzle.tiles
             .map(
@@ -173,6 +195,54 @@ class PuzzleBoard extends StatelessWidget {
       ),
     );
   }
+
+  Widget _boardBuilder(int size, List<Widget> tiles) {
+    return Column(
+      children: [
+        const ResponsiveGap(
+          small: 32,
+          medium: 48,
+          large: 96,
+        ),
+        ResponsiveLayoutBuilder(
+          small: (_, __) => SizedBox.square(
+            dimension: _BoardSize.small,
+            child: SimplePuzzleBoard(
+              key: const Key('simple_puzzle_board_small'),
+              size: size,
+              tiles: tiles,
+              spacing: 5,
+            ),
+          ),
+          medium: (_, __) => SizedBox.square(
+            dimension: _BoardSize.medium,
+            child: SimplePuzzleBoard(
+              key: const Key('simple_puzzle_board_medium'),
+              size: size,
+              tiles: tiles,
+            ),
+          ),
+          large: (_, __) => SizedBox.square(
+            dimension: _BoardSize.large,
+            child: SimplePuzzleBoard(
+              key: const Key('simple_puzzle_board_large'),
+              size: size,
+              tiles: tiles,
+            ),
+          ),
+        ),
+        const ResponsiveGap(
+          large: 96,
+        ),
+      ],
+    );
+  }
+}
+
+abstract class _BoardSize {
+  static double small = 312;
+  static double medium = 424;
+  static double large = 472;
 }
 
 class _PuzzleTile extends StatelessWidget {
