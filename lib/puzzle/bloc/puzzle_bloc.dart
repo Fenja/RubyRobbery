@@ -37,10 +37,22 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
 
   void _onTileDragged(
       TileDragged event,
-      // Direction direction, //TODO
       Emitter<PuzzleState> emit,
       ) {
-    final tappedTile = event.tile;
+    final tile = event.tile;
+    final newPosition = event.position;
+
+    if (state.puzzle.isTileMovableTo(tile, newPosition))
+    // check if move allowed
+    emit(
+        state.copyWith(
+          puzzle: state.puzzle.moveTile(tile, newPosition),
+          puzzleStatus: PuzzleStatus.complete,
+          tileMovementStatus: TileMovementStatus.moved,
+          numberOfMoves: state.numberOfMoves + 1,
+          lastTappedTile: tile,
+        ),
+    );
     /*if (state.puzzleStatus == PuzzleStatus.incomplete) {
       if (state.puzzle.isTileMovable(tappedTile, direction)) {
         //final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);

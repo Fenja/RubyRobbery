@@ -19,13 +19,13 @@ class PuzzleInitialized extends PuzzleEvent {
 }
 
 class TileDragged extends PuzzleEvent {
-  const TileDragged(this.tile, this.direction);
+  const TileDragged(this.tile, this.position);
 
   final Tile tile;
-  final Direction direction;
+  final Position position;
 
   @override
-  List<Object> get props => [tile, direction];
+  List<Object> get props => [tile, position];
 }
 
 class BoxTipped extends PuzzleEvent {

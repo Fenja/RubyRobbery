@@ -3,73 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/colors/colors.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
-import 'package:ruby_theft/models/direction.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
 import 'package:ruby_theft/theme/widgets/number_of_moves.dart';
 import 'package:ruby_theft/theme/widgets/puzzle_button.dart';
+import 'package:ruby_theft/theme/widgets/puzzle_tile.dart';
 import 'package:ruby_theft/theme/widgets/puzzle_title.dart';
-import 'package:ruby_theft/typography/typography.dart';
-
-/// {@template simple_puzzle_layout_delegate}
-/// A delegate for computing the layout of the puzzle UI
-/// that uses a [SimpleTheme].
-/// {@endtemplate}
-class SimplePuzzleLayoutDelegate {
-
-  Widget backgroundBuilder(PuzzleState state) {
-    return Positioned(
-      right: 0,
-      bottom: 0,
-      child: ResponsiveLayoutBuilder(
-        small: (_, __) => SizedBox(
-          width: 184,
-          height: 118,
-          child: Image.asset(
-            'assets/images/bg_pattern.png',
-            key: const Key('bg_pattern_small'),
-          ),
-        ),
-        medium: (_, __) => SizedBox(
-          width: 380.44,
-          height: 214,
-          child: Image.asset(
-            'assets/images/bg_pattern.png',
-            key: const Key('bg_pattern_medium'),
-          ),
-        ),
-        large: (_, __) => Padding(
-          padding: const EdgeInsets.only(bottom: 53),
-          child: SizedBox(
-            width: 568.99,
-            height: 320,
-            child: Image.asset(
-              'assets/images/bg_pattern.png',
-              key: const Key('bg_pattern_large'),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget tileBuilder(Tile tile, PuzzleState state) {
-    return SimplePuzzleTile(
-        key: Key('simple_puzzle_tile_${tile.type}_small'),
-        tile: tile,
-        state: state,
-      );
-  }
-
-  @override
-  Widget whitespaceTileBuilder() {
-    return const SizedBox();
-  }
-
-  @override
-  List<Object?> get props => [];
-}
 
 /// {@template simple_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -186,18 +125,24 @@ class SimplePuzzleBoard extends StatelessWidget {
     return Stack(
       children: [
         Container(color: Colors.black54, margin: const EdgeInsets.all(2.0),),
-        backgroundGrid(context, size),
-        jewels(context, size, tiles),
-        boardGoal(context, size, goal),
+        backgroundGrid(context),
+        boardGoal(context, goal), // TODO this eats the drag event
+        jewels(context, tiles),
       ],
     );
   }
 
-  Widget jewels(BuildContext context, int dimension, List<Tile> tiles) {
-    List<Widget> widgets = List.filled(dimension * dimension, const SizedBox());
+  Widget jewels(BuildContext context, List<Tile> tiles) {
+    List<Widget> widgets = [];
+    for(int count = 0; count < (size * size) -1; count ++) {
+      var x = count % size;
+      int y = count ~/ size;
+      widgets.add(EmptyTile(position: Position(x: x,y: y)));
+    }
+    //List.filled(dimension * dimension, const EmptyTile());
     for (var tile in tiles) {
       var replaceTileIndex = tile.currentPosition.x + tile.currentPosition.y * size;
-      widgets[replaceTileIndex] = SimplePuzzleTile(tile: tile, state: const PuzzleState());
+      widgets[replaceTileIndex] = PuzzleTile(tile: tile, state: const PuzzleState());
     }
 
     return GridView.count(
@@ -211,8 +156,8 @@ class SimplePuzzleBoard extends StatelessWidget {
     );
   }
 
-  Widget backgroundGrid(BuildContext context, int dimension) {
-    List<Widget> backgroundTiles = List.filled(dimension * dimension, SizedBox(child: Container(color: Colors.black54)));
+  Widget backgroundGrid(BuildContext context) {
+    List<Widget> backgroundTiles = List.filled(size * size, SizedBox(child: Container(color: Colors.black54)));
 
     return GridView.count(
       padding: EdgeInsets.zero,
@@ -225,10 +170,10 @@ class SimplePuzzleBoard extends StatelessWidget {
     );
   }
 
-  Widget boardGoal(BuildContext context, int dimension, Position position) {
-    List<Widget> widgets = List.filled(dimension * dimension, const SizedBox());
+  Widget boardGoal(BuildContext context, Position position) {
+    List<Widget> widgets = List.filled(size * size, const SizedBox());
     var replaceTileIndex = position.x + position.y * size;
-    widgets[replaceTileIndex] = GoalTile(state: const PuzzleState());
+    widgets[replaceTileIndex] = const GoalTile(state: PuzzleState());
 
     return GridView.count(
       padding: EdgeInsets.zero,
@@ -242,55 +187,6 @@ class SimplePuzzleBoard extends StatelessWidget {
   }
 }
 
-
-/// {@template simple_puzzle_tile}
-/// Displays the puzzle tile associated with [tile] and
-/// the font size of [tileFontSize] based on the puzzle [state].
-/// {@endtemplate}
-@visibleForTesting
-class SimplePuzzleTile extends StatelessWidget {
-  /// {@macro simple_puzzle_tile}
-  const SimplePuzzleTile({
-    Key? key,
-    required this.tile,
-    required this.state,
-  }) : super(key: key);
-
-  /// The tile to be displayed.
-  final Tile tile;
-
-  /// The state of the puzzle.
-  final PuzzleState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-        ),
-        backgroundColor: _colorForType(tile.type),
-      ),
-      // TODO onDragged event or gesture listener
-      onPressed: state.puzzleStatus == PuzzleStatus.incomplete
-          ? () => context.read<PuzzleBloc>().add(TileDragged(tile,Direction.north))
-          : null,
-      child: Text(tile.id.toString(),
-          style: const TextStyle(color: Colors.black)),
-    );
-  }
-
-  _colorForType(TileType type) {
-    switch(type) {
-      case TileType.ruby: return Colors.red;
-      case TileType.pearl: return Colors.white;
-      case TileType.blocker: return Colors.black;
-      case TileType.diamond: return Colors.blue;
-    }
-  }
-}
 
 class GoalTile extends StatelessWidget {
   /// {@macro simple_puzzle_tile}

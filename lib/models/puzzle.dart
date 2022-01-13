@@ -66,14 +66,27 @@ class Puzzle extends Equatable {
 
   /// Determines if the tapped tile can move in the direction of the whitespace
   /// tile.
-  bool isTileMovable(Tile tile, Direction direction) {
+  bool isTileMovableTo(Tile tile, Position position) {
     if (tile.type == TileType.blocker || tile.type == TileType.pearl) return false;
-
-    return false;
-
     // TODO check whether every position in direction is either of same tile id or empty
+    return true;
+  }
+
+  bool isTileMovable(Tile tile) {
+    if (tile.type == TileType.blocker || tile.type == TileType.pearl) return false;
+    // TODO check whether movement is possible
+    return true;
+  }
+
+  Puzzle moveTile(Tile tile, Position position) {
+    final index = tiles.indexOf(tile);
+    List<Tile> newTiles = [];
+    newTiles.addAll(tiles);
+    newTiles[index] = tile.copyWith(currentPosition: position);
+    return Puzzle(level, rubyReward, rubyRepeat, goal: goal, dimension: dimension, tiles: newTiles);
   }
 
   @override
   List<Object?> get props => [goal, dimension, tiles];
+
 }
