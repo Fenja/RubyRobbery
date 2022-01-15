@@ -74,7 +74,7 @@ class PuzzleTile extends StatelessWidget {
       key: Key('tile_child_dragging_'+tile.id.toString()),
       decoration: BoxDecoration(
         color: _makeOpaque(_colorForType(tile.type)),
-        shape: BoxShape.circle,
+        shape: BoxShape.rectangle,
       )
     );
   }
@@ -84,7 +84,7 @@ class PuzzleTile extends StatelessWidget {
       key: Key('tile_child_'+tile.id.toString()),
       decoration: BoxDecoration(
         color: _colorForType(tile.type),
-        shape: BoxShape.circle,
+        shape: BoxShape.rectangle,
       )
     );
   }
@@ -93,13 +93,7 @@ class PuzzleTile extends StatelessWidget {
     return SizedBox(
       width: constraints.maxWidth,
         height: constraints.maxHeight,
-        child: DecoratedBox(
-        key: Key('tile_feedback_'+tile.id.toString()),
-        decoration: BoxDecoration(
-          color: _colorForType(tile.type),
-          shape: BoxShape.circle,
-        )
-      )
+        child: _child(),
     );
   }
 
@@ -154,7 +148,51 @@ class EmptyTile extends StatelessWidget {
           List<dynamic> accepted,
           List<dynamic> rejected,
           ){
-        return const SizedBox();
+        return SizedBox(child: Container(color: Colors.black45));
+      },
+      onAccept: (tile) {
+        context.read<PuzzleBloc>().add(TileDragged(tile,position));
+      },
+      onLeave: (tile) {
+        print('dont go!');
+      },
+    );
+  }
+}
+
+class GoalTile extends StatelessWidget {
+  /// {@macro simple_puzzle_tile}
+  const GoalTile({
+    Key? key,
+    required this.state,
+    required this.position,
+  }) : super(key: key);
+
+  /// The state of the puzzle.
+  final PuzzleState state;
+
+  final Position position;
+
+  @override
+  Widget build(BuildContext context) {
+    return DragTarget<Tile>(
+      builder: (
+          BuildContext context,
+          List<dynamic> accepted,
+          List<dynamic> rejected,
+          ){
+        return SizedBox(
+          child: Container(
+            //margin: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(3.0),
+            decoration: BoxDecoration(
+              color: Colors.black45,
+              border: Border.all(
+                color: Colors.orangeAccent,
+              ),
+            ),
+          )
+        );
       },
       onAccept: (tile) {
         context.read<PuzzleBloc>().add(TileDragged(tile,position));

@@ -9,7 +9,7 @@ class Tile extends Equatable {
   const Tile({
     required this.id,
     required this.type,
-    required this.currentPosition,
+    required this.currentPositions,
     this.isWhitespace = false,
   });
 
@@ -20,17 +20,17 @@ class Tile extends Equatable {
   final TileType type;
 
   /// The current 2D [Position] of the [Tile].
-  final Position currentPosition;
+  final List<Position> currentPositions;
 
   /// Denotes if the [Tile] is the whitespace tile or not.
   final bool isWhitespace;
 
   /// Create a copy of this [Tile] with updated current position.
-  Tile copyWith({required Position currentPosition}) {
+  Tile copyWith({required List<Position> currentPositions}) {
     return Tile(
       id: '',
       type: type,
-      currentPosition: currentPosition,
+      currentPositions: currentPositions,
       isWhitespace: isWhitespace,
     );
   }
@@ -38,7 +38,7 @@ class Tile extends Equatable {
   @override
   List<Object> get props => [
     type,
-    currentPosition,
+    currentPositions,
     isWhitespace,
   ];
 }

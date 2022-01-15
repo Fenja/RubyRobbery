@@ -22,11 +22,10 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       ) {
     final puzzle = Puzzle(level,1,0,goal: const Position(x: 2, y: 2),dimension: 3,
         tiles: const [
-          Tile(id: 'r', type: TileType.ruby, currentPosition: Position(x: 0, y: 0)),
-          Tile(id: 'd1', type: TileType.pearl, currentPosition: Position(x: 1, y: 1)),
-          Tile(id: 'd2', type: TileType.diamond, currentPosition: Position(x: 1, y: 0)),
-          Tile(id: 'd2', type: TileType.diamond, currentPosition: Position(x: 2, y: 0)),
-          Tile(id: 'b1', type: TileType.blocker, currentPosition: Position(x: 1, y: 2)),
+          Tile(id: 'r', type: TileType.ruby, currentPositions: [Position(x: 0, y: 0)]),
+          Tile(id: 'd1', type: TileType.pearl, currentPositions: [Position(x: 1, y: 1)]),
+          Tile(id: 'd2', type: TileType.diamond, currentPositions: [Position(x: 1, y: 0),Position(x: 2, y: 0)]),
+          Tile(id: 'b1', type: TileType.blocker, currentPositions: [Position(x: 1, y: 2)]),
         ]);
     emit(
       PuzzleState(

@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:ruby_theft/models/models.dart';
 
-import 'direction.dart';
-
 // A 3x3 puzzle board visualization:
 //
 //   ┌─────1───────2───────3────► x
@@ -61,7 +59,7 @@ class Puzzle extends Equatable {
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
-    return tiles.singleWhere((tile) => tile.type == TileType.ruby).currentPosition == goal;
+    return tiles.singleWhere((tile) => tile.type == TileType.ruby).currentPositions[0] == goal;
   }
 
   /// Determines if the tapped tile can move in the direction of the whitespace
@@ -82,7 +80,7 @@ class Puzzle extends Equatable {
     final index = tiles.indexOf(tile);
     List<Tile> newTiles = [];
     newTiles.addAll(tiles);
-    newTiles[index] = tile.copyWith(currentPosition: position);
+    newTiles[index] = tile.copyWith(currentPositions: [position]);
     return Puzzle(level, rubyReward, rubyRepeat, goal: goal, dimension: dimension, tiles: newTiles);
   }
 

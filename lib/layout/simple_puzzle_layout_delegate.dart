@@ -125,39 +125,79 @@ class SimplePuzzleBoard extends StatelessWidget {
     return Stack(
       children: [
         Container(color: Colors.black54, margin: const EdgeInsets.all(2.0),),
-        backgroundGrid(context),
-        boardGoal(context, goal), // TODO this eats the drag event
+        backgroundGrid(context, goal),
         jewels(context, tiles),
       ],
     );
   }
 
+  double _tileAbsolutePosition(int pos, double tileSize) {
+    return pos * tileSize + (pos * spacing);
+  }
+
+  double _tileHeight(double tileSize, Tile tile) {
+    if (tile.currentPositions.length == 0) return tileSize;
+    return tileSize;
+  }
+
+  double _tileWidth(double tileSize, Tile tile) {
+    if (tile.currentPositions.length == 0) return tileSize;
+    return tileSize * tile.currentPositions.length + (tile.currentPositions.length-1) * spacing;
+  }
+
+  Widget _jewel(BuildContext context, Tile tile) {
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double tileSize = (constraints.maxWidth - ((size-1)*spacing)) / size;
+        double y = _tileAbsolutePosition(tile.currentPositions[0].y, tileSize);
+        double x = _tileAbsolutePosition(tile.currentPositions[0].x, tileSize);
+        double height = _tileHeight(tileSize, tile);
+        double width = _tileWidth(tileSize, tile);
+        return Stack(
+          children: [
+            Positioned(
+                top: y,
+                left: x,
+                height: height,
+                width: width,
+                child: PuzzleTile(tile: tile, state: const PuzzleState())
+            )
+          ],
+        );
+      }
+    );
+  }
+
   Widget jewels(BuildContext context, List<Tile> tiles) {
     List<Widget> widgets = [];
-    for(int count = 0; count < (size * size) -1; count ++) {
-      var x = count % size;
-      int y = count ~/ size;
-      widgets.add(EmptyTile(position: Position(x: x,y: y)));
-    }
-    //List.filled(dimension * dimension, const EmptyTile());
     for (var tile in tiles) {
-      var replaceTileIndex = tile.currentPosition.x + tile.currentPosition.y * size;
-      widgets[replaceTileIndex] = PuzzleTile(tile: tile, state: const PuzzleState());
+      widgets.add(_jewel(context, tile));
     }
-
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: size,
-      mainAxisSpacing: spacing,
-      crossAxisSpacing: spacing,
+    return Stack(
       children: widgets,
     );
   }
 
-  Widget backgroundGrid(BuildContext context) {
-    List<Widget> backgroundTiles = List.filled(size * size, SizedBox(child: Container(color: Colors.black54)));
+  Widget backgroundGrid(BuildContext context, Position goal) {
+    List<Widget> backgroundTiles = [];
+    for (int i = 0; i < size * size; i++) {
+      int x = i % size;
+      int y = i ~/ size;
+      if (goal.x == x && goal.y == y) {
+        backgroundTiles.add(
+            GoalTile(state: const PuzzleState(), position: goal,)
+        );
+      } else {
+        backgroundTiles.add(
+            EmptyTile(
+              position: Position(
+                x: x,
+                y: y,
+              ),
+            )
+        );
+      }
+    }
 
     return GridView.count(
       padding: EdgeInsets.zero,
@@ -169,48 +209,8 @@ class SimplePuzzleBoard extends StatelessWidget {
       children: backgroundTiles,
     );
   }
-
-  Widget boardGoal(BuildContext context, Position position) {
-    List<Widget> widgets = List.filled(size * size, const SizedBox());
-    var replaceTileIndex = position.x + position.y * size;
-    widgets[replaceTileIndex] = const GoalTile(state: PuzzleState());
-
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: size,
-      mainAxisSpacing: spacing,
-      crossAxisSpacing: spacing,
-      children: widgets,
-    );
-  }
 }
 
-
-class GoalTile extends StatelessWidget {
-  /// {@macro simple_puzzle_tile}
-  const GoalTile({
-    Key? key,
-    required this.state,
-  }) : super(key: key);
-
-  /// The state of the puzzle.
-  final PuzzleState state;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15.0),
-      padding: const EdgeInsets.all(3.0),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.orangeAccent,
-        ),
-      ),
-    );
-  }
-}
 
 /// {@template puzzle_shuffle_button}
 /// Displays the button to shuffle the puzzle.
