@@ -100,18 +100,36 @@ class Puzzle extends Equatable {
       bool bottomBlocked = isOutOfScopeOrFull(tilePosition.copyWith(yPos: tilePosition.y +1));
       bool leftBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y -1));
       bool rightBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y +1));
-
       return !(topBlocked && bottomBlocked && leftBlocked && rightBlocked);
+
+    // for multi tiles, check if a direction for all tiles is possible
     } else {
-      // TODO multitile
+      String tileId = tile.id;
+      bool topBlocked = false;
+      bool bottomBlocked = false;
+      bool leftBlocked = false;
+      bool rightBlocked = false;
+
+      for (var position in tile.currentPositions) {
+        topBlocked = topBlocked || isOutOfScopeOrFull(position.copyWith(yPos: position.y -1), exceptId: tileId);
+        bottomBlocked = bottomBlocked || isOutOfScopeOrFull(position.copyWith(yPos: position.y +1), exceptId: tileId);
+        leftBlocked = leftBlocked || isOutOfScopeOrFull(position.copyWith(xPos: position.x -1), exceptId: tileId);
+        rightBlocked = rightBlocked || isOutOfScopeOrFull(position.copyWith(xPos: position.x +1), exceptId: tileId);
+      }
+      return !(topBlocked && bottomBlocked && leftBlocked && rightBlocked);
     }
-    return false;
   }
 
   /// Determines if the [Position] given is blocked or out of scope
-  bool isOutOfScopeOrFull(Position pos) {
-    if (pos.x < 0 || pos.y < 0 || pos.x > dimension || pos.y > dimension) return true;
-    for (var tile in tiles) { if (tile.currentPositions.contains(pos)) return true; }
+  /// except for tiles with the id [exceptId] to ask for multitiles
+  /// returns true, if position is out of scope or blocked
+  bool isOutOfScopeOrFull(Position pos, {String? exceptId}) {
+    if (pos.x < 0 || pos.y < 0 || pos.x > dimension-1 || pos.y > dimension-1) return true;
+    for (var tile in tiles) {
+      if (tile.currentPositions.contains(pos) && (exceptId == null || tile.id != exceptId)) {
+        return true;
+      }
+    }
     return false;
   }
 

@@ -99,23 +99,29 @@ class SimplePuzzleTitle extends StatelessWidget {
 /// {@endtemplate}
 @visibleForTesting
 class SimplePuzzleBoard extends StatelessWidget {
+
   /// {@macro simple_puzzle_board}
-  const SimplePuzzleBoard({
+  SimplePuzzleBoard({
     Key? key,
-    required this.size,
-    required this.tiles,
-    required this.goal,
+    required this.puzzle,
     this.spacing = 8,
-  }) : super(key: key);
+  }) : super(key: key) {
+    size = puzzle.dimension;
+    tiles = puzzle.tiles;
+    goal = puzzle.goal;
+  }
 
   /// The size of the board.
-  final int size;
+  late int size;
 
   /// The tiles to be displayed on the board.
-  final List<Tile> tiles;
+  late List<Tile> tiles;
 
   /// The boards goal for the ruby
-  final Position goal;
+  late Position goal;
+
+  /// The puzzle to display
+  final Puzzle puzzle;
 
   /// The spacing between each tile from [tiles].
   final double spacing;
@@ -160,8 +166,8 @@ class SimplePuzzleBoard extends StatelessWidget {
                 left: x,
                 height: height,
                 width: width,
-                child: PuzzleTile(tile: tile, state: const PuzzleState())
-            )
+                child: PuzzleTile(tile: tile, puzzle: puzzle)
+            ),
           ],
         );
       }
@@ -185,7 +191,7 @@ class SimplePuzzleBoard extends StatelessWidget {
       int y = i ~/ size;
       if (goal.x == x && goal.y == y) {
         backgroundTiles.add(
-            GoalTile(state: const PuzzleState(), position: goal,)
+            GoalTile(position: goal,)
         );
       } else {
         backgroundTiles.add(

@@ -20,18 +20,21 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       PuzzleInitialized event,
       Emitter<PuzzleState> emit,
       ) {
-    final puzzle = Puzzle(level,1,0,goal: const Position(x: 2, y: 2),dimension: 3,
+    emit(
+      const PuzzleState().copyWith(
+        puzzle: loadPuzzleForLevel(),
+      ),
+    );
+  }
+
+  Puzzle loadPuzzleForLevel() {
+    return Puzzle(level,1,0,goal: const Position(x: 2, y: 2),dimension: 3,
         tiles: const [
           Tile(id: 'r', type: TileType.ruby, currentPositions: [Position(x: 0, y: 0)]),
           Tile(id: 'd1', type: TileType.pearl, currentPositions: [Position(x: 1, y: 1)]),
           Tile(id: 'd2', type: TileType.diamond, currentPositions: [Position(x: 1, y: 0),Position(x: 2, y: 0)]),
           Tile(id: 'b1', type: TileType.blocker, currentPositions: [Position(x: 1, y: 2)]),
         ]);
-    emit(
-      PuzzleState(
-        puzzle: puzzle,
-      ),
-    );
   }
 
   void _onTileDragged(
@@ -41,49 +44,39 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     final tile = event.tile;
     final newPosition = event.position;
 
-    if (state.puzzle.isTileMovableTo(tile, newPosition))
     // check if move allowed
-    emit(
-        state.copyWith(
-          puzzle: state.puzzle.moveTile(tile, newPosition),
-          puzzleStatus: PuzzleStatus.complete,
-          tileMovementStatus: TileMovementStatus.moved,
-          numberOfMoves: state.numberOfMoves + 1,
-          lastTappedTile: tile,
-        ),
-    );
-    /*if (state.puzzleStatus == PuzzleStatus.incomplete) {
-      if (state.puzzle.isTileMovable(tappedTile, direction)) {
-        //final mutablePuzzle = Puzzle(tiles: [...state.puzzle.tiles]);
-        //final puzzle = mutablePuzzle.moveTiles(tappedTile, []);
-        /*if (!puzzle.isComplete()) {
-          emit(
-            state.copyWith(
-              puzzle: puzzle,
-              puzzleStatus: PuzzleStatus.complete,
-              tileMovementStatus: TileMovementStatus.moved,
-              numberOfMoves: state.numberOfMoves + 1,
-              lastTappedTile: tappedTile,
-            ),
-          );
-        } else*/ {
-          emit(
-            state.copyWith(
-              tileMovementStatus: TileMovementStatus.moved,
-              numberOfMoves: state.numberOfMoves + 1,
-              lastTappedTile: tappedTile,
-            ),
-          );
-        }
-      } else {
+    if (
+      state.puzzleStatus == PuzzleStatus.incomplete &&
+      state.puzzle.isTileMovableTo(tile, newPosition)
+    ) {
+
+      if (tile.type == TileType.ruby && newPosition == state.puzzle.goal) {
+        // puzzle solved!
         emit(
-          state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
+          state.copyWith(
+            puzzle: state.puzzle.moveTile(tile, newPosition),
+            puzzleStatus: PuzzleStatus.complete,
+            tileMovementStatus: TileMovementStatus.moved,
+            numberOfMoves: state.numberOfMoves + 1,
+            lastTappedTile: tile,
+          ),
+        );
+
+      } else {
+        // move tile
+        emit(
+          state.copyWith(
+            puzzle: state.puzzle.moveTile(tile, newPosition),
+            tileMovementStatus: TileMovementStatus.moved,
+            numberOfMoves: state.numberOfMoves + 1,
+            lastTappedTile: tile,
+          ),
         );
       }
     } else {
       emit(
         state.copyWith(tileMovementStatus: TileMovementStatus.cannotBeMoved),
       );
-    }*/
+    }
   }
 }

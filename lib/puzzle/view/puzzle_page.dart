@@ -182,15 +182,11 @@ class PuzzleBoard extends StatelessWidget {
           context.read<TimerBloc>().add(const TimerStopped());
         }
       },
-      child: _boardBuilder(
-        size,
-        puzzle.goal,
-        puzzle.tiles
-      ),
+      child: _boardBuilder(puzzle),
     );
   }
 
-  Widget _boardBuilder(int size, Position goal, List<Tile> tiles) {
+  Widget _boardBuilder(Puzzle puzzle) {
     return Column(
       children: [
         const ResponsiveGap(
@@ -203,9 +199,7 @@ class PuzzleBoard extends StatelessWidget {
             dimension: _BoardSize.small,
             child: SimplePuzzleBoard(
               key: const Key('simple_puzzle_board_small'),
-              size: size,
-              tiles: tiles,
-              goal: goal,
+              puzzle: puzzle,
               spacing: 5,
             ),
           ),
@@ -213,18 +207,14 @@ class PuzzleBoard extends StatelessWidget {
             dimension: _BoardSize.medium,
             child: SimplePuzzleBoard(
               key: const Key('simple_puzzle_board_medium'),
-              size: size,
-              tiles: tiles,
-              goal: goal,
+              puzzle: puzzle,
             ),
           ),
           large: (_, __) => SizedBox.square(
             dimension: _BoardSize.large,
             child: SimplePuzzleBoard(
               key: const Key('simple_puzzle_board_large'),
-              size: size,
-              tiles: tiles,
-              goal: goal,
+              puzzle: puzzle,
             ),
           ),
         ),

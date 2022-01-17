@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:ruby_theft/models/position.dart';
+import 'package:ruby_theft/models/puzzle.dart';
 import 'package:ruby_theft/models/tile.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
 
@@ -14,14 +15,14 @@ class PuzzleTile extends StatelessWidget {
   const PuzzleTile({
     Key? key,
     required this.tile,
-    required this.state,
+    required this.puzzle,
   }) : super(key: key);
 
   /// The tile to be displayed.
   final Tile tile;
 
-  /// The state of the puzzle.
-  final PuzzleState state;
+  /// The whole puzzle to allow movement.
+  final Puzzle puzzle;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +132,7 @@ class PuzzleTile extends StatelessWidget {
   }
 
   bool _isMoveable() {
-    return state.puzzle.isTileMovable(tile);
+    return puzzle.isTileMovable(tile);
   }
 }
 
@@ -164,12 +165,8 @@ class GoalTile extends StatelessWidget {
   /// {@macro simple_puzzle_tile}
   const GoalTile({
     Key? key,
-    required this.state,
     required this.position,
   }) : super(key: key);
-
-  /// The state of the puzzle.
-  final PuzzleState state;
 
   final Position position;
 
