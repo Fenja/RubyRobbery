@@ -34,4 +34,12 @@ class Position extends Equatable implements Comparable<Position> {
       }
     }
   }
+
+  /// Create a copy of this [Position] with updated coordinates.
+  Position copyWith({int? xPos, int? yPos}) {
+    return Position(
+      x: xPos ?? x,
+      y: yPos ?? y,
+    );
+  }
 }

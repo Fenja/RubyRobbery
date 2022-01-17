@@ -45,7 +45,6 @@ class Puzzle extends Equatable {
   /// level as name to load from assets
   final int level;
 
-
   /// reward to complete level first time
   final int rubyReward;
 
@@ -64,23 +63,65 @@ class Puzzle extends Equatable {
 
   /// Determines if the tapped tile can move in the direction of the whitespace
   /// tile.
-  bool isTileMovableTo(Tile tile, Position position) {
+  bool isTileMovableTo(Tile tile, Position position, {Position? draggedTilePosition}) {
     if (tile.type == TileType.blocker || tile.type == TileType.pearl) return false;
-    // TODO check whether every position in direction is either of same tile id or empty
-    return true;
+    if (isOutOfScopeOrFull(position)) return false;
+
+    if (tile.currentPositions.length == 1) {
+      return isAdjacent(tile.currentPositions[0], position);
+
+    } else {
+      if (draggedTilePosition == null) return false;
+      // TODO multitile
+      // draggedTilePosition will be dragged to position
+      return isAdjacent(draggedTilePosition, position);
+    }
   }
 
+  /// Determines if two positions are adjacent on the board
+  bool isAdjacent(Position pos1, Position pos2) {
+    if (pos1.x != pos2.x && pos1.y != pos2.y) return false;
+    if (pos1.x == pos2.x) {
+      return (pos1.y - pos2.y).abs() <= 1;
+    } else if (pos1.y == pos2.y) {
+      return (pos1.x - pos2.x).abs() <= 1;
+    }
+    return false;
+  }
+
+  /// Determines if given [Tile] is moveable into any of the four directions
   bool isTileMovable(Tile tile) {
     if (tile.type == TileType.blocker || tile.type == TileType.pearl) return false;
-    // TODO check whether movement is possible
-    return true;
+
+    // for single tile: any adjacent position is empty
+    if (tile.currentPositions.length == 1) {
+      Position tilePosition = tile.currentPositions[0];
+      bool topBlocked = isOutOfScopeOrFull(tilePosition.copyWith(yPos: tilePosition.y -1));
+      bool bottomBlocked = isOutOfScopeOrFull(tilePosition.copyWith(yPos: tilePosition.y +1));
+      bool leftBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y -1));
+      bool rightBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y +1));
+
+      return !(topBlocked && bottomBlocked && leftBlocked && rightBlocked);
+    } else {
+      // TODO multitile
+    }
+    return false;
   }
 
+  /// Determines if the [Position] given is blocked or out of scope
+  bool isOutOfScopeOrFull(Position pos) {
+    if (pos.x < 0 || pos.y < 0 || pos.x > dimension || pos.y > dimension) return true;
+    for (var tile in tiles) { if (tile.currentPositions.contains(pos)) return true; }
+    return false;
+  }
+
+  /// Updates the [Tile] by changing the current Position to the given [Position]
   Puzzle moveTile(Tile tile, Position position) {
     final index = tiles.indexOf(tile);
     List<Tile> newTiles = [];
     newTiles.addAll(tiles);
     newTiles[index] = tile.copyWith(currentPositions: [position]);
+    // TODO multitiles
     return Puzzle(level, rubyReward, rubyRepeat, goal: goal, dimension: dimension, tiles: newTiles);
   }
 
