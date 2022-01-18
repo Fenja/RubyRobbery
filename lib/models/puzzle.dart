@@ -31,7 +31,7 @@ import 'package:ruby_theft/models/models.dart';
 /// {@endtemplate}
 class Puzzle extends Equatable {
   /// {@macro puzzle}
-  const Puzzle(this.level, this.rubyReward, this.rubyRepeat, {required this.goal, required this.dimension, required this.tiles});
+  const Puzzle(this.level, {required this.goal, required this.dimension, required this.tiles});
 
   /// List of [Tile]s representing the puzzle's tiles: ruby, blocker, diamonds and pearls.
   final List<Tile> tiles;
@@ -42,19 +42,7 @@ class Puzzle extends Equatable {
   /// boards dimension: 3 -> 3x3 board
   final int dimension;
 
-  /// level as name to load from assets
   final int level;
-
-  /// reward to complete level first time
-  final int rubyReward;
-
-  /// reward to complete level an additional time
-  final int rubyRepeat;
-
-  /// Get the whitespaces on the board.
-  Tile getWhitespacePositions() {
-    return tiles.singleWhere((tile) => tile.isWhitespace);
-  }
 
   /// Determines if the puzzle is completed.
   bool isComplete() {
@@ -140,7 +128,7 @@ class Puzzle extends Equatable {
     newTiles.addAll(tiles);
     newTiles[index] = tile.copyWith(currentPositions: [position]);
     // TODO multitiles
-    return Puzzle(level, rubyReward, rubyRepeat, goal: goal, dimension: dimension, tiles: newTiles);
+    return Puzzle(level, goal: goal, dimension: dimension, tiles: newTiles);
   }
 
   @override

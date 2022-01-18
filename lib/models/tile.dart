@@ -10,7 +10,6 @@ class Tile extends Equatable {
     required this.id,
     required this.type,
     required this.currentPositions,
-    this.isWhitespace = false,
   });
 
   /// id of [Tile] to differ the puzzles tiles
@@ -22,16 +21,12 @@ class Tile extends Equatable {
   /// The current 2D [Position] of the [Tile].
   final List<Position> currentPositions;
 
-  /// Denotes if the [Tile] is the whitespace tile or not.
-  final bool isWhitespace;
-
   /// Create a copy of this [Tile] with updated current position.
   Tile copyWith({required List<Position> currentPositions}) {
     return Tile(
       id: '',
       type: type,
       currentPositions: currentPositions,
-      isWhitespace: isWhitespace,
     );
   }
 
@@ -39,7 +34,6 @@ class Tile extends Equatable {
   List<Object> get props => [
     type,
     currentPositions,
-    isWhitespace,
   ];
 }
 

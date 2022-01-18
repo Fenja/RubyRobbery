@@ -97,7 +97,7 @@ class _PuzzleSections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
-    final level = context.select((PuzzleBloc bloc) => bloc.level);
+    final level = context.select((PuzzleBloc bloc) => bloc.levelId);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(

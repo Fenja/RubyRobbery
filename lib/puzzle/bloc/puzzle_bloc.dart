@@ -9,12 +9,13 @@ part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this.level) : super(const PuzzleState()) {
+  PuzzleBloc(this.levelId) : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileDragged>(_onTileDragged);
   }
 
-  final int level;
+  final int levelId;
+  late Level level;
 
   void _onPuzzleInitialized(
       PuzzleInitialized event,
@@ -28,13 +29,12 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   Puzzle loadPuzzleForLevel() {
-    return Puzzle(level,1,0,goal: const Position(x: 2, y: 2),dimension: 3,
-        tiles: const [
-          Tile(id: 'r', type: TileType.ruby, currentPositions: [Position(x: 0, y: 0)]),
-          Tile(id: 'd1', type: TileType.pearl, currentPositions: [Position(x: 1, y: 1)]),
-          Tile(id: 'd2', type: TileType.diamond, currentPositions: [Position(x: 1, y: 0),Position(x: 2, y: 0)]),
-          Tile(id: 'b1', type: TileType.blocker, currentPositions: [Position(x: 1, y: 2)]),
-        ]);
+    level = Level(levelId);
+    return Puzzle(
+        levelId,
+        goal:level.goal,
+        dimension: level.dimension,
+        tiles: level.tiles);
   }
 
   void _onTileDragged(
