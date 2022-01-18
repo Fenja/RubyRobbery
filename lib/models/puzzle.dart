@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:ruby_theft/helper/utils.dart';
 import 'package:ruby_theft/models/models.dart';
 
 // A 3x3 puzzle board visualization:
@@ -51,30 +52,50 @@ class Puzzle extends Equatable {
 
   /// Determines if the tapped tile can move in the direction of the whitespace
   /// tile.
-  bool isTileMovableTo(Tile tile, Position position, {Position? draggedTilePosition}) {
+  bool isTileMovableTo(Tile tile, Position currentPosition, Position newPosition) {
     if (tile.type == TileType.blocker || tile.type == TileType.pearl) return false;
-    if (isOutOfScopeOrFull(position)) return false;
+    if (isOutOfScopeOrFull(newPosition)) return false;
 
     if (tile.currentPositions.length == 1) {
-      return isAdjacent(tile.currentPositions[0], position);
+      return isAdjacent(currentPosition, newPosition);
 
     } else {
-      if (draggedTilePosition == null) return false;
-      // TODO multitile
       // draggedTilePosition will be dragged to position
-      return isAdjacent(draggedTilePosition, position);
-    }
-  }
+      Position adjacentPosition = getDraggedPositionOfTile(tile, newPosition);
 
-  /// Determines if two positions are adjacent on the board
-  bool isAdjacent(Position pos1, Position pos2) {
-    if (pos1.x != pos2.x && pos1.y != pos2.y) return false;
-    if (pos1.x == pos2.x) {
-      return (pos1.y - pos2.y).abs() <= 1;
-    } else if (pos1.y == pos2.y) {
-      return (pos1.x - pos2.x).abs() <= 1;
+      // determine direction
+      if (adjacentPosition.x == newPosition.x) {
+        if (adjacentPosition.y > newPosition.y) {
+          // move up
+          for (var pos in tile.currentPositions) {
+            if (isOutOfScopeOrFull(pos.copyWith(yPos: pos.y-1),exceptId: tile.id)) return false;
+          }
+          return true;
+        } else {
+          // move down
+          for (var pos in tile.currentPositions) {
+            if (isOutOfScopeOrFull(pos.copyWith(yPos: pos.y+1),exceptId: tile.id)) return false;
+          }
+          return true;
+        }
+      } else if (adjacentPosition.y == newPosition.y) {
+        if (adjacentPosition.x > newPosition.x) {
+          // move left
+          for (var pos in tile.currentPositions) {
+            if (isOutOfScopeOrFull(pos.copyWith(xPos: pos.x-1),exceptId: tile.id)) return false;
+          }
+          return true;
+        } else {
+          // move right
+          for (var pos in tile.currentPositions) {
+            if (isOutOfScopeOrFull(pos.copyWith(xPos: pos.x+1),exceptId: tile.id)) return false;
+          }
+          return true;
+        }
+      } else {
+        return false;
+      }
     }
-    return false;
   }
 
   /// Determines if given [Tile] is moveable into any of the four directions
@@ -86,9 +107,10 @@ class Puzzle extends Equatable {
       Position tilePosition = tile.currentPositions[0];
       bool topBlocked = isOutOfScopeOrFull(tilePosition.copyWith(yPos: tilePosition.y -1));
       bool bottomBlocked = isOutOfScopeOrFull(tilePosition.copyWith(yPos: tilePosition.y +1));
-      bool leftBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y -1));
-      bool rightBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.y +1));
-      return !(topBlocked && bottomBlocked && leftBlocked && rightBlocked);
+      bool leftBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.x -1));
+      bool rightBlocked = isOutOfScopeOrFull(tilePosition.copyWith(xPos: tilePosition.x +1));
+      bool isBlocked = topBlocked && bottomBlocked && leftBlocked && rightBlocked;
+      return !isBlocked;
 
     // for multi tiles, check if a direction for all tiles is possible
     } else {
@@ -122,12 +144,44 @@ class Puzzle extends Equatable {
   }
 
   /// Updates the [Tile] by changing the current Position to the given [Position]
-  Puzzle moveTile(Tile tile, Position position) {
+  Puzzle moveTile(Tile tile, Position currentPosition, Position newPosition) {
+
+    List<Position> newPositions = [];
+    if (tile.currentPositions.length == 1) {
+      newPositions = [newPosition];
+    } else {
+      // determine direction
+      if (currentPosition.x == newPosition.x) {
+        if (currentPosition.y > newPosition.y) {
+          // move up
+          for (var pos in tile.currentPositions) {
+            newPositions.add(pos.copyWith(yPos: pos.y-1));
+          }
+        } else {
+          // move down
+          for (var pos in tile.currentPositions) {
+            newPositions.add(pos.copyWith(yPos: pos.y+1));
+          }
+        }
+      } else if (currentPosition.y == newPosition.y) {
+        if (currentPosition.x > newPosition.x) {
+          // move left
+          for (var pos in tile.currentPositions) {
+            newPositions.add(pos.copyWith(xPos: pos.x-1));
+          }
+        } else {
+          // move right
+          for (var pos in tile.currentPositions) {
+            newPositions.add(pos.copyWith(xPos: pos.x+1));
+          }
+        }
+      }
+    }
+
     final index = tiles.indexOf(tile);
     List<Tile> newTiles = [];
     newTiles.addAll(tiles);
-    newTiles[index] = tile.copyWith(currentPositions: [position]);
-    // TODO multitiles
+    newTiles[index] = tile.copyWith(currentPositions: newPositions);
     return Puzzle(level, goal: goal, dimension: dimension, tiles: newTiles);
   }
 

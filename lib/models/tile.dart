@@ -24,7 +24,7 @@ class Tile extends Equatable {
   /// Create a copy of this [Tile] with updated current position.
   Tile copyWith({required List<Position> currentPositions}) {
     return Tile(
-      id: '',
+      id: id,
       type: type,
       currentPositions: currentPositions,
     );
@@ -32,6 +32,7 @@ class Tile extends Equatable {
 
   @override
   List<Object> get props => [
+    id,
     type,
     currentPositions,
   ];

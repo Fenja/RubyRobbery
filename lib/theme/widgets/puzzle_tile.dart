@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:ruby_theft/helper/utils.dart';
 import 'package:ruby_theft/models/position.dart';
 import 'package:ruby_theft/models/puzzle.dart';
 import 'package:ruby_theft/models/tile.dart';
@@ -70,7 +71,6 @@ class PuzzleTile extends StatelessWidget {
   }
 
   Widget _childWhenDragging() {
-    // TODO image of empty jewel box according to type
     return DecoratedBox(
       key: Key('tile_child_dragging_'+tile.id.toString()),
       decoration: BoxDecoration(
@@ -152,7 +152,8 @@ class EmptyTile extends StatelessWidget {
         return SizedBox(child: Container(color: Colors.black45));
       },
       onAccept: (tile) {
-        context.read<PuzzleBloc>().add(TileDragged(tile,position));
+        Position currentPosition = tile.currentPositions.length == 1 ? tile.currentPositions[0] : getDraggedPositionOfTile(tile, position);
+        context.read<PuzzleBloc>().add(TileDragged(tile, currentPosition, position));
       },
       onLeave: (tile) {
         print('dont go!');
@@ -192,7 +193,8 @@ class GoalTile extends StatelessWidget {
         );
       },
       onAccept: (tile) {
-        context.read<PuzzleBloc>().add(TileDragged(tile,position));
+        Position currentPosition = tile.currentPositions.length == 1 ? tile.currentPositions[0] : getDraggedPositionOfTile(tile, position);
+        context.read<PuzzleBloc>().add(TileDragged(tile, currentPosition, position));
       },
       onLeave: (tile) {
         print('dont go!');

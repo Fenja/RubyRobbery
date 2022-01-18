@@ -14,11 +14,8 @@ class Level {
     tiles = [];
     for (int i = 9; i < levelString.length; i++) {
       List<String> posString = levelString[i].split(',');
-      print(posString.toString());
       List<Position> positions = [];
       for (int j = 1; j < posString.length; j++) {
-        print(posString[j]);
-        if (j+1 < posString.length) print('next: '+posString[j+1]);
         positions.add(_position(posString[j]));
       }
 
@@ -49,6 +46,7 @@ class Level {
   /// tiles(id,((x.y),(x.y))
   String loadLevelString(int id) {
     return '0;level_0;3;(2.2);false;true;0;5;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(1.2)';
+    //return '1;level_0;3;(2.2);false;true;0;5;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(0.2),(1.2)';
   }
 
   TileType _type(String id) {

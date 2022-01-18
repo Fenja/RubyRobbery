@@ -42,19 +42,20 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       Emitter<PuzzleState> emit,
       ) {
     final tile = event.tile;
-    final newPosition = event.position;
+    final currentPosition = event.currentPosition;
+    final newPosition = event.newPosition;
 
     // check if move allowed
     if (
       state.puzzleStatus == PuzzleStatus.incomplete &&
-      state.puzzle.isTileMovableTo(tile, newPosition)
+      state.puzzle.isTileMovableTo(tile, currentPosition, newPosition)
     ) {
 
       if (tile.type == TileType.ruby && newPosition == state.puzzle.goal) {
         // puzzle solved!
         emit(
           state.copyWith(
-            puzzle: state.puzzle.moveTile(tile, newPosition),
+            puzzle: state.puzzle.moveTile(tile, currentPosition, newPosition),
             puzzleStatus: PuzzleStatus.complete,
             tileMovementStatus: TileMovementStatus.moved,
             numberOfMoves: state.numberOfMoves + 1,
@@ -66,7 +67,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
         // move tile
         emit(
           state.copyWith(
-            puzzle: state.puzzle.moveTile(tile, newPosition),
+            puzzle: state.puzzle.moveTile(tile, currentPosition, newPosition),
             tileMovementStatus: TileMovementStatus.moved,
             numberOfMoves: state.numberOfMoves + 1,
             lastTappedTile: tile,
