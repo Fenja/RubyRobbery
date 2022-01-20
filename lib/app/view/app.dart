@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ruby_theft/pages/home_page.dart';
 import 'package:ruby_theft/puzzle/view/puzzle_page.dart';
 
 class App extends StatefulWidget {
@@ -46,19 +47,24 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    //final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
+
     return MaterialApp(
       theme: ThemeData(
-        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-        colorScheme: ColorScheme.fromSwatch(
-          accentColor: const Color(0xFF13B9FF),
-        ),
+        colorScheme: const ColorScheme.light(),
       ),
+      darkTheme: ThemeData(
+        colorScheme: const ColorScheme.dark(),
+      ),
+      //themeMode: themeProvider.themeMode,
+
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const PuzzlePage(),
+
+      home: const HomePage(),
     );
   }
 }

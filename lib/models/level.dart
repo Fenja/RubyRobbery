@@ -11,8 +11,9 @@ class Level {
     difficulty = int.parse(levelString[6]);
     rubyReward = int.parse(levelString[7]);
     rubyRepeat = int.parse(levelString[8]);
+    rubyCost = int.parse(levelString[9]);
     tiles = [];
-    for (int i = 9; i < levelString.length; i++) {
+    for (int i = 10; i < levelString.length; i++) {
       List<String> posString = levelString[i].split(',');
       List<Position> positions = [];
       for (int j = 1; j < posString.length; j++) {
@@ -38,15 +39,16 @@ class Level {
 
   late bool unlocked;
   late int difficulty;
-  late int rubyReward;
-  late int rubyRepeat;
+  late int rubyReward; // reward for first solve
+  late int rubyRepeat; // reward for following solves
+  late int rubyCost; // cost to unlock level
 
 
-  /// id;nameKey;dimension;goalPos(x.y);hasPearls;unlocked;difficulty;rubyReward;rubyRepeat;
+  /// id;nameKey;dimension;goalPos(x.y);hasPearls;unlocked;difficulty;rubyReward;rubyRepeat;rubyCost;
   /// tiles(id,((x.y),(x.y))
   String loadLevelString(int id) {
-    return '0;level_0;3;(2.2);false;true;0;5;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(1.2)';
-    //return '1;level_0;3;(2.2);false;true;0;5;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(0.2),(1.2)';
+    return '0;level_0;3;(2.2);false;true;0;5;0;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(1.2)';
+    //return '1;level_0;3;(2.2);false;true;0;5;0;0;r,(0.0);d1,(1.1);d2,(1.0),(2.0);b1,(0.2),(1.2)';
   }
 
   TileType _type(String id) {
