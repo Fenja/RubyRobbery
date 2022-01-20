@@ -6,6 +6,9 @@ import 'package:ruby_theft/helper/themeProvider.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/puzzle/view/puzzle_page.dart';
 
+import 'levels_page.dart';
+import 'settings_page.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -66,29 +69,71 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.appTitle),),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(20.0),
-          children: [
-            ElevatedButton(
+    return Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            repeat: ImageRepeat.repeat,
+            image: AssetImage('images/bg_pattern.png'),
+            scale: 15.0,
+            opacity: 0.2,
+            // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
+          )
+        ),
+    child: Scaffold(
+      backgroundColor: Colors.transparent,
+        appBar: AppBar(title: Text(context.l10n.appTitle),),
+        body: Center(
+          child: ListView(
+            key: const Key('main_menu'),
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 50.0, bottom: 50.0),
+            children: [
+              ElevatedButton(
+                key: const Key('play_button'),
                 onPressed: () => play(),
                 child: Text(
                   context.l10n.menuPlay,
                   textAlign: TextAlign.center,
                 )
-            )
-          ],
+              ),
+              ElevatedButton(
+                key: const Key('levels_button'),
+                onPressed: () => levels(),
+                child: Text(
+                  context.l10n.menuLevels,
+                  textAlign: TextAlign.center,
+                )
+              ),
+              ElevatedButton(
+                key: const Key('settings_button'),
+                onPressed: () => settings(),
+                child: Text(
+                  context.l10n.menuSettings,
+                  textAlign: TextAlign.center,
+                )
+              )
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 
   void play() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const PuzzlePage()),
+    );
+  }
+
+  void levels() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const LevelsPage()),
+    );
+  }
+
+  void settings() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
   }
 }
