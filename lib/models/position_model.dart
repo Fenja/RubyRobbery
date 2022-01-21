@@ -1,19 +1,25 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'position_model.g.dart';
 
 /// {@template position}
 /// 2-dimensional position model.
 ///
 /// (1, 1) is the top left corner of the board.
 /// {@endtemplate}
+@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class Position extends Equatable implements Comparable<Position> {
-  /// {@macro position}
+
+  @JsonKey(required: true)
+  final int x;
+  @JsonKey(required: true)
+  final int y;
+
   const Position({required this.x, required this.y});
 
-  /// The x position.
-  final int x;
-
-  /// The y position.
-  final int y;
+  factory Position.fromJson(Map<String,dynamic> json) => _$PositionFromJson(json);
+  Map<String,dynamic> toJson() => _$PositionToJson(this);
 
   @override
   List<Object> get props => [x, y];

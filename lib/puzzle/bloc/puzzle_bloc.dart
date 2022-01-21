@@ -3,6 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ruby_theft/models/direction.dart';
+import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/models/models.dart';
 
 part 'puzzle_event.dart';
@@ -14,8 +15,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     on<TileDragged>(_onTileDragged);
   }
 
-  final int levelId;
-  late Level level;
+  final String levelId;
+  Levels levels = Levels();
 
   void _onPuzzleInitialized(
       PuzzleInitialized event,
@@ -29,7 +30,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   Puzzle loadPuzzleForLevel() {
-    level = Level(levelId);
+    Level level = levels.getLevelById(levelId);
     return Puzzle(
         levelId,
         goal:level.goal,

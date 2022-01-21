@@ -47,7 +47,7 @@ class PuzzleView extends StatelessWidget {
           ticker: const Ticker(),
         ),
         child: BlocProvider(
-          create: (context) => PuzzleBloc(0)
+          create: (context) => PuzzleBloc('000')
             ..add(
               const PuzzleInitialized(level: 0),
             ),
@@ -129,7 +129,7 @@ class _PuzzleSections extends StatelessWidget {
     );
   }
 
-  Widget _startSectionBuilder(PuzzleState state, int level) {
+  Widget _startSectionBuilder(PuzzleState state, String level) {
     return ResponsiveLayoutBuilder(
       small: (_, child) => child!,
       medium: (_, child) => child!,

@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/pages/home_page.dart';
 import 'package:ruby_theft/puzzle/view/puzzle_page.dart';
 
@@ -47,6 +48,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    Levels levels = Levels();
     //final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
 
     return MaterialApp(

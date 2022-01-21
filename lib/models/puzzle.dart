@@ -43,7 +43,8 @@ class Puzzle extends Equatable {
   /// boards dimension: 3 -> 3x3 board
   final int dimension;
 
-  final int level;
+  /// level id
+  final String level;
 
   /// Determines if the puzzle is completed.
   bool isComplete() {

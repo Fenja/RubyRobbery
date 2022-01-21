@@ -126,3 +126,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 Adjust image path in flutter_launcher_icons.yaml.
 
 `flutter pub run flutter_launcher_icons:main`
+
+
+## Json Serializable Generator
+
+Classes marked with `JsonSerializable` will get a correspondig part created.
+
+`flutter pub run build_runner build`

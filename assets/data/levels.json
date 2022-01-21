@@ -1,0 +1,55 @@
+[
+  {
+    "id": "000",
+    "name_key": "Tutorial",
+    "dimension": 3,
+    "goal": {
+      "x": 2,
+      "y": 2
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 0
+        },
+          {
+          "x": 2,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "b",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 1,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 0,
+    "ruby_reward": 5,
+    "ruby_repeat": 0,
+    "ruby_cost": 0
+  }
+]

@@ -25,7 +25,8 @@ class SimpleStartSection extends StatelessWidget {
   /// The state of the puzzle.
   final PuzzleState state;
 
-  final int level;
+  /// level id
+  final String level;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class SimplePuzzleTitle extends StatelessWidget {
   final PuzzleStatus status;
 
   /// currents puzzle level to display in header
-  final int level;
+  final String level;
 
   @override
   Widget build(BuildContext context) {

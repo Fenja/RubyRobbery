@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 import 'package:ruby_theft/helper/utils.dart';
-import 'package:ruby_theft/models/position.dart';
-import 'package:ruby_theft/models/puzzle.dart';
-import 'package:ruby_theft/models/tile.dart';
+import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
 
 /// {@template simple_puzzle_tile}
