@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
+import 'package:ruby_theft/theme/widgets/widgets.dart';
 import 'package:ruby_theft/timer/timer.dart';
 
 /// {@template puzzle_page}
@@ -13,50 +14,34 @@ import 'package:ruby_theft/timer/timer.dart';
 /// {@endtemplate}
 class PuzzlePage extends StatelessWidget {
   /// {@macro puzzle_page}
-  const PuzzlePage({Key? key}) : super(key: key);
+  const PuzzlePage({
+    Key? key,
+    required this.level
+  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return const PuzzleView();
-  }
-}
-
-/// {@template puzzle_view}
-/// Displays the content for the [PuzzlePage].
-/// {@endtemplate}
-class PuzzleView extends StatelessWidget {
-  /// {@macro puzzle_view}
-  const PuzzleView({Key? key}) : super(key: key);
+  /// the level to display on the puzzle page
+  final Level level;
 
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            repeat: ImageRepeat.repeat,
-            image: AssetImage('images/bg_pattern.png'),
-            scale: 15.0,
-            opacity: 0.2,
-            // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
-          )),
-      child: Scaffold(
-      backgroundColor: Colors.transparent,
-      body: BlocProvider(
-        create: (context) => TimerBloc(
-          ticker: const Ticker(),
-        ),
+    return Scaffold(
+      body: ScreenBox(
         child: BlocProvider(
-          create: (context) => PuzzleBloc('000')
-            ..add(
-              const PuzzleInitialized(level: 0),
+          create: (context) => TimerBloc(
+            ticker: const Ticker(),
+          ),
+          child: BlocProvider(
+            create: (context) => PuzzleBloc(level)
+              ..add(
+                const PuzzleInitialized(),
+              ),
+            child: const _Puzzle(
+              key: Key('puzzle_view_puzzle'),
             ),
-          child: const _Puzzle(
-            key: Key('puzzle_view_puzzle'),
           ),
         ),
-      ),
-    )
+      )
     );
   }
 }
@@ -97,7 +82,7 @@ class _PuzzleSections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
-    final level = context.select((PuzzleBloc bloc) => bloc.levelId);
+    final level = context.select((PuzzleBloc bloc) => bloc.level.id);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
@@ -129,7 +114,7 @@ class _PuzzleSections extends StatelessWidget {
     );
   }
 
-  Widget _startSectionBuilder(PuzzleState state, String level) {
+  Widget _startSectionBuilder(PuzzleState state, String levelId) {
     return ResponsiveLayoutBuilder(
       small: (_, child) => child!,
       medium: (_, child) => child!,
@@ -137,7 +122,7 @@ class _PuzzleSections extends StatelessWidget {
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
-      child: (_) => SimpleStartSection(state: state, level: level,),
+      child: (_) => SimpleStartSection(state: state, levelId: levelId,),
     );
   }
 
@@ -149,8 +134,8 @@ class _PuzzleSections extends StatelessWidget {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const SimplePuzzleShuffleButton(),
-          medium: (_, child) => const SimplePuzzleShuffleButton(),
+          small: (_, child) => const PuzzleResetButton(),
+          medium: (_, child) => const PuzzleResetButton(),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(

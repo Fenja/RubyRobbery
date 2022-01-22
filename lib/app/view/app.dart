@@ -12,7 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/pages/home_page.dart';
-import 'package:ruby_theft/puzzle/view/puzzle_page.dart';
+import 'package:ruby_theft/pages/puzzle_page.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

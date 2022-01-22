@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/helper/themeProvider.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
-import 'package:ruby_theft/puzzle/view/puzzle_page.dart';
+import 'package:ruby_theft/pages/puzzle_page.dart';
+import 'package:ruby_theft/theme/widgets/widgets.dart';
 
 import 'levels_page.dart';
 import 'settings_page.dart';
@@ -69,60 +70,48 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            repeat: ImageRepeat.repeat,
-            image: AssetImage('images/bg_pattern.png'),
-            scale: 15.0,
-            opacity: 0.2,
-            // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
-          )
-        ),
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-        appBar: AppBar(title: Text(context.l10n.appTitle),),
-        body: Center(
-          child: ListView(
-            key: const Key('main_menu'),
-            shrinkWrap: true,
-            padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 50.0, bottom: 50.0),
-            children: [
-              ElevatedButton(
-                key: const Key('play_button'),
-                onPressed: () => play(),
-                child: Text(
+    return Scaffold(
+      appBar: AppBar(title: Text(context.l10n.appTitle),),
+      body: ScreenBox(
+        child: ListView(
+          key: const Key('main_menu'),
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 50.0, bottom: 50.0),
+          children: [
+            RubyButton(
+              key: const Key('play_button'),
+              child: Text(
                   context.l10n.menuPlay,
                   textAlign: TextAlign.center,
-                )
-              ),
-              ElevatedButton(
+                ),
+                onPressed: () => play()
+            ),
+            RubyButton(
                 key: const Key('levels_button'),
                 onPressed: () => levels(),
                 child: Text(
                   context.l10n.menuLevels,
                   textAlign: TextAlign.center,
                 )
-              ),
-              ElevatedButton(
+            ),
+            RubyButton(
                 key: const Key('settings_button'),
                 onPressed: () => settings(),
                 child: Text(
                   context.l10n.menuSettings,
                   textAlign: TextAlign.center,
                 )
-              )
-            ],
-          ),
+            )
+          ],
         ),
       )
     );
   }
 
   void play() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const PuzzlePage()),
-    );
+    /*Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const PuzzlePage()), // TODO load last game
+    );*/
   }
 
   void levels() {

@@ -1,2 +1,2 @@
 export 'bloc/puzzle_bloc.dart';
-export 'view/puzzle_page.dart';
+export '../pages/puzzle_page.dart';

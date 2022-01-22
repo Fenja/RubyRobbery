@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/models/level_model.dart';
 import 'package:ruby_theft/models/levels.dart';
+import 'package:ruby_theft/puzzle/puzzle.dart';
+import 'package:ruby_theft/theme/widgets/widgets.dart';
 
 class LevelsPage extends StatefulWidget {
   const LevelsPage({Key? key}) : super(key: key);
@@ -22,21 +24,9 @@ class _LevelsPageState extends State<LevelsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-      image: DecorationImage(
-        repeat: ImageRepeat.repeat,
-        image: AssetImage('images/bg_pattern.png'),
-        scale: 15.0,
-        opacity: 0.2,
-        // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
-      )
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: levelList(),
-        ),
+    return Scaffold(
+      body: ScreenBox(
+        child: levelList(),
       )
     );
   }
@@ -56,10 +46,16 @@ class _LevelsPageState extends State<LevelsPage> {
   }
 
   Widget levelWidget(Level level) {
-    print('level ' + level.id);
-    return Container(
+    return RubyButton(
+      key: Key('level_button'+level.id),
       child: Text(level.nameKey),
-      color: Colors.blue,
+      onPressed: () => _loadLevel(level),
+    );
+  }
+
+  void _loadLevel(level) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
     );
   }
 }

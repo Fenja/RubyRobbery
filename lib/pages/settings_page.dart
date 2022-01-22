@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:ruby_theft/theme/widgets/widgets.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -18,19 +19,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-          image: DecorationImage(
-            repeat: ImageRepeat.repeat,
-            image: AssetImage('images/bg_pattern.png'),
-            scale: 15.0,
-            opacity: 0.2,
-            // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)
-          )
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(child: Text('Settings')),
+    return const Scaffold(
+      body: ScreenBox(
+        child: Text('Settings')
       ),
     );
   }

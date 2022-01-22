@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ruby_theft/colors/colors.dart';
+import 'package:provider/src/provider.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/widgets/number_of_moves.dart';
-import 'package:ruby_theft/theme/widgets/puzzle_button.dart';
-import 'package:ruby_theft/theme/widgets/puzzle_tile.dart';
-import 'package:ruby_theft/theme/widgets/puzzle_title.dart';
+import 'package:ruby_theft/theme/widgets/widgets.dart';
 
 /// {@template simple_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -19,14 +15,14 @@ class SimpleStartSection extends StatelessWidget {
   const SimpleStartSection({
     Key? key,
     required this.state,
-    required this.level,
+    required this.levelId,
   }) : super(key: key);
 
   /// The state of the puzzle.
   final PuzzleState state;
 
   /// level id
-  final String level;
+  final String levelId;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +37,7 @@ class SimpleStartSection extends StatelessWidget {
         const ResponsiveGap(large: 16),
         SimplePuzzleTitle(
           status: state.puzzleStatus,
-          level: level,
+          level: levelId,
         ),
         const ResponsiveGap(
           small: 12,
@@ -55,7 +51,7 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => const SimplePuzzleShuffleButton(),
+          large: (_, __) => PuzzleResetButton(),
         ),
       ],
     );
@@ -223,16 +219,14 @@ class SimplePuzzleBoard extends StatelessWidget {
 /// Displays the button to shuffle the puzzle.
 /// {@endtemplate}
 @visibleForTesting
-class SimplePuzzleShuffleButton extends StatelessWidget {
+class PuzzleResetButton extends StatelessWidget {
   /// {@macro puzzle_shuffle_button}
-  const SimplePuzzleShuffleButton({Key? key}) : super(key: key);
+  const PuzzleResetButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return PuzzleButton(
-      textColor: PuzzleColors.primary0,
-      backgroundColor: PuzzleColors.primary6,
-      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleInitialized(level: 0)),
+    return RubyButton(
+      onPressed: () => context.read<PuzzleBloc>().add(const PuzzleInitialized()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

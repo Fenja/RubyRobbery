@@ -3,20 +3,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:ruby_theft/models/direction.dart';
-import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/models/models.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';
 
 class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
-  PuzzleBloc(this.levelId) : super(const PuzzleState()) {
+  PuzzleBloc(this.level) : super(const PuzzleState()) {
     on<PuzzleInitialized>(_onPuzzleInitialized);
     on<TileDragged>(_onTileDragged);
   }
 
-  final String levelId;
-  Levels levels = Levels();
+  final Level level;
 
   void _onPuzzleInitialized(
       PuzzleInitialized event,
@@ -24,18 +22,14 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
       ) {
     emit(
       const PuzzleState().copyWith(
-        puzzle: loadPuzzleForLevel(),
+        puzzle: Puzzle(
+            level.id,
+            goal:level.goal,
+            dimension: level.dimension,
+            tiles: level.tiles
+        )
       ),
     );
-  }
-
-  Puzzle loadPuzzleForLevel() {
-    Level level = levels.getLevelById(levelId);
-    return Puzzle(
-        levelId,
-        goal:level.goal,
-        dimension: level.dimension,
-        tiles: level.tiles);
   }
 
   void _onTileDragged(
