@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruby_theft/helper/preferences.dart';
-import 'package:ruby_theft/models/level_model.dart';
-import 'package:ruby_theft/models/levels.dart';
-import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/widgets/widgets.dart';
+import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_theft/widgets/widgets.dart';
 
 class LevelsPage extends StatefulWidget {
   const LevelsPage({Key? key}) : super(key: key);
@@ -40,22 +38,21 @@ class _LevelsPageState extends State<LevelsPage> {
         ),
         itemCount: levelList.length,
         itemBuilder: (BuildContext context, index) {
-          return levelWidget(levelList[index]);
+          Level level = levelList[index];
+          return LevelButton(
+            level: level,
+            isUnlocked: level.unlocked || _isUnlocked(level.id),
+            isSolved: _isSolved(level.id)
+          );
         }
     );
   }
 
-  Widget levelWidget(Level level) {
-    return RubyButton(
-      key: Key('level_button'+level.id),
-      child: Text(level.nameKey),
-      onPressed: () => _loadLevel(level),
-    );
+  bool _isUnlocked(String levelId) {
+    return prefs.getUnlockedLevels().contains(levelId);
   }
 
-  void _loadLevel(level) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
-    );
+  bool _isSolved(String levelId) {
+    return prefs.getSolvedLevels().contains(levelId);
   }
 }

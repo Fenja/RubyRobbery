@@ -4,7 +4,7 @@ import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/widgets/widgets.dart';
+import 'package:ruby_theft/widgets/widgets.dart';
 
 /// {@template simple_start_section}
 /// Displays the start section of the puzzle based on [state].

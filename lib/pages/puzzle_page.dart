@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/theme/widgets/widgets.dart';
+import 'package:ruby_theft/widgets/widgets.dart';
 import 'package:ruby_theft/timer/timer.dart';
 
 /// {@template puzzle_page}

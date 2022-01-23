@@ -5,7 +5,7 @@ import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/helper/themeProvider.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/pages/puzzle_page.dart';
-import 'package:ruby_theft/theme/widgets/widgets.dart';
+import 'package:ruby_theft/widgets/widgets.dart';
 
 import 'levels_page.dart';
 import 'settings_page.dart';
@@ -78,29 +78,47 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           shrinkWrap: true,
           padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 50.0, bottom: 50.0),
           children: [
-            RubyButton(
-              key: const Key('play_button'),
-              child: Text(
-                  context.l10n.menuPlay,
-                  textAlign: TextAlign.center,
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: RubyButton(
+                key: const Key('play_button'),
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    context.l10n.menuPlay,
+                    textAlign: TextAlign.center,
+                  )
                 ),
                 onPressed: () => play()
+              ),
             ),
-            RubyButton(
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: RubyButton(
                 key: const Key('levels_button'),
                 onPressed: () => levels(),
-                child: Text(
-                  context.l10n.menuLevels,
-                  textAlign: TextAlign.center,
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    context.l10n.menuLevels,
+                    textAlign: TextAlign.center,
+                  )
                 )
+              ),
             ),
-            RubyButton(
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: RubyButton(
                 key: const Key('settings_button'),
                 onPressed: () => settings(),
-                child: Text(
-                  context.l10n.menuSettings,
-                  textAlign: TextAlign.center,
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    context.l10n.menuSettings,
+                    textAlign: TextAlign.center,
+                  )
                 )
+              ),
             )
           ],
         ),

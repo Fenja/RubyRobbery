@@ -3,3 +3,4 @@ export 'puzzle.dart';
 export 'ticker.dart';
 export 'tile_model.dart';
 export 'level_model.dart';
+export 'levels.dart';
