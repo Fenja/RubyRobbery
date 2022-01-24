@@ -2,6 +2,7 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/models/direction.dart';
 import 'package:ruby_theft/models/models.dart';
 
@@ -15,6 +16,8 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
   }
 
   final Level level;
+
+  Preferences preferences = Preferences();
 
   void _onPuzzleInitialized(
       PuzzleInitialized event,
@@ -47,6 +50,7 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     ) {
 
       if (tile.type == TileType.ruby && newPosition == state.puzzle.goal) {
+        preferences.solveLevel(level.id);
         // puzzle solved!
         emit(
           state.copyWith(

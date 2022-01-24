@@ -41,4 +41,8 @@ class Levels {
 
     return true;
   }
+
+  Level getByIndex(int startIndex) {
+    return _levelList[startIndex];
+  }
 }

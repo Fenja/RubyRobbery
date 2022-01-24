@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/helper/themeProvider.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
+import 'package:ruby_theft/models/level_model.dart';
+import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/pages/puzzle_page.dart';
 import 'package:ruby_theft/widgets/widgets.dart';
 
@@ -21,11 +23,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   late Preferences prefs;
   late PackageInfo packageInfo;
+  late Levels levels;
 
   @override
   void initState() {
     super.initState();
     prefs = Preferences();
+    levels = Levels();
     WidgetsBinding.instance?.addObserver(this);
 
     try {
@@ -96,7 +100,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               padding: const EdgeInsets.all(10.0),
               child: RubyButton(
                 key: const Key('levels_button'),
-                onPressed: () => levels(),
+                onPressed: () => levelPage(),
                 child: Container(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
@@ -127,12 +131,31 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void play() {
-    /*Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => const PuzzlePage()), // TODO load last game
-    );*/
+    PuzzleResult? result = prefs.getSavedPuzzleResult();
+    late Level level;
+    if (result != null && result.numMoves != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PuzzlePage(
+            level: level,
+            puzzleResult: result,
+        )),
+      );
+
+    } else {
+      if (result == null) {
+        level = levels.getLevelById('000');
+      } else {
+        level = getNextUnsolvedLevel(result.level) ?? levels.getLevelById('000');
+        print('load level ' + level.id);
+        // TODO navigate to levelPage when no unsolvedLevel could be found
+      }
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+      );
+    }
   }
 
-  void levels() {
+  void levelPage() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const LevelsPage()),
     );
@@ -142,5 +165,16 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
+  }
+
+  Level? getNextUnsolvedLevel(String levelId) {
+    int startIndex = levels.getAllLevels().indexOf(levels.getLevelById(levelId));
+    Level? nextLevel;
+    while (nextLevel == null) {
+      startIndex ++;
+      Level level = levels.getByIndex(startIndex);
+      if (!prefs.solvedLevels.contains(level.id)) nextLevel = level;
+    }
+    return nextLevel;
   }
 }

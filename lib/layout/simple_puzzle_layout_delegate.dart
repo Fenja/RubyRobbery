@@ -139,13 +139,27 @@ class SimplePuzzleBoard extends StatelessWidget {
   }
 
   double _tileHeight(double tileSize, Tile tile) {
-    if (tile.currentPositions.length == 0) return tileSize;
-    return tileSize;
+    if (tile.currentPositions.isEmpty) return tileSize;
+    int y = tile.currentPositions[0].y;
+    int height = 1;
+    for (var position in tile.currentPositions) {
+      if (position.y != y) {
+        height ++;
+      }
+    }
+    return tileSize * height + (height -1) * spacing;
   }
 
   double _tileWidth(double tileSize, Tile tile) {
-    if (tile.currentPositions.length == 0) return tileSize;
-    return tileSize * tile.currentPositions.length + (tile.currentPositions.length-1) * spacing;
+    if (tile.currentPositions.isEmpty) return tileSize;
+    int x = tile.currentPositions[0].x;
+    int width = 1;
+    for (var position in tile.currentPositions) {
+      if (position.x != x) {
+        width ++;
+      }
+    }
+    return tileSize * width + (width -1) * spacing;
   }
 
   Widget _jewel(BuildContext context, Tile tile) {

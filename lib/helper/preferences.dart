@@ -1,5 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:ruby_theft/models/tile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+class PuzzleResult {
+  PuzzleResult({
+    required this.level,
+    this.tiles,
+    this.numMoves
+  });
+
+  final String level;
+  List<Tile>? tiles;
+  //time
+  int? numMoves;
+
+  @override
+  String toString() {
+    String string = level.toString();
+    if (tiles != null && numMoves != null) {
+      string += ';' + tiles.toString() + ';' + numMoves.toString();
+    }
+    return string;
+  }
+
+  static PuzzleResult? fromString(String? string) {
+    if (string == null) return null;
+    List<String> params = string.split(';');
+
+    PuzzleResult result = PuzzleResult(level: params[0]);
+    if (params.length > 1) {
+      result.numMoves = params[2] as int?;
+      result.tiles = params[1] as List<Tile>?;
+    }
+    print(result);
+    return result;
+  }
+
+}
 
 class Preferences {
 
@@ -15,6 +52,8 @@ class Preferences {
   bool? isLightMode;
   //Locale language;
   String? version;
+
+  PuzzleResult? currentPuzzleState;
 
   factory Preferences() {
     return _prefs;
@@ -65,19 +104,28 @@ class Preferences {
   }*/
 
   void saveUnlockedLevels(List<String> value) {
-    sharedPreferences.setStringList('unlocked_levels', value);
+    unlockedLevels = value;
+    sharedPreferences.setStringList('unlocked_levels', unlockedLevels);
   }
 
   void saveSolvedLevels(List<String> value) {
-    sharedPreferences.setStringList('saved_levels', value);
+    solvedLevels = value;
+    sharedPreferences.setStringList('solved_levels', solvedLevels);
   }
 
   List<String> getUnlockedLevels() {
-    return sharedPreferences.getStringList('unlocked_levels') ?? [];
+    return unlockedLevels;
   }
 
   List<String> getSolvedLevels() {
-    return sharedPreferences.getStringList('solved_levels') ?? [];
+    return solvedLevels;
+  }
+
+  void solveLevel(String levelId) {
+    solvedLevels.add(levelId);
+    sharedPreferences.setStringList('solved_levels', solvedLevels);
+
+    saveCurrentPuzzleState(PuzzleResult(level: levelId));
   }
 
   bool isPro() {
@@ -97,6 +145,15 @@ class Preferences {
     sharedPreferences.setString('version', newVersion);
   }
 
+  PuzzleResult? getSavedPuzzleResult() {
+    return currentPuzzleState;
+  }
+
+  void saveCurrentPuzzleState(PuzzleResult state) {
+    currentPuzzleState = state;
+    sharedPreferences.setString('puzzle_result', state.toString());
+  }
+
   Future<bool> load() async {
     sharedPreferences = await SharedPreferences.getInstance();
 
@@ -106,7 +163,7 @@ class Preferences {
     version = sharedPreferences.getString('version');
     isLightMode = sharedPreferences.getBool('is_lightmode') ?? (ThemeMode.system == ThemeMode.light);
     // language = getLanguageFromString(sharedPreferences.getString('language')) ?? Locale('de', 'DE'); // TODO default
-
+    currentPuzzleState = PuzzleResult.fromString(sharedPreferences.getString('puzzle_result'));
     return true;
   }
 

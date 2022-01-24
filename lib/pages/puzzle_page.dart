@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
@@ -14,13 +15,17 @@ import 'package:ruby_theft/timer/timer.dart';
 /// {@endtemplate}
 class PuzzlePage extends StatelessWidget {
   /// {@macro puzzle_page}
-  const PuzzlePage({
+  PuzzlePage({
     Key? key,
-    required this.level
+    required this.level,
+    this.puzzleResult
   }) : super(key: key);
 
   /// the level to display on the puzzle page
   final Level level;
+
+  /// optional param to reload last session
+  PuzzleResult? puzzleResult;
 
   @override
   Widget build(BuildContext context) {
