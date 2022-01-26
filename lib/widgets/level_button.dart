@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/models/level_model.dart';
 import 'package:ruby_theft/pages/puzzle_page.dart';
 import 'package:ruby_theft/widgets/ruby_button.dart';
@@ -68,7 +68,7 @@ class LevelButton extends StatelessWidget {
   }
 
   Widget star(bool isFilled) {
-    return Expanded(
+    return Container(
       child: Icon(
         Icons.star,
         color: isFilled ? Colors.amber : Colors.black,
@@ -78,7 +78,7 @@ class LevelButton extends StatelessWidget {
 
   Widget solved() {
     return Center(
-      child: Expanded(
+      child: Container(
         child: Icon(
           Icons.circle,
           color: isSolved ? Colors.redAccent : Colors.black,
@@ -89,12 +89,27 @@ class LevelButton extends StatelessWidget {
 
   Widget lock() {
     return isUnlocked ?
-        const SizedBox() :
-        Container(
-          color: Colors.black26,
-          child: const Center(
-            child: Icon(Icons.lock),
+      const SizedBox() :
+      Container(
+        color: Colors.black26,
+        child: Center(
+          child: IconButton(
+              onPressed: () => unlockLevel(),
+              icon: const Icon(Icons.lock)
+              // TODO display ruby cost
           ),
-        );
+        ),
+      );
+  }
+
+  void unlockLevel() {
+    Preferences preferences = Preferences();
+    // TODO does not work inside levelButton
+    bool unlocked = preferences.buyLevel(level);
+    if (unlocked) {
+      // TODO snackbar success & setState
+    } else {
+      // TODO snackbar too expensive
+    }
   }
 }

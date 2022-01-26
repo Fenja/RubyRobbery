@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ruby_theft/helper/preferences.dart';
+import 'package:ruby_theft/widgets/ruby_button.dart';
 
 /// this file will collect styles for use across the app
 
@@ -32,8 +34,27 @@ class ScreenBox extends StatelessWidget {
               child: child
           ),
         ),
+        rubiesDisplay(),
         Navigator.canPop(context) ? BackButton(color: Theme.of(context).colorScheme.primary) : const SizedBox(),
       ],
+    );
+  }
+
+  rubiesDisplay() {
+    Preferences preferences = Preferences();
+    int rubies = preferences.getRubies();
+
+    return Positioned(
+      left: 0,
+      bottom: 30.0,
+      child: RubyButton(
+        child: Row(
+          children: [
+          const Icon(Icons.star), // TODO ruby
+          Text(rubies.toString()),
+        ]),
+        onPressed: () => {} // TODO shop link
+      ),
     );
   }
 }

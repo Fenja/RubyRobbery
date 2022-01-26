@@ -50,7 +50,6 @@ class PuzzleBloc extends Bloc<PuzzleEvent, PuzzleState> {
     ) {
 
       if (tile.type == TileType.ruby && newPosition == state.puzzle.goal) {
-        preferences.solveLevel(level.id);
         // puzzle solved!
         emit(
           state.copyWith(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruby_theft/models/level_model.dart';
 import 'package:ruby_theft/models/tile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,8 +47,8 @@ class Preferences {
   bool isLoaded = false;
 
   int rubies = 0;
-  List<String> unlockedLevels = [];
-  List<String> solvedLevels = [];
+  Set<String> unlockedLevels = {};
+  Set<String> solvedLevels = {};
   bool purchasedPro = false;
   bool? isLightMode;
   //Locale language;
@@ -103,29 +104,37 @@ class Preferences {
     sharedPreferences.setString('language', language.toLanguageTag());
   }*/
 
-  void saveUnlockedLevels(List<String> value) {
+  void saveUnlockedLevels(Set<String> value) {
     unlockedLevels = value;
-    sharedPreferences.setStringList('unlocked_levels', unlockedLevels);
+    sharedPreferences.setStringList('unlocked_levels', unlockedLevels.toList());
   }
 
-  void saveSolvedLevels(List<String> value) {
+  void saveSolvedLevels(Set<String> value) {
     solvedLevels = value;
-    sharedPreferences.setStringList('solved_levels', solvedLevels);
+    sharedPreferences.setStringList('solved_levels', solvedLevels.toList());
   }
 
-  List<String> getUnlockedLevels() {
+  bool buyLevel(Level level) {
+    if (rubies < level.rubyCost) {
+      return false;
+    }
+    payRubies(level.rubyCost);
+    unlockedLevels.add(level.id);
+    sharedPreferences.setStringList('unlocked_levels', unlockedLevels.toList());
+    return true;
+  }
+
+  Set<String> getUnlockedLevels() {
     return unlockedLevels;
   }
 
-  List<String> getSolvedLevels() {
+  Set<String> getSolvedLevels() {
     return solvedLevels;
   }
 
   void solveLevel(String levelId) {
     solvedLevels.add(levelId);
-    sharedPreferences.setStringList('solved_levels', solvedLevels);
-
-    saveCurrentPuzzleState(PuzzleResult(level: levelId));
+    sharedPreferences.setStringList('solved_levels', solvedLevels.toList());
   }
 
   bool isPro() {
@@ -157,9 +166,16 @@ class Preferences {
   Future<bool> load() async {
     sharedPreferences = await SharedPreferences.getInstance();
 
-    unlockedLevels = sharedPreferences.getStringList('unlocked_levels') ?? [];
-    solvedLevels = sharedPreferences.getStringList('solved_levels') ?? [];
+    unlockedLevels = {};
+    if(sharedPreferences.getStringList('unlocked_levels') != null) {
+      unlockedLevels.addAll(sharedPreferences.getStringList('unlocked_levels')!);
+    }
+    solvedLevels = {};
+    if(sharedPreferences.getStringList('solved_levels') != null) {
+      solvedLevels.addAll(sharedPreferences.getStringList('solved_levels')!);
+    }
     purchasedPro = sharedPreferences.getBool('is_pro') ?? false;
+    rubies = sharedPreferences.getInt('rubies') ?? 0;
     version = sharedPreferences.getString('version');
     isLightMode = sharedPreferences.getBool('is_lightmode') ?? (ThemeMode.system == ThemeMode.light);
     // language = getLanguageFromString(sharedPreferences.getString('language')) ?? Locale('de', 'DE'); // TODO default

@@ -28,5 +28,9 @@
     "puzzleCompleted": "The ruby is yours!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
+    },
+    "dialogSolvedPuzzleTitle": "Solved!",
+    "@dialogSolvedPuzzleTitle": {
+        "description": "dialog title after solving a level"
     }
 }

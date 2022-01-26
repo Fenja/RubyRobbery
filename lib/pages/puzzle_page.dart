@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/helper/preferences.dart';
+import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_theft/pages/home_page.dart';
+import 'package:ruby_theft/pages/ruby_dialog.dart';
 import 'package:ruby_theft/puzzle/puzzle.dart';
 import 'package:ruby_theft/widgets/widgets.dart';
 import 'package:ruby_theft/timer/timer.dart';
+
+import 'levels_page.dart';
 
 /// {@template puzzle_page}
 /// The root page of the puzzle UI.
@@ -66,9 +71,9 @@ class _Puzzle extends StatelessWidget {
                   minHeight: constraints.maxHeight,
                 ),
                 child: Column(
-                  children: const [
+                  children: [
                     _PuzzleSections(
-                      key: Key('puzzle_sections'),
+                      key: const Key('puzzle_sections'),
                     ),
                   ],
                 ),
@@ -82,12 +87,17 @@ class _Puzzle extends StatelessWidget {
 }
 
 class _PuzzleSections extends StatelessWidget {
-  const _PuzzleSections({Key? key}) : super(key: key);
+  _PuzzleSections({Key? key}) : super(key: key);
+
+  Preferences preferences = Preferences();
+  Levels levels = Levels();
 
   @override
   Widget build(BuildContext context) {
     final state = context.select((PuzzleBloc bloc) => bloc.state);
     final level = context.select((PuzzleBloc bloc) => bloc.level.id);
+
+    if (state.puzzleStatus == PuzzleStatus.complete) showSolvedDialog(context, level);
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Column(
@@ -139,8 +149,8 @@ class _PuzzleSections extends StatelessWidget {
           medium: 48,
         ),
         ResponsiveLayoutBuilder(
-          small: (_, child) => const PuzzleResetButton(),
-          medium: (_, child) => const PuzzleResetButton(),
+          small: (_, child) => PuzzleResetButton(state: state),
+          medium: (_, child) => PuzzleResetButton(state: state),
           large: (_, __) => const SizedBox(),
         ),
         const ResponsiveGap(
@@ -149,6 +159,69 @@ class _PuzzleSections extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void showSolvedDialog(BuildContext context, String levelId) async{
+
+    Level level = levels.getLevelById(levelId);
+    int reward = preferences.getSolvedLevels().contains(levelId) ? level.rubyRepeat : level.rubyReward;
+
+    preferences.solveLevel(levelId);
+    preferences.addRubies(reward);
+    preferences.saveCurrentPuzzleState(PuzzleResult(level: levelId));
+
+    // TODO popup with reward and "next level"
+    await Future.delayed(const Duration(milliseconds: 50));
+    showDialog(
+        context: context,
+        builder: (context) {
+          return RubyDialog(
+            title: context.l10n.dialogSolvedPuzzleTitle,
+            content: Column(
+              children: [
+                Text(
+                    reward.toString()
+                ),
+              ],
+            ), actions: [
+            TextButton(
+              onPressed: () => {
+                Navigator.pop(context),
+                nextLevel(context, levelId),
+              },
+              child: Text('Next level'),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () => {
+                Navigator.pop(context),
+                homeMenu(context),
+              },
+              child: Text('Take a break'),
+            ),
+          ],
+          );
+        }
+    );
+  }
+
+  void nextLevel(BuildContext context, String levelId) {
+    Level? level = levels.getNextUnsolvedLevel(levelId, preferences.solvedLevels);
+    if (level == null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const LevelsPage()),
+      );
+      return;
+    } else {
+      print('next level ' + level.id);
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+      );
+    }
+  }
+
+  homeMenu(BuildContext context) {
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const HomePage()), (Route<dynamic> route) => false);
   }
 }
 

@@ -51,7 +51,7 @@ class SimpleStartSection extends StatelessWidget {
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
           medium: (_, __) => const SizedBox(),
-          large: (_, __) => PuzzleResetButton(),
+          large: (_, __) => PuzzleResetButton(state: state),
         ),
       ],
     );
@@ -235,21 +235,19 @@ class SimplePuzzleBoard extends StatelessWidget {
 @visibleForTesting
 class PuzzleResetButton extends StatelessWidget {
   /// {@macro puzzle_shuffle_button}
-  const PuzzleResetButton({Key? key}) : super(key: key);
+  const PuzzleResetButton({Key? key, required this.state}) : super(key: key);
+
+  final PuzzleState state;
 
   @override
   Widget build(BuildContext context) {
+    if (state.puzzleStatus == PuzzleStatus.complete || state.numberOfMoves <= 0) return const SizedBox();
+
     return RubyButton(
       onPressed: () => context.read<PuzzleBloc>().add(const PuzzleInitialized()),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          /*Image.asset(
-            'assets/images/shuffle_icon.png',
-            width: 17,
-            height: 17,
-          ),
-          const Gap(10),*/
           Text(context.l10n.puzzleRestart),
         ],
       ),

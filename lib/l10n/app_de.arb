@@ -28,5 +28,10 @@
     "puzzleCompleted": "Der Rubin gehört dir!",
     "@puzzleCompleted": {
         "description": "Shown as the success state when the puzzle is completed"
+    },
+    "dialogSolvedPuzzleTitle": "Gelöst!",
+    "@dialogSolvedPuzzleTitle": {
+        "description": "dialog title after solving a level"
     }
+
 }

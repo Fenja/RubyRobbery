@@ -132,25 +132,29 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void play() {
     PuzzleResult? result = prefs.getSavedPuzzleResult();
-    late Level level;
+
     if (result != null && result.numMoves != null) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => PuzzlePage(
-            level: level,
+            level: levels.getLevelById(result.level),
             puzzleResult: result,
         )),
       );
 
     } else {
+      Level? level;
       if (result == null) {
         level = levels.getLevelById('000');
       } else {
-        level = getNextUnsolvedLevel(result.level) ?? levels.getLevelById('000');
+        level = levels.getNextUnsolvedLevel(result.level, prefs.solvedLevels);
+        if (level == null) {
+          levelPage();
+          return;
+        }
         print('load level ' + level.id);
-        // TODO navigate to levelPage when no unsolvedLevel could be found
       }
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+        MaterialPageRoute(builder: (context) => PuzzlePage(level: level!)),
       );
     }
   }
@@ -165,16 +169,5 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
-  }
-
-  Level? getNextUnsolvedLevel(String levelId) {
-    int startIndex = levels.getAllLevels().indexOf(levels.getLevelById(levelId));
-    Level? nextLevel;
-    while (nextLevel == null) {
-      startIndex ++;
-      Level level = levels.getByIndex(startIndex);
-      if (!prefs.solvedLevels.contains(level.id)) nextLevel = level;
-    }
-    return nextLevel;
   }
 }

@@ -153,9 +153,9 @@ class EmptyTile extends StatelessWidget {
         Position currentPosition = tile.currentPositions.length == 1 ? tile.currentPositions[0] : getDraggedPositionOfTile(tile, position);
         context.read<PuzzleBloc>().add(TileDragged(tile, currentPosition, position));
       },
-      onLeave: (tile) {
+      /*onLeave: (tile) {
         print('dont go!');
-      },
+      },*/
     );
   }
 }

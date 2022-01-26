@@ -53,7 +53,6 @@ class _LevelsPageState extends State<LevelsPage> {
   }
 
   bool _isSolved(String levelId) {
-    print('solved levels' + prefs.getSolvedLevels().toString());
     return prefs.getSolvedLevels().contains(levelId);
   }
 }
