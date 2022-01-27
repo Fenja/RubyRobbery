@@ -3,6 +3,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/helper/themeProvider.dart';
+import 'package:ruby_theft/helper/utils.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/models/level_model.dart';
 import 'package:ruby_theft/models/levels.dart';
@@ -146,7 +147,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       if (result == null) {
         level = levels.getLevelById('000');
       } else {
-        level = levels.getNextUnsolvedLevel(result.level, prefs.solvedLevels);
+        level = getNextUnsolvedLevel(result.level, levels, prefs.solvedLevels, prefs.unlockedLevels);
         if (level == null) {
           levelPage();
           return;

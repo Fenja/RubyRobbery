@@ -25,22 +25,19 @@ class LevelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: Stack(
-        children: [
-          RubyButton(
-            key: Key('level_button'+level.id),
-            child: Column(
-              children: [
-                solved(),
-                difficulty(),
-                title()
-              ],
-            ),
-            onPressed: () => _loadLevel(context),
+      child: isUnlocked ?
+        RubyButton(
+          key: Key('level_button'+level.id),
+          child: Column(
+            children: [
+              solved(),
+              difficulty(),
+              title()
+            ],
           ),
-          lock(),
-        ],
-      )
+          onPressed: () => _loadLevel(context),
+        ) :
+        lock(),
     );
   }
 
@@ -56,19 +53,18 @@ class LevelButton extends StatelessWidget {
 
   Widget difficulty() {
     // display three stars
-    return Center(
-      child: Row(
-        children: [
-          star(level.difficulty >= 1),
-          star(level.difficulty >= 2),
-          star(level.difficulty >= 3),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        star(level.difficulty >= 1),
+        star(level.difficulty >= 2),
+        star(level.difficulty >= 3),
+      ],
     );
   }
 
   Widget star(bool isFilled) {
-    return Container(
+    return Expanded(
       child: Icon(
         Icons.star,
         color: isFilled ? Colors.amber : Colors.black,
@@ -78,7 +74,7 @@ class LevelButton extends StatelessWidget {
 
   Widget solved() {
     return Center(
-      child: Container(
+      child: Expanded(
         child: Icon(
           Icons.circle,
           color: isSolved ? Colors.redAccent : Colors.black,
@@ -88,16 +84,24 @@ class LevelButton extends StatelessWidget {
   }
 
   Widget lock() {
-    return isUnlocked ?
-      const SizedBox() :
-      Container(
-        color: Colors.black26,
+    return Container(
+        color: Colors.deepPurple,
         child: Center(
-          child: IconButton(
-              onPressed: () => unlockLevel(),
-              icon: const Icon(Icons.lock)
-              // TODO display ruby cost
-          ),
+          child: Column(
+            children: [
+              IconButton(
+                  onPressed: () => unlockLevel(),
+                  icon: const Icon(Icons.lock)
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(level.rubyCost.toString()+' '),
+                  const Icon(Icons.circle, color: Colors.redAccent)
+                ],
+              )
+            ],
+          )
         ),
       );
   }
@@ -105,6 +109,7 @@ class LevelButton extends StatelessWidget {
   void unlockLevel() {
     Preferences preferences = Preferences();
     // TODO does not work inside levelButton
+    // I need preferences and context!
     bool unlocked = preferences.buyLevel(level);
     if (unlocked) {
       // TODO snackbar success & setState

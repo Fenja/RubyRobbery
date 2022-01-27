@@ -20,3 +20,15 @@ bool isAdjacent(Position pos1, Position pos2) {
   }
   return false;
 }
+
+
+Level? getNextUnsolvedLevel(String levelId, Levels levels, Set<String> solvedLevels, Set<String> unlockedLevels) {
+  int startIndex = levels.getAllLevels().indexOf(levels.getLevelById(levelId));
+  Level? nextLevel;
+  while (nextLevel == null) {
+    startIndex ++;
+    Level level = levels.getByIndex(startIndex);
+    if (!solvedLevels.contains(level.id) && level.unlocked == true || unlockedLevels.contains(level.id)) nextLevel = level;
+  }
+  return nextLevel;
+}

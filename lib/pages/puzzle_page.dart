@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ruby_theft/helper/preferences.dart';
+import 'package:ruby_theft/helper/utils.dart';
 import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/layout/layout.dart';
 import 'package:ruby_theft/models/models.dart';
@@ -189,7 +190,7 @@ class _PuzzleSections extends StatelessWidget {
                 Navigator.pop(context),
                 nextLevel(context, levelId),
               },
-              child: Text('Next level'),
+              child: Text(context.l10n.buttonNextLevel),
             ),
             const Spacer(),
             TextButton(
@@ -197,7 +198,7 @@ class _PuzzleSections extends StatelessWidget {
                 Navigator.pop(context),
                 homeMenu(context),
               },
-              child: Text('Take a break'),
+              child: Text(context.l10n.buttonBreak),
             ),
           ],
           );
@@ -206,7 +207,7 @@ class _PuzzleSections extends StatelessWidget {
   }
 
   void nextLevel(BuildContext context, String levelId) {
-    Level? level = levels.getNextUnsolvedLevel(levelId, preferences.solvedLevels);
+    Level? level = getNextUnsolvedLevel(levelId, levels, preferences.solvedLevels, preferences.unlockedLevels);
     if (level == null) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const LevelsPage()),

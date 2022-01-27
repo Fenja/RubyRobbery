@@ -32,6 +32,14 @@
     "dialogSolvedPuzzleTitle": "Gelöst!",
     "@dialogSolvedPuzzleTitle": {
         "description": "dialog title after solving a level"
+    },
+    "buttonNextLevel": "Nächstes Rätsel",
+    "@buttonNextLevel": {
+        "description": "button label for dialog after a puzzle is solved"
+    },
+    "buttonBreak": "Später weiter",
+    "@buttonBreak": {
+        "description": "button label for dialog after a puzzle is solved"
     }
 
 }

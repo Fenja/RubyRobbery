@@ -45,16 +45,4 @@ class Levels {
   Level getByIndex(int startIndex) {
     return _levelList[startIndex];
   }
-
-  Level? getNextUnsolvedLevel(String levelId, Set<String> solvedLevels) {
-    int startIndex = _levelList.indexOf(getLevelById(levelId));
-    Level? nextLevel;
-    while (nextLevel == null) {
-      startIndex ++;
-      Level level = getByIndex(startIndex);
-      if (!solvedLevels.contains(level.id)) nextLevel = level;
-      // TODO do not return locked levels!!!
-    }
-    return nextLevel;
-  }
 }
