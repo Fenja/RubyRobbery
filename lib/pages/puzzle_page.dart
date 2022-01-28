@@ -171,7 +171,6 @@ class _PuzzleSections extends StatelessWidget {
     preferences.addRubies(reward);
     preferences.saveCurrentPuzzleState(PuzzleResult(level: levelId));
 
-    // TODO popup with reward and "next level"
     await Future.delayed(const Duration(milliseconds: 50));
     showDialog(
         context: context,
@@ -207,14 +206,13 @@ class _PuzzleSections extends StatelessWidget {
   }
 
   void nextLevel(BuildContext context, String levelId) {
-    Level? level = getNextUnsolvedLevel(levelId, levels, preferences.solvedLevels, preferences.unlockedLevels);
+    Level? level = getNextLevel(levelId, levels, preferences.unlockedLevels);
     if (level == null) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const LevelsPage()),
       );
       return;
     } else {
-      print('next level ' + level.id);
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
       );

@@ -39,93 +39,73 @@ class PuzzleTile extends StatelessWidget {
   }
 
   Widget ruby() {
+    Widget ruby = Image(
+        key: Key('ruby_'+tile.id.toString()),
+        image: const AssetImage('images/ruby.png')
+    );
     if (_isMoveable()) {
-      return draggableJewel();
+      return draggableJewel(ruby);
     } else {
-      return _child();
+      return ruby;
     }
   }
 
   Widget diamond() {
+    Widget diamond = FittedBox(
+      child: Image(
+          key: Key('diamond_'+tile.id.toString()),
+          image: const AssetImage('images/diamond1.png')
+      ),
+      fit: BoxFit.fill,
+    );
     if (_isMoveable()) {
-      return draggableJewel();
+      return draggableJewel(diamond);
     } else {
-      return _child();
+      return diamond;
     }
   }
 
-  Widget draggableJewel() {
+  Widget draggableJewel(Widget jewel) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints contraints) =>
           Draggable<Tile>(
             data: tile,
-            child: _child(),
-            feedback: _feedback(contraints),
-            childWhenDragging: _childWhenDragging(),
+            child: jewel,
+            feedback: _feedback(contraints, jewel),
+            childWhenDragging: _childWhenDragging(jewel),
             onDragStarted: () => print('drag queen'),
             maxSimultaneousDrags: 1,
       )
     );
   }
 
-  Widget _childWhenDragging() {
-    return DecoratedBox(
-      key: Key('tile_child_dragging_'+tile.id.toString()),
-      decoration: BoxDecoration(
-        color: _makeOpaque(_colorForType(tile.type)),
-        shape: BoxShape.rectangle,
-      )
+  Widget _childWhenDragging(Widget jewel) {
+    return Opacity(
+      opacity: 0.4,
+      child: jewel,
     );
   }
 
-  Widget _child() {
-    return DecoratedBox(
-      key: Key('tile_child_'+tile.id.toString()),
-      decoration: BoxDecoration(
-        color: _colorForType(tile.type),
-        shape: BoxShape.rectangle,
-      )
-    );
-  }
-
-  Widget _feedback(BoxConstraints constraints) {
+  Widget _feedback(BoxConstraints constraints, Widget jewel) {
     return SizedBox(
       width: constraints.maxWidth,
         height: constraints.maxHeight,
-        child: _child(),
+        child: jewel,
     );
-  }
-
-  Color _colorForType(TileType type) {
-    switch(type) {
-      case TileType.ruby: return Colors.red;
-      case TileType.pearl: return Colors.white;
-      case TileType.blocker: return Colors.black;
-      case TileType.diamond: return Colors.blue;
-    }
-  }
-
-  _makeOpaque(Color color) {
-    return color.withAlpha(100);
   }
 
   Widget pearl() {
     // TODO shake on tap
-    return DecoratedBox(
-        key: Key('pearl_'+tile.id.toString()),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-        )
+    return Image(
+      key: Key('pearl_'+tile.id.toString()),
+      image: const AssetImage('images/pearl.png')
     );
   }
 
   Widget blocker() {
-    return DecoratedBox(
+    return Image(
         key: Key('blocker_'+tile.id.toString()),
-        decoration: const BoxDecoration(
-          color: Colors.black,
-        )
+        image: const AssetImage('images/blocker.png')
     );
   }
 
@@ -177,17 +157,9 @@ class GoalTile extends StatelessWidget {
           List<dynamic> accepted,
           List<dynamic> rejected,
           ){
-        return SizedBox(
-          child: Container(
-            //margin: const EdgeInsets.all(15.0),
-            padding: const EdgeInsets.all(3.0),
-            decoration: BoxDecoration(
-              color: Colors.black45,
-              border: Border.all(
-                color: Colors.orangeAccent,
-              ),
-            ),
-          )
+        return const Image(
+            key: Key('goal_tile'),
+            image: AssetImage('images/goal.png')
         );
       },
       onAccept: (tile) {

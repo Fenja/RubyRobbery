@@ -11,7 +11,6 @@ class RubyDialogState extends State <RubyDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       elevation: 1,
-      backgroundColor: Colors.transparent,
       child: contentBox(context),
     );
   }
