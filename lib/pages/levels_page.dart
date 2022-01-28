@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_theft/pages/puzzle_page.dart';
 import 'package:ruby_theft/widgets/widgets.dart';
 
 class LevelsPage extends StatefulWidget {
@@ -39,13 +40,35 @@ class _LevelsPageState extends State<LevelsPage> {
         itemCount: levelList.length,
         itemBuilder: (BuildContext context, index) {
           Level level = levelList[index];
+          bool isUnlocked = level.unlocked || _isUnlocked(level.id);
           return LevelButton(
             level: level,
-            isUnlocked: level.unlocked || _isUnlocked(level.id),
-            isSolved: _isSolved(level.id)
+            isUnlocked: isUnlocked,
+            isSolved: _isSolved(level.id),
+            onPressed: () => isUnlocked ? _loadLevel(context, level) : _unlockLevel(context, level),
           );
         }
     );
+  }
+
+  void _loadLevel(context, Level level) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+    );
+  }
+
+  void _unlockLevel(context, Level level) {
+    setState(() {
+      bool unlocked = prefs.buyLevel(level);
+      if (unlocked) {
+        print('successfully unlocked');
+        // TODO snackbar success & setState
+      } else {
+        print('too expensive');
+        // TODO snackbar too expensive
+      }
+    });
+
   }
 
   bool _isUnlocked(String levelId) {

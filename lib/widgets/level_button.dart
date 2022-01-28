@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/helper/preferences.dart';
 import 'package:ruby_theft/models/level_model.dart';
-import 'package:ruby_theft/pages/puzzle_page.dart';
 import 'package:ruby_theft/widgets/ruby_button.dart';
 
 class LevelButton extends StatelessWidget {
@@ -9,7 +7,8 @@ class LevelButton extends StatelessWidget {
     Key? key,
     required this.level,
     required this.isUnlocked,
-    required this.isSolved
+    required this.isSolved,
+    required this.onPressed
   }) : super(key: key);
 
   /// the level of question
@@ -21,29 +20,25 @@ class LevelButton extends StatelessWidget {
   /// the user solved this level before
   final bool isSolved;
 
+  /// action to happen on level tap
+  final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
-      child: isUnlocked ?
+      child:
         RubyButton(
           key: Key('level_button'+level.id),
-          child: Column(
+          child: isUnlocked ? Column(
             children: [
               solved(),
               difficulty(),
               title()
-            ],
-          ),
-          onPressed: () => _loadLevel(context),
-        ) :
-        lock(),
-    );
-  }
-
-  void _loadLevel(context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+            ]) :
+          lock(),
+          onPressed: onPressed,
+        )
     );
   }
 
@@ -84,37 +79,17 @@ class LevelButton extends StatelessWidget {
   }
 
   Widget lock() {
-    return Container(
-        color: Colors.deepPurple,
-        child: Center(
-          child: Column(
-            children: [
-              IconButton(
-                  onPressed: () => unlockLevel(),
-                  icon: const Icon(Icons.lock)
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(level.rubyCost.toString()+' '),
-                  const Icon(Icons.circle, color: Colors.redAccent)
-                ],
-              )
-            ],
-          )
-        ),
-      );
-  }
-
-  void unlockLevel() {
-    Preferences preferences = Preferences();
-    // TODO does not work inside levelButton
-    // I need preferences and context!
-    bool unlocked = preferences.buyLevel(level);
-    if (unlocked) {
-      // TODO snackbar success & setState
-    } else {
-      // TODO snackbar too expensive
-    }
+    return Column(
+      children: [
+        const Icon(Icons.lock),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(level.rubyCost.toString()+' '),
+            const Icon(Icons.circle, color: Colors.redAccent)
+          ],
+        )
+      ],
+    );
   }
 }
