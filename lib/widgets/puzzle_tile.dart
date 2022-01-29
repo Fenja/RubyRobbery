@@ -54,7 +54,7 @@ class PuzzleTile extends StatelessWidget {
     Widget diamond = FittedBox(
       child: Image(
           key: Key('diamond_'+tile.id.toString()),
-          image: const AssetImage('images/diamond1.png')
+          image: _getImageForId(tile.id)
       ),
       fit: BoxFit.fill,
     );
@@ -63,6 +63,23 @@ class PuzzleTile extends StatelessWidget {
     } else {
       return diamond;
     }
+  }
+
+  AssetImage _getImageForId(String id) {
+    int nr = int.parse(id.replaceFirst('d', ''));
+    const int differentDiamonds = 6;
+    nr = nr % differentDiamonds;
+    String path = '';
+    switch(nr) {
+      case 1: path = 'images/diamond1.png'; break;
+      case 2: path = 'images/diamond2.png'; break;
+      case 3: path = 'images/diamond3.png'; break;
+      case 4: path = 'images/diamond4.png'; break;
+      case 5: path = 'images/diamond5.png'; break;
+      case 6: path = 'images/diamond6.png'; break;
+      default: path = 'images/diamond1.png';
+    }
+    return AssetImage(path);
   }
 
   Widget draggableJewel(Widget jewel) {
