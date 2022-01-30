@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.erdbeerbeet.rubytheft.ruby_theft">
+    package="com.erdbeerbeet.rubytheft">
    <application
-        android:label="ruby_theft"
+        android:label="Ruby Theft"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

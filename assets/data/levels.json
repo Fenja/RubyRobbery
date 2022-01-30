@@ -249,7 +249,488 @@
     "unlocked": false,
     "difficulty": 1,
     "ruby_reward": 5,
-    "ruby_repeat": 0,
+    "ruby_repeat": 1,
     "ruby_cost": 1
+  },
+  {
+    "id": "006",
+    "name_key": "Level 6",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 2
+        },
+          {
+            "x": 1,
+            "y": 2
+          }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 1
+        },
+          {
+            "x": 2,
+            "y": 2
+          }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 0
+        },
+          {
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d5",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 2
+        },
+          {
+            "x": 3,
+            "y": 3
+          }]
+      },
+      {
+        "id": "d6",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 3
+        },
+          {
+            "x": 2,
+            "y": 3
+          }]
+      },
+      {
+        "id": "b",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "007",
+    "name_key": "Level 7",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        },
+          {
+            "x": 1,
+            "y": 9
+          }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 2
+        },
+          {
+          "x": 1,
+          "y": 2
+        },
+          {
+          "x": 0,
+          "y": 3
+        },
+          {
+          "x": 1,
+          "y": 3
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 1
+        },
+          {
+          "x": 3,
+          "y": 1
+        },
+          {
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 3,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "008",
+    "name_key": "Level 8",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 2
+        },
+          {
+            "x": 1,
+            "y": 2
+          }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        },
+          {
+          "x": 2,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 3,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d5",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 3
+        },
+          {
+            "x": 2,
+            "y": 3
+          }]
+      },
+      {
+        "id": "b1",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "b2",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 3,
+          "y": 0
+        }]
+      },
+      {
+        "id": "b3",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 1
+  },
+  {
+    "id": "009",
+    "name_key": "Level 9",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        },
+          {
+            "x": 1,
+            "y": 0
+          }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        },
+          {
+            "x": 3,
+            "y": 0
+          }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d5",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 2
+        },
+          {
+            "x": 1,
+            "y": 2
+          }]
+      },
+      {
+        "id": "d6",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+            "x": 3,
+            "y": 2
+          }]
+      },
+      {
+        "id": "b1",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 1,
+          "y": 3
+        }]
+      },
+      {
+        "id": "b2",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 1
+  },
+  {
+    "id": "010",
+    "name_key": "Level 10",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 1,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+            "x": 0,
+            "y": 2
+          }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        },
+          {
+          "x": 2,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        },
+          {
+            "x": 1,
+            "y": 3
+          }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d5",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+            "x": 2,
+            "y": 3
+          }]
+      },
+      {
+        "id": "b",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        },
+          {
+          "x": 2,
+          "y": 0
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
   }
 ]

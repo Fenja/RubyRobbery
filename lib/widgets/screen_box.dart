@@ -20,7 +20,7 @@ class ScreenBox extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(
               repeat: ImageRepeat.repeat,
-              image: AssetImage('images/bg_pattern.png'),
+              image: AssetImage('assets/images/bg_pattern.png'),
               scale: 15.0,
               opacity: 0.2,
               // colorFilter: ColorFilter.mode(Colors.white, BlendMode.hue)

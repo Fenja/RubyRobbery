@@ -41,7 +41,7 @@ class PuzzleTile extends StatelessWidget {
   Widget ruby() {
     Widget ruby = Image(
         key: Key('ruby_'+tile.id.toString()),
-        image: const AssetImage('images/ruby.png')
+        image: const AssetImage('assets/images/ruby.png')
     );
     if (_isMoveable()) {
       return draggableJewel(ruby);
@@ -71,13 +71,13 @@ class PuzzleTile extends StatelessWidget {
     nr = nr % differentDiamonds;
     String path = '';
     switch(nr) {
-      case 1: path = 'images/diamond1.png'; break;
-      case 2: path = 'images/diamond2.png'; break;
-      case 3: path = 'images/diamond3.png'; break;
-      case 4: path = 'images/diamond4.png'; break;
-      case 5: path = 'images/diamond5.png'; break;
-      case 6: path = 'images/diamond6.png'; break;
-      default: path = 'images/diamond1.png';
+      case 1: path = 'assets/images/diamond1.png'; break;
+      case 2: path = 'assets/images/diamond2.png'; break;
+      case 3: path = 'assets/images/diamond3.png'; break;
+      case 4: path = 'assets/images/diamond4.png'; break;
+      case 5: path = 'assets/images/diamond5.png'; break;
+      case 6: path = 'assets/images/diamond6.png'; break;
+      default: path = 'assets/images/diamond1.png';
     }
     return AssetImage(path);
   }
@@ -115,14 +115,14 @@ class PuzzleTile extends StatelessWidget {
     // TODO shake on tap
     return Image(
       key: Key('pearl_'+tile.id.toString()),
-      image: const AssetImage('images/pearl.png')
+      image: const AssetImage('assets/images/pearl.png')
     );
   }
 
   Widget blocker() {
     return Image(
         key: Key('blocker_'+tile.id.toString()),
-        image: const AssetImage('images/blocker.png')
+        image: const AssetImage('assets/images/blocker.png')
     );
   }
 
@@ -176,7 +176,7 @@ class GoalTile extends StatelessWidget {
           ){
         return const Image(
             key: Key('goal_tile'),
-            image: AssetImage('images/goal.png')
+            image: AssetImage('assets/images/goal.png')
         );
       },
       onAccept: (tile) {
