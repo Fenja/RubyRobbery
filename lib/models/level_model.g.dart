@@ -16,6 +16,7 @@ Level _$LevelFromJson(Map<String, dynamic> json) {
       'goal',
       'tiles',
       'has_pearls',
+      'has_opals',
       'unlocked',
       'difficulty',
       'ruby_reward',
@@ -32,6 +33,7 @@ Level _$LevelFromJson(Map<String, dynamic> json) {
         .map((e) => Tile.fromJson(e as Map<String, dynamic>))
         .toList(),
     hasPearls: json['has_pearls'] as bool,
+    hasOpals: json['has_opals'] as bool,
     unlocked: json['unlocked'] as bool,
     difficulty: json['difficulty'] as int,
     rubyReward: json['ruby_reward'] as int,

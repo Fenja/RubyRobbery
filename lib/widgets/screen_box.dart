@@ -50,8 +50,12 @@ class ScreenBox extends StatelessWidget {
       child: RubyButton(
         child: Row(
           children: [
-          const Icon(Icons.star), // TODO ruby
-          Text(rubies.toString()),
+            const Image(
+                  width: 20,
+                  height: 20,
+                  image: AssetImage('assets/images/ruby.png'),
+            ),
+            Text(' '+rubies.toString()),
         ]),
         onPressed: () => {} // TODO shop link
       ),

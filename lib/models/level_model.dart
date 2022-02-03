@@ -18,6 +18,8 @@ class Level {
   final List<Tile> tiles;
   @JsonKey(required: true)
   final bool hasPearls;
+  @JsonKey(required: true)
+  final bool hasOpals;
 
   @JsonKey(required: true)
   final bool unlocked;
@@ -30,7 +32,7 @@ class Level {
   @JsonKey(required: true)
   final int rubyCost; // cost to unlock level
 
-  Level({required this.id, required this.nameKey, required this.dimension, required this.goal, required this.tiles, required this.hasPearls,
+  Level({required this.id, required this.nameKey, required this.dimension, required this.goal, required this.tiles, required this.hasPearls, required this.hasOpals,
     required this.unlocked, required this.difficulty, required this.rubyReward, required this.rubyRepeat, required this.rubyCost});
 
   factory Level.fromJson(Map<String,dynamic> json) => _$LevelFromJson(json);

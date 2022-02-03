@@ -30,13 +30,9 @@ class LevelButton extends StatelessWidget {
       child:
         RubyButton(
           key: Key('level_button'+level.id),
-          child: isUnlocked ? Column(
-            children: [
-              solved(),
-              difficulty(),
-              title()
-            ]) :
-          lock(),
+          child: isUnlocked ?
+              playable() :
+              lock(),
           onPressed: onPressed,
         )
     );
@@ -46,50 +42,72 @@ class LevelButton extends StatelessWidget {
     return Center(child: Text(level.nameKey) );
   }
 
-  Widget difficulty() {
-    // display three stars
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+  Widget playable() {
+    return Column(
       children: [
-        star(level.difficulty >= 1),
-        star(level.difficulty >= 2),
-        star(level.difficulty >= 3),
-      ],
-    );
-  }
-
-  Widget star(bool isFilled) {
-    return Expanded(
-      child: Icon(
-        Icons.star,
-        color: isFilled ? Colors.amber : Colors.black,
-      )
-    );
-  }
-
-  Widget solved() {
-    return Center(
-      child: Expanded(
-        child: Icon(
-          Icons.circle,
-          color: isSolved ? Colors.redAccent : Colors.black,
-        )
-      )
-    );
+        solved(),
+        difficulty(),
+        title()
+      ]);
   }
 
   Widget lock() {
     return Column(
       children: [
-        const Icon(Icons.lock),
+        const Expanded( child: Icon(Icons.lock) ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(level.rubyCost.toString()+' '),
-            const Icon(Icons.circle, color: Colors.redAccent)
+            const Expanded(
+                child: Image(
+                  width: 20,
+                  height: 20,
+                  image: AssetImage('assets/images/ruby.png'),
+              )
+            )
           ],
         )
       ],
     );
+  }
+
+  Widget difficulty() {
+    // display three stars
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(child: star(level.difficulty >= 1)),
+        Expanded(child: star(level.difficulty >= 2)),
+        Expanded(child: star(level.difficulty >= 3)),
+      ],
+    );
+  }
+
+  Widget star(bool isFilled) {
+    return Icon(
+      Icons.star,
+      color: isFilled ? Colors.amber : Colors.black,
+    );
+  }
+
+  Widget solved() {
+    final String imageName = level.hasPearls ? 'pearl' /*: level.hasOpals ? 'opal'*/ : 'diamond1';
+    if (isSolved) {
+      return Expanded(
+          child: Image(
+            width: 30,
+            height: 30,
+            image: AssetImage('assets/images/'+imageName+'.png'),
+          )
+      );
+    } else {
+      return Expanded(
+          child: ImageIcon(
+            AssetImage('assets/images/'+imageName+'.png'),
+            size: 30,
+          )
+      );
+    }
   }
 }
