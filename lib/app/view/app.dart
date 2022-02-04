@@ -12,7 +12,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ruby_theft/models/levels.dart';
 import 'package:ruby_theft/pages/home_page.dart';
-import 'package:ruby_theft/pages/puzzle_page.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -25,25 +24,6 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-
-    /*Future<void>.delayed(const Duration(milliseconds: 20), () {
-      precacheImage(
-        Image.asset('assets/images/shuffle_icon.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/simple_dash_large.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/simple_dash_medium.png').image,
-        context,
-      );
-      precacheImage(
-        Image.asset('assets/images/simple_dash_small.png').image,
-        context,
-      );
-    });*/
   }
 
   @override

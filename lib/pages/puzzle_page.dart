@@ -37,7 +37,14 @@ class PuzzlePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text(level.nameKey) ),
+      appBar: AppBar(
+          title: Text(level.nameKey),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }),
+      ),
       body: ScreenBox(
         child: BlocProvider(
           create: (context) => TimerBloc(
@@ -139,7 +146,7 @@ class _PuzzleSections extends StatelessWidget {
         padding: const EdgeInsets.only(left: 50, right: 32),
         child: child,
       ),
-      child: (_) => SimpleStartSection(state: state, levelId: levelId,),
+      child: (_) => StartSection(state: state, levelId: levelId,),
     );
   }
 

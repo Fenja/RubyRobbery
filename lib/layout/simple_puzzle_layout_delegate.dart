@@ -10,9 +10,9 @@ import 'package:ruby_theft/widgets/widgets.dart';
 /// Displays the start section of the puzzle based on [state].
 /// {@endtemplate}
 @visibleForTesting
-class SimpleStartSection extends StatelessWidget {
+class StartSection extends StatelessWidget {
   /// {@macro simple_start_section}
-  const SimpleStartSection({
+  const StartSection({
     Key? key,
     required this.state,
     required this.levelId,
@@ -35,18 +35,19 @@ class SimpleStartSection extends StatelessWidget {
           large: 151,
         ),
         const ResponsiveGap(large: 16),
-        SimplePuzzleTitle(
-          status: state.puzzleStatus,
-          level: levelId,
+        PuzzleTitle(
+          title: state.puzzleStatus == PuzzleStatus.complete
+              ? context.l10n.puzzleCompleted
+              : '',
         ),
         const ResponsiveGap(
           small: 12,
           medium: 16,
           large: 32,
         ),
-        NumberOfMoves(
+        /*NumberOfMoves(
           numberOfMoves: state.numberOfMoves,
-        ),
+        ),*/
         const ResponsiveGap(large: 32),
         ResponsiveLayoutBuilder(
           small: (_, __) => const SizedBox(),
@@ -54,37 +55,6 @@ class SimpleStartSection extends StatelessWidget {
           large: (_, __) => PuzzleResetButton(state: state),
         ),
       ],
-    );
-  }
-}
-
-/// {@template simple_puzzle_title}
-/// Displays the title of the puzzle based on [status].
-///
-/// Shows the success state when the puzzle is completed,
-/// otherwise defaults to the Puzzle Challenge title.
-/// {@endtemplate}
-@visibleForTesting
-class SimplePuzzleTitle extends StatelessWidget {
-  /// {@macro simple_puzzle_title}
-  const SimplePuzzleTitle({
-    Key? key,
-    required this.status,
-    required this.level,
-  }) : super(key: key);
-
-  /// The state of the puzzle.
-  final PuzzleStatus status;
-
-  /// currents puzzle level to display in header
-  final String level;
-
-  @override
-  Widget build(BuildContext context) {
-    return PuzzleTitle(
-      title: status == PuzzleStatus.complete
-          ? context.l10n.puzzleCompleted
-          : '',
     );
   }
 }

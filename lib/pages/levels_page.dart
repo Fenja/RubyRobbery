@@ -36,8 +36,8 @@ class _LevelsPageState extends State<LevelsPage> {
     List<Level> levelList = levels.getAllLevels();
     return GridView.builder(
         key: const Key('level_list'),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // todo dynamic according to display size
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: MediaQuery.of(context).size.width < 600 ? 3 : MediaQuery.of(context).size.width > 1000 ? 5 : 4,
         ),
         itemCount: levelList.length,
         itemBuilder: (BuildContext context, index) {
