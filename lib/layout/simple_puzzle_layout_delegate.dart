@@ -84,7 +84,7 @@ class SimplePuzzleTitle extends StatelessWidget {
     return PuzzleTitle(
       title: status == PuzzleStatus.complete
           ? context.l10n.puzzleCompleted
-          : 'Level ' + level.toString(),
+          : '',
     );
   }
 }

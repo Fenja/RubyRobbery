@@ -46,6 +46,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 0,
     "ruby_reward": 5,
@@ -99,6 +100,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -148,6 +150,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -246,6 +249,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": false,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -347,6 +351,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -424,6 +429,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -529,6 +535,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -634,6 +641,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
@@ -727,6 +735,7 @@
       }
     ],
     "has_pearls": false,
+    "has_opals": false,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,

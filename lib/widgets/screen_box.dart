@@ -35,7 +35,6 @@ class ScreenBox extends StatelessWidget {
           ),
         ),
         rubiesDisplay(),
-        Navigator.canPop(context) ? BackButton(color: Theme.of(context).colorScheme.primary) : const SizedBox(),
       ],
     );
   }

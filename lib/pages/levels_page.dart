@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ruby_theft/helper/preferences.dart';
+import 'package:ruby_theft/l10n/l10n.dart';
 import 'package:ruby_theft/models/models.dart';
 import 'package:ruby_theft/pages/puzzle_page.dart';
 import 'package:ruby_theft/widgets/widgets.dart';
@@ -24,6 +25,7 @@ class _LevelsPageState extends State<LevelsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(context.l10n.menuLevels) ),
       body: ScreenBox(
         child: levelList(),
       )

@@ -40,5 +40,21 @@
      "buttonBreak": "Take a break",
      "@buttonBreak": {
          "description": "button label for dialog after a puzzle is solved"
-     }
+     },
+    "version": "Version",
+    "@version": {
+        "description": "label to display the apps current version"
+    },
+     "lightMode": "Light Mode",
+     "@lightMode": {
+         "description": "switch for light mode"
+     },
+     "darkMode": "Dark Mode",
+     "@darkMode": {
+         "description": "switch for dark mode"
+     },
+      "privacyPolicy": "Privacy Policy",
+      "@privacyPolicy": {
+          "description": "link to open privacy policy"
+      }
 }

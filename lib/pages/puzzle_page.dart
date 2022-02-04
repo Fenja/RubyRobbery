@@ -37,6 +37,7 @@ class PuzzlePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(title: Text(level.nameKey) ),
       body: ScreenBox(
         child: BlocProvider(
           create: (context) => TimerBloc(

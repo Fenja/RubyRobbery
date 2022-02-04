@@ -40,6 +40,22 @@
     "buttonBreak": "Später weiter",
     "@buttonBreak": {
         "description": "button label for dialog after a puzzle is solved"
+    },
+    "version": "Version",
+    "@version": {
+        "description": "label to display the apps current version"
+    },
+    "lightMode": "Heller Modus",
+    "@lightMode": {
+        "description": "switch for light mode"
+    },
+    "darkMode": "Dunkler Modus",
+    "@darkMode": {
+        "description": "switch for dark mode"
+    },
+    "privacyPolicy": "Datenschutzerklärung & Impressum",
+    "@privacyPolicy": {
+        "description": "link to open privacy policy"
     }
 
 }
