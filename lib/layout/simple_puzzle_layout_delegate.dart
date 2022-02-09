@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:ruby_theft/l10n/l10n.dart';
-import 'package:ruby_theft/layout/layout.dart';
-import 'package:ruby_theft/models/models.dart';
-import 'package:ruby_theft/puzzle/puzzle.dart';
-import 'package:ruby_theft/widgets/widgets.dart';
+import 'package:ruby_robbery/l10n/l10n.dart';
+import 'package:ruby_robbery/layout/layout.dart';
+import 'package:ruby_robbery/models/models.dart';
+import 'package:ruby_robbery/puzzle/puzzle.dart';
+import 'package:ruby_robbery/widgets/widgets.dart';
 
 /// {@template simple_start_section}
 /// Displays the start section of the puzzle based on [state].
@@ -111,24 +111,16 @@ class SimplePuzzleBoard extends StatelessWidget {
   double _tileHeight(double tileSize, Tile tile) {
     if (tile.currentPositions.isEmpty) return tileSize;
     int y = tile.currentPositions[0].y;
-    int height = 1;
-    for (var position in tile.currentPositions) {
-      if (position.y != y) {
-        height ++;
-      }
-    }
+    int maxY = tile.currentPositions[tile.currentPositions.length-1].y;
+    int height = maxY - y + 1;
     return tileSize * height + (height -1) * spacing;
   }
 
   double _tileWidth(double tileSize, Tile tile) {
     if (tile.currentPositions.isEmpty) return tileSize;
     int x = tile.currentPositions[0].x;
-    int width = 1;
-    for (var position in tile.currentPositions) {
-      if (position.x != x) {
-        width ++;
-      }
-    }
+    int maxX = tile.currentPositions[tile.currentPositions.length-1].x;
+    int width = maxX - x + 1;
     return tileSize * width + (width -1) * spacing;
   }
 

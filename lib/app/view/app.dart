@@ -10,8 +10,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ruby_theft/models/levels.dart';
-import 'package:ruby_theft/pages/home_page.dart';
+import 'package:ruby_robbery/models/levels.dart';
+import 'package:ruby_robbery/pages/home_page.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

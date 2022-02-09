@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/helper/preferences.dart';
-import 'package:ruby_theft/l10n/l10n.dart';
-import 'package:ruby_theft/models/models.dart';
-import 'package:ruby_theft/pages/puzzle_page.dart';
-import 'package:ruby_theft/widgets/widgets.dart';
+import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/l10n/l10n.dart';
+import 'package:ruby_robbery/models/models.dart';
+import 'package:ruby_robbery/pages/puzzle_page.dart';
+import 'package:ruby_robbery/widgets/widgets.dart';
 
 class LevelsPage extends StatefulWidget {
   const LevelsPage({Key? key}) : super(key: key);

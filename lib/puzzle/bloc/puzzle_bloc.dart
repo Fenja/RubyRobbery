@@ -2,9 +2,9 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ruby_theft/helper/preferences.dart';
-import 'package:ruby_theft/models/direction.dart';
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/models/direction.dart';
+import 'package:ruby_robbery/models/models.dart';
 
 part 'puzzle_event.dart';
 part 'puzzle_state.dart';

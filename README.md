@@ -1,4 +1,4 @@
-# ruby_theft
+# ruby_robbery
 
 Steal the ruby. All the rubies.
 
@@ -57,7 +57,7 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 3. Use the new string
 
 ```dart
-import 'package:ruby_theft/l10n/l10n.dart';
+import 'package:ruby_robbery/l10n/l10n.dart';
 
 @override
 Widget build(BuildContext context) {

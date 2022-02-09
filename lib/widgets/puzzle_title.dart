@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/colors/colors.dart';
-import 'package:ruby_theft/layout/layout.dart';
-import 'package:ruby_theft/typography/typography.dart';
+import 'package:ruby_robbery/colors/colors.dart';
+import 'package:ruby_robbery/layout/layout.dart';
+import 'package:ruby_robbery/typography/typography.dart';
 
 /// {@template puzzle_title}
 /// Displays the title of the puzzle in the given color.

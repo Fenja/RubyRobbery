@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:ruby_theft/layout/layout.dart';
+import 'package:ruby_robbery/layout/layout.dart';
 
 /// {@template responsive_gap}
 /// A wrapper around [Gap] that renders a [small], [medium]

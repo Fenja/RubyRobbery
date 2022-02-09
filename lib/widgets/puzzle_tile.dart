@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
-import 'package:ruby_theft/helper/utils.dart';
-import 'package:ruby_theft/models/models.dart';
-import 'package:ruby_theft/puzzle/puzzle.dart';
+import 'package:ruby_robbery/helper/utils.dart';
+import 'package:ruby_robbery/models/models.dart';
+import 'package:ruby_robbery/puzzle/puzzle.dart';
 
 /// {@template simple_puzzle_tile}
 /// Displays the puzzle tile associated with [tile] and

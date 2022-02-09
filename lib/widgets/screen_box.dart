@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/helper/preferences.dart';
-import 'package:ruby_theft/widgets/ruby_button.dart';
+import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/widgets/ruby_button.dart';
 
 /// this file will collect styles for use across the app
 

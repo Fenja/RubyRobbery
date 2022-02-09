@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "169136273130",
+    "firebase_url": "https://ruby-theft-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ruby-theft",
+    "storage_bucket": "ruby-theft.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169136273130:android:241f043b5a99003e5b4993",
+        "android_client_info": {
+          "package_name": "com.erdbeerbeet.rubyrobbery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169136273130-99f92c5nmnqeoue149l4evhtqbuhq6sh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA70CNnAyMLsMoxo29KInHA-ILd4TJjWu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169136273130-99f92c5nmnqeoue149l4evhtqbuhq6sh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

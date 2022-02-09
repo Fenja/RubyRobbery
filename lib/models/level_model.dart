@@ -1,4 +1,4 @@
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'level_model.g.dart';

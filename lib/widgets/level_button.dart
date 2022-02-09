@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/models/level_model.dart';
-import 'package:ruby_theft/widgets/ruby_button.dart';
+import 'package:ruby_robbery/models/level_model.dart';
+import 'package:ruby_robbery/widgets/ruby_button.dart';
 
 class LevelButton extends StatelessWidget {
   const LevelButton({

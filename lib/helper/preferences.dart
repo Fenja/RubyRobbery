@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/models/level_model.dart';
-import 'package:ruby_theft/models/tile_model.dart';
+import 'package:ruby_robbery/models/level_model.dart';
+import 'package:ruby_robbery/models/tile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PuzzleResult {

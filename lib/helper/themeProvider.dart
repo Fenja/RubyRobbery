@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/helper/preferences.dart';
+import 'package:ruby_robbery/helper/preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
     Preferences prefs = Preferences();

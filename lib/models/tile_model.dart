@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:ruby_theft/models/position_model.dart';
+import 'package:ruby_robbery/models/position_model.dart';
 
 part 'tile_model.g.dart';
 

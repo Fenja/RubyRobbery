@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-import 'package:ruby_theft/helper/preferences.dart';
-import 'package:ruby_theft/helper/themeProvider.dart';
-import 'package:ruby_theft/helper/utils.dart';
-import 'package:ruby_theft/l10n/l10n.dart';
-import 'package:ruby_theft/models/level_model.dart';
-import 'package:ruby_theft/models/levels.dart';
-import 'package:ruby_theft/pages/puzzle_page.dart';
-import 'package:ruby_theft/widgets/widgets.dart';
+import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/helper/themeProvider.dart';
+import 'package:ruby_robbery/helper/utils.dart';
+import 'package:ruby_robbery/l10n/l10n.dart';
+import 'package:ruby_robbery/models/level_model.dart';
+import 'package:ruby_robbery/models/levels.dart';
+import 'package:ruby_robbery/pages/puzzle_page.dart';
+import 'package:ruby_robbery/widgets/widgets.dart';
 
 import 'levels_page.dart';
 import 'settings_page.dart';

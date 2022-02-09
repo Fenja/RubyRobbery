@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ruby_theft/colors/colors.dart';
-import 'package:ruby_theft/l10n/l10n.dart';
-import 'package:ruby_theft/layout/layout.dart';
-import 'package:ruby_theft/typography/typography.dart';
+import 'package:ruby_robbery/colors/colors.dart';
+import 'package:ruby_robbery/l10n/l10n.dart';
+import 'package:ruby_robbery/layout/layout.dart';
+import 'package:ruby_robbery/typography/typography.dart';
 
 /// {@template number_of_moves}
 /// Displays how many moves have been made on the current puzzle

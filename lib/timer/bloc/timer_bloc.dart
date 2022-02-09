@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/models/models.dart';
 
 part 'timer_event.dart';
 part 'timer_state.dart';

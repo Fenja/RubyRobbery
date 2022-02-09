@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:ruby_theft/helper/utils.dart';
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/helper/utils.dart';
+import 'package:ruby_robbery/models/models.dart';
 
 // A 3x3 puzzle board visualization:
 //

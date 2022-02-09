@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:ruby_theft/layout/layout.dart';
+import 'package:ruby_robbery/layout/layout.dart';
 
 /// Represents the layout size passed to [ResponsiveLayoutBuilder.child].
 enum ResponsiveLayoutSize {

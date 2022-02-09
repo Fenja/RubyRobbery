@@ -1,4 +1,4 @@
-name: ruby_theft
+name: ruby_robbery
 description: Steal the ruby. All the rubies.
 
 publish_to: 'none'
@@ -26,6 +26,8 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.12
   package_info_plus: ^1.3.0
+  firebase_core: ^1.12.0
+  firebase_database: ^9.0.6
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-import 'package:ruby_theft/models/models.dart';
+import 'package:ruby_robbery/models/models.dart';
 
 Position getDraggedPositionOfTile(Tile tile, Position newPosition) {
   // TODO get position of drag start. meanwhile get tile adjacent to newPosition

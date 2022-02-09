@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.erdbeerbeet.rubytheft">
+    package="com.erdbeerbeet.rubyrobbery">
    <application
         android:label="Ruby Theft"
         android:name="${applicationName}"

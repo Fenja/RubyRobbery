@@ -1,4 +1,4 @@
-package com.erdbeerbeet.rubytheft
+package com.erdbeerbeet.rubyrobbery
 
 import io.flutter.embedding.android.FlutterActivity
 
