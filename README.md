@@ -133,3 +133,10 @@ Adjust image path in flutter_launcher_icons.yaml.
 Classes marked with `JsonSerializable` will get a correspondig part created.
 
 `flutter pub run build_runner build`
+
+
+## Deploy to Firebase
+
+Run `flutter build web` to create the build/web folder.
+
+Then run `firebase deploy` to deploy to Firebase according to the specifications inside firebase.json.
