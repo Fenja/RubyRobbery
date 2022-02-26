@@ -215,15 +215,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   Widget muteButton(BuildContext context) {
-    checkBackgroundMusic();
     bool volumeOff = prefs.isMute();
     return Positioned(
       right: 30.0,
       bottom: 0,
       child: IconButton(
-        icon: volumeOff ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+        icon: volumeOff ? const Icon(Icons.volume_off) : const Icon(Icons.volume_up),
         color: PuzzleColors.primary0,
-        onPressed: () => prefs.setMute(volumeOff),
+        onPressed: () => {
+          setState(() {
+            volumeOff = !volumeOff;
+          }),
+          prefs.setMute(volumeOff),
+        },
       ),
     );
   }

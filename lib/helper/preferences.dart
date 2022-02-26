@@ -227,10 +227,6 @@ class Preferences {
     mute = value;
     sharedPreferences.setBool('mute', mute);
     SoundModule soundModule = SoundModule();
-    if (mute) {
-      soundModule.muteSound();
-    } else {
-      soundModule.updateBackgroundMusic();
-    }
+    soundModule.muteSound(mute);
   }
 }

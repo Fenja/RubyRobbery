@@ -51,8 +51,17 @@ class SoundModule {
     backgroundPlayer.setVolume(preferences.getBackgroundVolume());
   }
 
-  void muteSound() {
-    mute = true;
-    backgroundPlayer.setVolume(0.0);
+  void muteSound(bool value) {
+    mute = value;
+    try {
+      backgroundPlayer.mode;
+    } catch (err) {
+      startBackgroundMusic();
+    }
+    if (mute) {
+      backgroundPlayer.setVolume(0.0);
+    } else {
+      updateBackgroundMusic();
+    }
   }
 }
