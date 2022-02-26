@@ -7,9 +7,11 @@
 
 // ignore_for_file: public_member_api_docs
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ruby_robbery/colors/colors.dart';
 import 'package:ruby_robbery/helper/sound_module.dart';
 import 'package:ruby_robbery/models/levels.dart';
 import 'package:ruby_robbery/pages/home_page.dart';
@@ -25,8 +27,10 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    SoundModule soundModule = SoundModule();
-    soundModule.startBackgroundMusic();
+    if (!kIsWeb) {
+      SoundModule soundModule = SoundModule();
+      soundModule.startBackgroundMusic();
+    }
   }
 
   @override
@@ -36,12 +40,14 @@ class _AppState extends State<App> {
 
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: const Color(0x00d95348),
-        colorScheme: const ColorScheme.light(),
+        primaryColor: PuzzleColors.primary1,
+        colorScheme: const ColorScheme.light()
+        .copyWith(primary: PuzzleColors.primary1),
       ),
       darkTheme: ThemeData(
-        primaryColor: const Color(0x00613430),
-        colorScheme: const ColorScheme.dark(),
+        primaryColor: PuzzleColors.primary2,
+        colorScheme: const ColorScheme.dark()
+            .copyWith(primary: PuzzleColors.primary2),
       ),
       //themeMode: themeProvider.themeMode,
 

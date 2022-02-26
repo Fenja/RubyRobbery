@@ -25,7 +25,7 @@ class NumberOfMoves extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final textColor = color ?? PuzzleColors.primary5;
+    final textColor = color ?? PuzzleColors.primary0;
 
     return ResponsiveLayoutBuilder(
       small: (context, child) => Center(child: child),

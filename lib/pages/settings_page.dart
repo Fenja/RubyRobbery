@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/helper/sound_module.dart';
 import 'package:ruby_robbery/l10n/l10n.dart';
 import 'package:ruby_robbery/pages/privacy_policy_page.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
@@ -50,7 +51,43 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget audio() {
-    return const SizedBox();
+    double backgroundVolume = preferences.getBackgroundVolume()*10;
+    double effectVolume = preferences.getBackgroundVolume()*10;
+
+    return Column(
+      children: [
+        Text(context.l10n.volume),
+        Row(
+          children: [
+            Text(context.l10n.volumeEffect),
+            Slider(
+              max: 10.0,
+              divisions: 10,
+              value: effectVolume,
+              onChanged: (double value) => setState(() {
+                effectVolume = value;
+                preferences.setEffectVolume(value/10.0);
+                playEffectSound();
+              })
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Text(context.l10n.volumeBackground),
+            Slider(
+              max: 10.0,
+              divisions: 10,
+              value: backgroundVolume,
+              onChanged: (double value) => setState(() {
+                backgroundVolume = value;
+                preferences.setBackgroundVolume(value/10.0);
+              })
+            )
+          ],
+        )
+      ],
+    );
   }
 
   Widget credits() {
@@ -63,5 +100,10 @@ class _SettingsPageState extends State<SettingsPage> {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const PrivacyPolicyPage()),
     );
+  }
+
+  void playEffectSound() {
+    SoundModule soundModule = SoundModule();
+    soundModule.playSound(soundModule.TILE_MOVED_SOUND);
   }
 }

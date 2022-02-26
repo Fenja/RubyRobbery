@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ruby_robbery/helper/sound_module.dart';
 import 'package:ruby_robbery/models/level_model.dart';
 import 'package:ruby_robbery/models/tile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,6 +58,7 @@ class Preferences {
   // sound volume: 1.0 = max; 0.0 = mute
   double effectVolume = 0.8;
   double backgroundVolume = 0.7;
+  bool mute = false;
 
   PuzzleResult? currentPuzzleState;
 
@@ -184,6 +186,10 @@ class Preferences {
     isLightMode = sharedPreferences.getBool('is_lightmode') ?? (ThemeMode.system == ThemeMode.light);
     // language = getLanguageFromString(sharedPreferences.getString('language')) ?? Locale('de', 'DE'); // TODO default
     currentPuzzleState = PuzzleResult.fromString(sharedPreferences.getString('puzzle_result'));
+
+    effectVolume = sharedPreferences.getDouble('effect_volume') ?? 0.7;
+    backgroundVolume = sharedPreferences.getDouble('background_volume') ?? 0.7;
+    mute = sharedPreferences.getBool('mute') ?? false;
     return true;
   }
 
@@ -197,7 +203,34 @@ class Preferences {
     return effectVolume;
   }
 
+  void setEffectVolume(double volume) {
+    effectVolume = volume;
+    sharedPreferences.setDouble('effect_volume', effectVolume);
+  }
+
   double getBackgroundVolume() {
     return backgroundVolume;
+  }
+
+  void setBackgroundVolume(double volume) {
+    backgroundVolume = volume;
+    sharedPreferences.setDouble('background_volume', backgroundVolume);
+    SoundModule soundModule = SoundModule();
+    soundModule.updateBackgroundMusic();
+  }
+
+  bool isMute() {
+    return mute;
+  }
+
+  void setMute(bool value) {
+    mute = value;
+    sharedPreferences.setBool('mute', mute);
+    SoundModule soundModule = SoundModule();
+    if (mute) {
+      soundModule.muteSound();
+    } else {
+      soundModule.updateBackgroundMusic();
+    }
   }
 }

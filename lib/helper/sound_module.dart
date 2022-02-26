@@ -6,9 +6,11 @@ class SoundModule {
   static final SoundModule _soundModule = SoundModule._internal();
 
   Preferences preferences = Preferences();
+  bool mute = false;
 
-  late AudioCache audioPlayer;
-  late AudioCache backgroundPlayer;
+  late AudioCache effectCache;
+  late AudioCache backgroundCache;
+  late AudioPlayer backgroundPlayer;
 
   String LEVEL_UNLOCK_SOUND = "audio/mixkit-casino-bling-achievement-2067.wav";
   String LEVEL_COMPLETE_SOUND = "audio/mixkit-game-level-completed-2059.wav";
@@ -21,24 +23,36 @@ class SoundModule {
   }
 
   SoundModule._internal() {
-    audioPlayer = AudioCache();
-    backgroundPlayer = AudioCache();
+    effectCache = AudioCache();
+    backgroundCache = AudioCache();
+    mute = preferences.isMute();
   }
 
 
   void startBackgroundMusic() async {
-    await backgroundPlayer.loop(BACKGROUND_MUSIC, volume: preferences.getBackgroundVolume());
+    backgroundPlayer = await backgroundCache.loop(BACKGROUND_MUSIC, volume: preferences.getBackgroundVolume());
   }
 
-  void stopBackgroundMusic() async {
-    await backgroundPlayer.clearAll();
+  void muteBackground() async {
+    await backgroundPlayer.setVolume(0.0);
+    preferences.setBackgroundVolume(0.0);
   }
 
   void playSound(String sound) async {
+    if (mute) return;
     try {
-      await audioPlayer.play( sound, volume: preferences.getEffectVolume() );
+      await effectCache.play( sound, volume: preferences.getEffectVolume() );
     } catch (err) {
       print(err);
     }
+  }
+
+  void updateBackgroundMusic() async {
+    backgroundPlayer.setVolume(preferences.getBackgroundVolume());
+  }
+
+  void muteSound() {
+    mute = true;
+    backgroundPlayer.setVolume(0.0);
   }
 }

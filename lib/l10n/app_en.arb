@@ -58,5 +58,8 @@
       "privacyPolicy": "Privacy Policy",
       "@privacyPolicy": {
           "description": "link to open privacy policy"
-      }
+      },
+      "volume": "Volume",
+    "volumeEffect": "Effects",
+    "volumeBackground": "Music"
 }

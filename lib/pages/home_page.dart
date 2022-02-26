@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
+import 'package:ruby_robbery/colors/colors.dart';
 import 'package:ruby_robbery/helper/preferences.dart';
 import 'package:ruby_robbery/helper/themeProvider.dart';
 import 'package:ruby_robbery/helper/utils.dart';
@@ -11,6 +12,7 @@ import 'package:ruby_robbery/pages/puzzle_page.dart';
 import 'package:ruby_robbery/pages/shop_page.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 
+import '../helper/sound_module.dart';
 import 'levels_page.dart';
 import 'settings_page.dart';
 
@@ -27,6 +29,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late PackageInfo packageInfo;
   late Levels levels;
 
+  bool startedBackgroundMusic = false;
+
   @override
   void initState() {
     super.initState();
@@ -36,7 +40,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
     try {
       /*await*/ prefs.load();
-      Provider.of<ThemeProvider>(context, listen: false).initThemeProvider();
+      //Provider.of<ThemeProvider>(context, listen: false).initThemeProvider();
       initPlatformState();
       checkVersion();
       return;
@@ -79,7 +83,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.appTitle),),
       body: ScreenBox(
-        child: ListView(
+        child: Stack(
+          children: [
+            ListView(
           key: const Key('main_menu'),
           shrinkWrap: true,
           padding: const EdgeInsets.only(left: 32.0, right: 32.0, top: 50.0, bottom: 50.0),
@@ -142,11 +148,15 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             )
           ],
         ),
+            muteButton(context),
+          ],
+        )
       )
     );
   }
 
   void play() {
+    checkBackgroundMusic();
     PuzzleResult? result = prefs.getSavedPuzzleResult();
 
     if (result != null && result.numMoves != null) {
@@ -176,20 +186,45 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   }
 
   void levelPage() {
+    checkBackgroundMusic();
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const LevelsPage()),
     );
   }
 
   void settings() {
+    checkBackgroundMusic();
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SettingsPage()),
     );
   }
 
   void shop() {
+    checkBackgroundMusic();
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const ShopPage()),
+    );
+  }
+
+  void checkBackgroundMusic() {
+    if (!startedBackgroundMusic) {
+      startedBackgroundMusic = true;
+      SoundModule soundModule = SoundModule();
+      soundModule.startBackgroundMusic();
+    }
+  }
+
+  Widget muteButton(BuildContext context) {
+    checkBackgroundMusic();
+    bool volumeOff = prefs.isMute();
+    return Positioned(
+      right: 30.0,
+      bottom: 0,
+      child: IconButton(
+        icon: volumeOff ? const Icon(Icons.volume_up) : const Icon(Icons.volume_off),
+        color: PuzzleColors.primary0,
+        onPressed: () => prefs.setMute(volumeOff),
+      ),
     );
   }
 }
