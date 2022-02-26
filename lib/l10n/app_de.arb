@@ -61,6 +61,11 @@
     },
     "volume": "Lautstärke",
     "volumeEffect": "Effekte",
-    "volumeBackground": "Musik"
+    "volumeBackground": "Musik",
+    "credits": "Credits",
+    "creditsSounds": "Sounds von mixkit.co",
+    "creditsMusic": "Musik erstellt mit Sonic Pi",
+    "creditsHosting": "Gehostet von Firebase",
+    "creditsFramework": "Beitrag zum Flutter Puzzle Hack 2022"
 
 }

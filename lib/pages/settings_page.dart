@@ -91,7 +91,15 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget credits() {
-    return const SizedBox();
+    return ListTile(
+      title: Text(context.l10n.credits),
+      subtitle: Text(
+        context.l10n.creditsSounds + '\n' +
+        context.l10n.creditsMusic + '\n' +
+        context.l10n.creditsHosting + '\n' +
+        context.l10n.creditsFramework
+      ),
+    );
 
     // free sounds from mixkit.co https://mixkit.co/free-sound-effects/game
   }
