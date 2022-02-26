@@ -11,6 +11,7 @@ import 'package:ruby_robbery/puzzle/puzzle.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 import 'package:ruby_robbery/timer/timer.dart';
 
+import '../helper/sound_module.dart';
 import 'levels_page.dart';
 
 /// {@template puzzle_page}
@@ -180,6 +181,7 @@ class _PuzzleSections extends StatelessWidget {
     preferences.saveCurrentPuzzleState(PuzzleResult(level: levelId));
 
     await Future.delayed(const Duration(milliseconds: 50));
+    playSound();
     showDialog(
         context: context,
         builder: (context) {
@@ -211,6 +213,11 @@ class _PuzzleSections extends StatelessWidget {
           );
         }
     );
+  }
+
+  playSound() async {
+    SoundModule soundModule = SoundModule();
+    soundModule.playSound(soundModule.LEVEL_COMPLETE_SOUND);
   }
 
   void nextLevel(BuildContext context, String levelId) {

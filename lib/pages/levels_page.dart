@@ -6,6 +6,8 @@ import 'package:ruby_robbery/models/models.dart';
 import 'package:ruby_robbery/pages/puzzle_page.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 
+import '../helper/sound_module.dart';
+
 class LevelsPage extends StatefulWidget {
   const LevelsPage({Key? key}) : super(key: key);
 
@@ -63,6 +65,7 @@ class _LevelsPageState extends State<LevelsPage> {
     setState(() {
       bool unlocked = prefs.buyLevel(level);
       if (unlocked) {
+        playSound();
         print('successfully unlocked');
         // TODO snackbar success & setState
       } else {
@@ -71,6 +74,11 @@ class _LevelsPageState extends State<LevelsPage> {
       }
     });
 
+  }
+
+  playSound() async {
+    SoundModule soundModule = SoundModule();
+    soundModule.playSound(soundModule.LEVEL_UNLOCK_SOUND);
   }
 
   bool _isUnlocked(String levelId) {

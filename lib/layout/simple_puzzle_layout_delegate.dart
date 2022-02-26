@@ -158,13 +158,15 @@ class SimplePuzzleBoard extends StatelessWidget {
   }
 
   Widget backgroundGrid(BuildContext context, Position goal) {
+    //AudioPlayer audioPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY, isLocal: true);
+
     List<Widget> backgroundTiles = [];
     for (int i = 0; i < size * size; i++) {
       int x = i % size;
       int y = i ~/ size;
       if (goal.x == x && goal.y == y) {
         backgroundTiles.add(
-            GoalTile(position: goal,)
+            GoalTile(position: goal/*, audioPlayer: audioPlayer*/)
         );
       } else {
         backgroundTiles.add(
@@ -173,6 +175,7 @@ class SimplePuzzleBoard extends StatelessWidget {
                 x: x,
                 y: y,
               ),
+              //audioPlayer: audioPlayer,
             )
         );
       }

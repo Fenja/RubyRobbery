@@ -139,4 +139,6 @@ Classes marked with `JsonSerializable` will get a correspondig part created.
 
 Run `flutter build web` to create the build/web folder.
 
+Preferably use `flutter build web --web-renderer html` to use html renderer instead of the large canvaskit and improve page load time.
+
 Then run `firebase deploy` to deploy to Firebase according to the specifications inside firebase.json.

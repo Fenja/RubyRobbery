@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:ruby_robbery/helper/sound_module.dart';
 import 'package:ruby_robbery/helper/utils.dart';
 import 'package:ruby_robbery/models/models.dart';
 import 'package:ruby_robbery/puzzle/puzzle.dart';
@@ -90,7 +91,7 @@ class PuzzleTile extends StatelessWidget {
             child: jewel,
             feedback: _feedback(contraints, jewel),
             childWhenDragging: _childWhenDragging(jewel),
-            onDragStarted: () => print('drag queen'),
+            //onDragStarted: () => print('drag queen'),
             maxSimultaneousDrags: 1,
       )
     );
@@ -148,12 +149,18 @@ class EmptyTile extends StatelessWidget {
       },
       onAccept: (tile) {
         Position currentPosition = tile.currentPositions.length == 1 ? tile.currentPositions[0] : getDraggedPositionOfTile(tile, position);
+        playSound();
         context.read<PuzzleBloc>().add(TileDragged(tile, currentPosition, position));
       },
       /*onLeave: (tile) {
         print('dont go!');
       },*/
     );
+  }
+
+  playSound() {
+    SoundModule soundModule = SoundModule();
+    soundModule.playSound(soundModule.TILE_MOVED_SOUND);
   }
 }
 
@@ -183,9 +190,9 @@ class GoalTile extends StatelessWidget {
         Position currentPosition = tile.currentPositions.length == 1 ? tile.currentPositions[0] : getDraggedPositionOfTile(tile, position);
         context.read<PuzzleBloc>().add(TileDragged(tile, currentPosition, position));
       },
-      onLeave: (tile) {
+      /*onLeave: (tile) {
         print('dont go!');
-      },
+      },*/
     );
   }
 }

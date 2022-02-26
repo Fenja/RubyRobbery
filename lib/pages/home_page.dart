@@ -8,6 +8,7 @@ import 'package:ruby_robbery/l10n/l10n.dart';
 import 'package:ruby_robbery/models/level_model.dart';
 import 'package:ruby_robbery/models/levels.dart';
 import 'package:ruby_robbery/pages/puzzle_page.dart';
+import 'package:ruby_robbery/pages/shop_page.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 
 import 'levels_page.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       checkVersion();
       return;
     } on Exception catch (e) {
-      // TODO handle error
+      print(e);
     }
   }
 
@@ -124,6 +125,20 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   )
                 )
               ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10.0),
+              child: RubyButton(
+                key: const Key('shop_button'),
+                onPressed: () => shop(),
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    context.l10n.menuShop,
+                    textAlign: TextAlign.center,
+                  )
+                )
+              ),
             )
           ],
         ),
@@ -169,6 +184,12 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void settings() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const SettingsPage()),
+    );
+  }
+
+  void shop() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const ShopPage()),
     );
   }
 }

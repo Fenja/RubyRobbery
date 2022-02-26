@@ -12,6 +12,8 @@
     "@menuPlay": {},
     "menuLevels": "Level",
     "@menuLevels": {},
+    "menuShop": "Shop",
+    "@menuShop": {},
 
     "puzzleChallengeTitle": "Puzzle Challenge",
     "@puzzleChallengeTitle": {

@@ -18,11 +18,11 @@ class RubyButton extends StatelessWidget {
       key: key,
       onPressed: onPressed,
       child: child,
-      /*style: const ButtonStyle(
-        backgroundColor: MaterialStateColor.resolveWith((states) => Theme.of(context).primaryColor),,
-        textStyle: const TextStyle(
+      /*style: ButtonStyle(
+        backgroundColor: MaterialStateColor.resolveWith((states) => Theme.of(context).primaryColor),
+        /*textStyle: const TextStyle(
 
-        )
+        )*/
       ),*/
     );
   }

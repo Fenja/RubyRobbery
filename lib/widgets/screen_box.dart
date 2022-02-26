@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ruby_robbery/helper/preferences.dart';
+import 'package:ruby_robbery/pages/shop_page.dart';
 import 'package:ruby_robbery/widgets/ruby_button.dart';
 
 /// this file will collect styles for use across the app
@@ -34,12 +35,12 @@ class ScreenBox extends StatelessWidget {
               child: child
           ),
         ),
-        rubiesDisplay(),
+        rubiesDisplay(context),
       ],
     );
   }
 
-  rubiesDisplay() {
+  rubiesDisplay(BuildContext context) {
     Preferences preferences = Preferences();
     int rubies = preferences.getRubies();
 
@@ -56,8 +57,14 @@ class ScreenBox extends StatelessWidget {
             ),
             Text(' '+rubies.toString()),
         ]),
-        onPressed: () => {} // TODO shop link
+        onPressed: () => shop(context),
       ),
+    );
+  }
+
+  void shop(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const ShopPage()),
     );
   }
 }

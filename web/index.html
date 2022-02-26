@@ -18,7 +18,9 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Steal the ruby. All the rubies.">
+  <meta name="description" content="Steal the ruby. All the rubies. A Flutter powered slide puzzle that let's you free the ruby from a box of diamonds.">
+  <meta name="keywords" content="puzzle, slide puzzle, flutter, ruby, game, hackathon">
+  <meta property="og:image" content="assets/icon/RubyTheft_icon.png" />
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,7 +31,7 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Ruby Theft</title>
+  <title>Ruby Robbery</title>
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
@@ -40,6 +42,7 @@
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
+    import { getAnalytics } from "firebase/analytics";
 
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -51,11 +54,13 @@
       projectId: "ruby-theft",
       storageBucket: "ruby-theft.appspot.com",
       messagingSenderId: "169136273130",
-      appId: "1:169136273130:web:c86585e491173a375b4993"
+      appId: "1:169136273130:web:c86585e491173a375b4993",
+      measurementId: "G-6ED5QQH5XX"
     };
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
   </script>
 
   <!-- This script installs service_worker.js to provide PWA functionality to

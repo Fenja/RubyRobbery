@@ -54,6 +54,10 @@ class Preferences {
   //Locale language;
   String? version;
 
+  // sound volume: 1.0 = max; 0.0 = mute
+  double effectVolume = 0.8;
+  double backgroundVolume = 0.7;
+
   PuzzleResult? currentPuzzleState;
 
   factory Preferences() {
@@ -187,5 +191,13 @@ class Preferences {
     print('string: ' + string);
     List langStrings = string.split('-');
     return Locale(langStrings.first, langStrings.last);
+  }
+
+  double getEffectVolume() {
+    return effectVolume;
+  }
+
+  double getBackgroundVolume() {
+    return backgroundVolume;
   }
 }

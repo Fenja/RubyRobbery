@@ -5,8 +5,6 @@ import 'package:ruby_robbery/l10n/l10n.dart';
 import 'package:ruby_robbery/pages/privacy_policy_page.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 
-import 'package:firebase_database/firebase_database.dart';
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -17,7 +15,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   Preferences preferences = Preferences();
   //PackageInfo packageInfo = PackageInfo.fromPlatform() as PackageInfo; // naaah
-  FirebaseDatabase database = FirebaseDatabase.instance;
 
   @override
   void initState() {
@@ -35,53 +32,31 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   Widget _settings() {
-    return PageView(
-      scrollDirection: Axis.horizontal,
-      children: [
-        general(),
-        audio(),
-        credits(),
-        pp(),
-      ],
-    );
-  }
-
-  Widget general() {
-    //final themeProvider = Provider.of<ThemeProvider>(context);
-    //final appLanguage = Provider.of<AppLanguage>(context);
-
     return ListView(
       children: [
-        !kIsWeb ? ListTile(
-          title: Text(context.l10n.version + ': ' + (preferences.getVersion() ?? 'new') ),
-        ) : const SizedBox(),
-        /*SwitchListTile(
-          value: themeProvider.isLightMode,
-          onChanged: (value) => themeProvider.toggleTheme(value),
-          title: themeProvider.isLightMode ?
-          Text(context.l10n.lightMode) :
-          Text(context.l10n.darkMode),
-        ),*/
+        !kIsWeb
+          ? ListTile( title: Text(context.l10n.version + ': ' + (preferences.getVersion() ?? 'new') ))
+          : const SizedBox(),
+
+        audio(),
+        credits(),
+
+        ListTile(
+            title: Text(context.l10n.privacyPolicy),
+            onTap: () => _privacyPolicy()
+        )
       ],
-      // language
     );
   }
 
   Widget audio() {
-    return SizedBox();
+    return const SizedBox();
   }
 
   Widget credits() {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    print(ref.key);
-    return SizedBox();
-  }
+    return const SizedBox();
 
-  Widget pp() {
-    return ListTile(
-        title: Text(context.l10n.privacyPolicy),
-        onTap: () => _privacyPolicy()
-    );
+    // free sounds from mixkit.co https://mixkit.co/free-sound-effects/game
   }
 
   void _privacyPolicy() {
