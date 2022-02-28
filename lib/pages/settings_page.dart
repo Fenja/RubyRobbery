@@ -52,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   Widget audio() {
     double backgroundVolume = preferences.getBackgroundVolume()*10;
-    double effectVolume = preferences.getBackgroundVolume()*10;
+    double effectVolume = preferences.getEffectVolume()*10;
 
     return Column(
       children: [

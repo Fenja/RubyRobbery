@@ -40,14 +40,26 @@ class _AppState extends State<App> {
 
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: PuzzleColors.primary1,
-        colorScheme: const ColorScheme.light()
-        .copyWith(primary: PuzzleColors.primary1),
+        brightness: Brightness.light,
+        primaryColor: PuzzleColors.primary,
+        primaryColorLight: PuzzleColors.primaryLight,
+        primaryColorDark: PuzzleColors.primaryDark,
+        secondaryHeaderColor: PuzzleColors.accent,
+        buttonTheme: const ButtonThemeData(
+          buttonColor: PuzzleColors.primaryDark,
+          textTheme: ButtonTextTheme.primary,
+        )
       ),
       darkTheme: ThemeData(
-        primaryColor: PuzzleColors.primary2,
-        colorScheme: const ColorScheme.dark()
-            .copyWith(primary: PuzzleColors.primary2),
+        brightness: Brightness.dark,
+        primaryColor: PuzzleColors.primaryDark,
+        primaryColorLight: PuzzleColors.primary,
+        primaryColorDark: PuzzleColors.accent,
+        secondaryHeaderColor: PuzzleColors.accent,
+        buttonTheme: const ButtonThemeData(
+          buttonColor: PuzzleColors.primaryLight,
+          textTheme: ButtonTextTheme.primary,
+        )
       ),
       //themeMode: themeProvider.themeMode,
 

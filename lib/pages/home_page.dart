@@ -221,7 +221,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       bottom: 0,
       child: IconButton(
         icon: volumeOff ? const Icon(Icons.volume_off) : const Icon(Icons.volume_up),
-        color: PuzzleColors.primary0,
+        color: PuzzleColors.primary,
         onPressed: () => {
           setState(() {
             volumeOff = !volumeOff;

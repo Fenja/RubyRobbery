@@ -114,12 +114,12 @@ class PuzzleTextStyle {
 
   static const _baseTextStyle = TextStyle(
     fontFamily: 'GoogleSans',
-    color: PuzzleColors.black,
+    color: PuzzleColors.primaryText,
     fontWeight: PuzzleFontWeight.regular,
   );
 
   static final _bodyTextStyle = GoogleFonts.roboto(
-    color: PuzzleColors.black,
+    color: PuzzleColors.primaryText,
     fontWeight: PuzzleFontWeight.regular,
   );
 }

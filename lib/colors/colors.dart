@@ -1,34 +1,23 @@
 import 'package:flutter/widgets.dart';
 
+// https://www.materialpalette.com/red/deep-purple
+
 /// Defines the color palette for the puzzle UI.
 abstract class PuzzleColors {
-  /// Primary 1
-  static const Color primary1 = Color(0xFFD95348);
 
-  /// Primary 2
-  static const Color primary2 = Color(0xFF613430);
+  static const Color primary = Color(0xFFF44336);
 
-  /// Primary 0
-  static const Color primary0 = Color(0xFF5C0A04);
+  static const Color primaryLight = Color(0xFFFFCDD2);
 
-  /// Black
-  static const Color black = Color(0xFF000000);
+  static const Color primaryDark = Color(0xFFD32F2F);
 
-  /// Grey 1
-  static const Color grey1 = Color(0xFF4A4A4A);
+  static const Color accent = Color(0xFF7C4DFF);
 
-  /// Grey 2
-  static const Color grey2 = Color(0xFFA4A4A4);
+  static const Color primaryText = Color(0xFF212121);
 
-  /// Grey 3
-  static const Color grey3 = Color(0xFFE8EAED);
+  static const Color textIcons = Color(0xFFFFFFFF);
 
-  /// Grey 4
-  static const Color grey4 = Color(0xFFF1F3F4);
+  static const Color secondaryText = Color(0xFF757575);
 
-  /// Grey 5
-  static const Color grey5 = Color(0xFFF8F9FA);
-
-  /// White
-  static const Color white = Color(0xFFFFFFFF);
+  static const Color divider = Color(0xFFBDBDBD);
 }
