@@ -201,7 +201,6 @@ class _PuzzleSections extends StatelessWidget {
               },
               child: Text(context.l10n.buttonNextLevel),
             ),
-            const Spacer(),
             TextButton(
               onPressed: () => {
                 Navigator.pop(context),
@@ -221,16 +220,62 @@ class _PuzzleSections extends StatelessWidget {
   }
 
   void nextLevel(BuildContext context, String levelId) {
-    Level? level = getNextLevel(levelId, levels, preferences.unlockedLevels);
+    // get next level
+    // even if it is already solved
+    // when locked, show fitting dialog to unlock
+    Level? level = getNextLevel(levelId, levels);
     if (level == null) {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => const LevelsPage()),
       );
       return;
     } else {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
-      );
+      var unlocked = level.unlocked || preferences.unlockedLevels.contains(level.id);
+      if (unlocked) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+        );
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+          return RubyDialog(
+            title: context.l10n.lockedLevel,
+            content: Column(
+              children: [
+                Text(level.nameKey),
+                Text(context.l10n.lockedLevelText),
+                Row(
+                  children: [
+                    const Image(
+                      width: 20,
+                      height: 20,
+                      image: AssetImage('assets/images/ruby.png'),
+                    ),
+                    Text(' '+level.rubyCost.toString()),
+                  ],
+                )
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => {
+                  Navigator.pop(context),
+                  nextLevel(context, levelId),
+                },
+                child: Text(context.l10n.showLevels),
+              ),
+              TextButton(
+                onPressed: () => {
+                  Navigator.pop(context),
+                  nextLevel(context, levelId),
+                },
+                child: Text(context.l10n.unlockLevel),
+              ),
+            ],
+          );
+        });
+      }
     }
   }
 

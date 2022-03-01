@@ -34,14 +34,13 @@ Level? getNextUnsolvedLevel(String levelId, Levels levels, Set<String> solvedLev
   return nextLevel;
 }
 
-Level? getNextLevel(String levelId, Levels levels, Set<String> unlockedLevels) {
+Level? getNextLevel(String levelId, Levels levels,) {
   int startIndex = levels.getAllLevels().indexOf(levels.getLevelById(levelId));
   Level? nextLevel;
   while (nextLevel == null) {
     startIndex ++;
     if (startIndex >= levels.getAllLevels().length) return null;
-    Level level = levels.getByIndex(startIndex);
-    if (level.unlocked == true || unlockedLevels.contains(level.id)) nextLevel = level;
+    nextLevel = levels.getByIndex(startIndex);
   }
   return nextLevel;
 }

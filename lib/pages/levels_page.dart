@@ -4,6 +4,7 @@ import 'package:ruby_robbery/helper/preferences.dart';
 import 'package:ruby_robbery/l10n/l10n.dart';
 import 'package:ruby_robbery/models/models.dart';
 import 'package:ruby_robbery/pages/puzzle_page.dart';
+import 'package:ruby_robbery/pages/ruby_dialog.dart';
 import 'package:ruby_robbery/widgets/widgets.dart';
 
 import '../helper/sound_module.dart';
@@ -49,7 +50,7 @@ class _LevelsPageState extends State<LevelsPage> {
             level: level,
             isUnlocked: isUnlocked,
             isSolved: _isSolved(level.id),
-            onPressed: () => isUnlocked ? _loadLevel(context, level) : _unlockLevel(context, level),
+            onPressed: () => isUnlocked ? _loadLevel(context, level) : unlockLevel(context, level),
           );
         }
     );
@@ -58,6 +59,46 @@ class _LevelsPageState extends State<LevelsPage> {
   void _loadLevel(context, Level level) {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+    );
+  }
+
+  void unlockLevel(context, Level level) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return RubyDialog(
+              title: context.l10n.unlockLevel,
+              content: Column(
+                children: [
+                  Text(level.nameKey),
+                  Text(context.l10n.lockedLevelText),
+                  Row(
+                    children: [
+                      const Image(
+                        width: 20,
+                        height: 20,
+                        image: AssetImage('assets/images/ruby.png'),
+                      ),
+                      Text(' '+level.rubyCost.toString()),
+                    ],
+                  )
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(context.l10n.buttonCancel),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    Navigator.pop(context),
+                    _unlockLevel(context, level),
+                  },
+                  child: Text(context.l10n.buttonOk),
+                ),
+              ]
+          );
+        }
     );
   }
 

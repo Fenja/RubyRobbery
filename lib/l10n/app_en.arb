@@ -43,6 +43,8 @@
      "@buttonBreak": {
          "description": "button label for dialog after a puzzle is solved"
      },
+    "buttonCancel": "Cancel",
+    "buttonOk": "Ok",
     "version": "Version",
     "@version": {
         "description": "label to display the apps current version"
@@ -66,5 +68,10 @@
     "creditsSounds": "Sounds from mixkit.co",
     "creditsMusic": "Music created using Sonic Pi",
     "creditsHosting": "Hosted by Firebase",
-    "creditsFramework": "Entry for Flutter Puzzle Hack 2022"
+    "creditsFramework": "Entry for Flutter Puzzle Hack 2022",
+
+    "lockedLevel": "Level locked",
+    "lockedLevelText": "Unlock the next level to continue playing.",
+    "showLevels": "Levels page",
+    "unlockLevel": "Unlock level"
 }
