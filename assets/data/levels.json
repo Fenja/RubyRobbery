@@ -1131,10 +1131,536 @@
     ],
     "has_pearls": false,
     "has_opals": false,
+    "unlocked": false,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 5
+  },
+  {
+    "id": "100",
+    "name_key": "Tutorial 4",
+    "dimension": 3,
+    "goal": {
+      "x": 2,
+      "y": 2
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+          "x": 1,
+          "y": 0
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 2,
+    "ruby_repeat": 0,
+    "ruby_cost": 0
+  },
+  {
+    "id": "105",
+    "name_key": "Level 14",
+    "dimension": 3,
+    "goal": {
+      "x": 2,
+      "y": 2
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 1,
+          "y": 0
+        },
+          {
+          "x": 1,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
     "unlocked": true,
     "difficulty": 1,
     "ruby_reward": 5,
     "ruby_repeat": 1,
     "ruby_cost": 0
+  },
+  {
+    "id": "106",
+    "name_key": "Level 15",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+          "x": 1,
+          "y": 0
+        }]
+      },
+      {
+        "id": "o2",
+        "type": "opal",
+        "current_positions": [{
+          "x": 3,
+          "y": 2
+        },
+          {
+          "x": 2,
+          "y": 3
+        }]
+      },
+      {
+        "id": "b1",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 3,
+          "y": 0
+        }]
+      },
+      {
+        "id": "b2",
+        "type": "blocker",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "107",
+    "name_key": "Level 16",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 2,
+          "y": 3
+        },
+          {
+          "x": 3,
+          "y": 2
+        },
+          {
+          "x": 3,
+          "y": 3
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 1,
+          "y": 0
+        },
+          {
+          "x": 0,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "107",
+    "name_key": "Level 17",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 1
+        },
+          {
+          "x": 1,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 2,
+          "y": 3
+        },
+          {
+          "x": 3,
+          "y": 2
+        },
+          {
+          "x": 3,
+          "y": 3
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 1,
+          "y": 0
+        },
+          {
+          "x": 0,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "108",
+    "name_key": "Level 17",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 3,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 2
+        },
+          {
+          "x": 1,
+          "y": 3
+        },
+          {
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 2,
+          "y": 3
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        },
+          {
+          "x": 1,
+          "y": 1
+        },
+          {
+          "x": 0,
+          "y": 2
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": true,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 0
+  },
+  {
+    "id": "109",
+    "name_key": "Level 18",
+    "dimension": 4,
+    "goal": {
+      "x": 3,
+      "y": 3
+    },
+    "tiles": [
+      {
+        "id": "r",
+        "type": "ruby",
+        "current_positions": [{
+          "x": 0,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d1",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 0
+        }]
+      },
+      {
+        "id": "d2",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 1
+        },
+          {
+          "x": 3,
+          "y": 1
+        }]
+      },
+      {
+        "id": "d3",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 0,
+          "y": 2
+        },
+          {
+          "x": 1,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d4",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 2
+        },
+          {
+          "x": 2,
+          "y": 2
+        }]
+      },
+      {
+        "id": "d5",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 1,
+          "y": 3
+        }]
+      },
+      {
+        "id": "d6",
+        "type": "diamond",
+        "current_positions": [{
+          "x": 2,
+          "y": 3
+        }]
+      },
+      {
+        "id": "o1",
+        "type": "opal",
+        "current_positions": [{
+          "x": 0,
+          "y": 3
+        },
+          {
+          "x": 3,
+          "y": 3
+        }]
+      }
+    ],
+    "has_pearls": false,
+    "has_opals": true,
+    "unlocked": false,
+    "difficulty": 1,
+    "ruby_reward": 5,
+    "ruby_repeat": 1,
+    "ruby_cost": 6
   }
 ]

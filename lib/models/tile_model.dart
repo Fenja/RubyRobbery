@@ -49,6 +49,8 @@ enum TileType {
   blocker,
   @JsonValue('diamond')
   diamond,
-  @JsonValue('pearls')
+  @JsonValue('opal')
+  opal,
+  @JsonValue('pearl')
   pearl,
 }
