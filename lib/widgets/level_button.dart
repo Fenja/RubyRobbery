@@ -92,7 +92,7 @@ class LevelButton extends StatelessWidget {
   }
 
   Widget solved() {
-    final String imageName = level.hasPearls ? 'pearl' /*: level.hasOpals ? 'opal'*/ : 'diamond1';
+    final String imageName = level.hasPearls ? 'pearl' : level.hasOpals ? 'opal1' : 'diamond1';
     if (isSolved) {
       return Expanded(
           child: Image(

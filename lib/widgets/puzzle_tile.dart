@@ -31,6 +31,8 @@ class PuzzleTile extends StatelessWidget {
         return ruby();
       case (TileType.diamond):
         return diamond();
+      case (TileType.opal):
+        return opal();
       case (TileType.pearl):
         return pearl();
       case (TileType.blocker):
@@ -48,6 +50,20 @@ class PuzzleTile extends StatelessWidget {
       return draggableJewel(ruby);
     } else {
       return ruby;
+    }
+  }
+
+  Widget opal() {
+    Widget opal = Image(
+        key: Key('opal_'+tile.id.toString()),
+        image: tile.id.endsWith('1')
+            ? const AssetImage('assets/images/opal1.png')
+            : const AssetImage('assets/images/opal2.png')
+    );
+    if (_isMoveable()) {
+      return draggableJewel(opal);
+    } else {
+      return opal;
     }
   }
 

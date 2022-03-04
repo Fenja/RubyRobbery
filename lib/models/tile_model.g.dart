@@ -31,5 +31,6 @@ const _$TileTypeEnumMap = {
   TileType.ruby: 'ruby',
   TileType.blocker: 'blocker',
   TileType.diamond: 'diamond',
+  TileType.opal: 'opal',
   TileType.pearl: 'pearl',
 };

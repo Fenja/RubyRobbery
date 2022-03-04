@@ -128,21 +128,39 @@ class SimplePuzzleBoard extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         double tileSize = (constraints.maxWidth - ((size-1)*spacing)) / size;
-        double y = _tileAbsolutePosition(tile.currentPositions[0].y, tileSize);
-        double x = _tileAbsolutePosition(tile.currentPositions[0].x, tileSize);
-        double height = _tileHeight(tileSize, tile);
-        double width = _tileWidth(tileSize, tile);
-        return Stack(
-          children: [
-            Positioned(
-                top: y,
-                left: x,
-                height: height,
-                width: width,
+
+        if (tile.type == TileType.opal) {
+          List<Widget> positions = [];
+          for (int i = 0; i < tile.currentPositions.length; i++) {
+            positions.add(Positioned(
+                top: _tileAbsolutePosition(tile.currentPositions[i].y, tileSize),
+                left: _tileAbsolutePosition(tile.currentPositions[i].x, tileSize),
+                height: tileSize,
+                width: tileSize,
                 child: PuzzleTile(tile: tile, puzzle: puzzle)
-            ),
-          ],
-        );
+            ));
+          }
+          return Stack(
+            children: positions,
+          );
+
+        } else {
+          double y = _tileAbsolutePosition(tile.currentPositions[0].y, tileSize);
+          double x = _tileAbsolutePosition(tile.currentPositions[0].x, tileSize);
+          double height = _tileHeight(tileSize, tile);
+          double width = _tileWidth(tileSize, tile);
+          return Stack(
+            children: [
+              Positioned(
+                  top: y,
+                  left: x,
+                  height: height,
+                  width: width,
+                  child: PuzzleTile(tile: tile, puzzle: puzzle)
+              ),
+            ],
+          );
+        }
       }
     );
   }

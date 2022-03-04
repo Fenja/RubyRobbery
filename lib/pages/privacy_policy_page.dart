@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ruby_robbery/l10n/l10n.dart';
 import 'package:ruby_robbery/widgets/screen_box.dart';
@@ -60,13 +61,24 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                       'Solche gesetzlichen Aufbewahrungspflichten können sich insbesondere aus handels- oder steuerrechtlichen Vorschriften ergeben.'
               ),
             ),
-            ListTile(
+            kIsWeb ? ListTile(
               title: Text('Verarbeitung von Server-Log-Files'),
               subtitle: Text(
                   'Beim Spielen von Rubin Raub über den Browser werden zunächst automatisiert (also nicht über eine Registrierung) allgemeine Informationen gespeichert, die der Browser an den Server übermittelt. Hierzu zählen standardmäßig: Browsertyp/ -version, ' +
                       'verwendetes Betriebssystem, die aufgerufene Seite, die zuvor besuchte Seite (Referrer URL), IP-Adresse, Datum und Uhrzeit der Serveranfrage und http-Statuscode. Die Verarbeitung erfolgt zur Wahrung meiner berechtigten Interessen und beruht auf der ' +
                       'Rechtsgrundlage des Art. 6 Abs. 1 Buchst. f) DSGVO. Diese Verarbeitung dient der technischen Verwaltung und der Sicherheit der Webseite. Die gespeicherten Daten werden gelöscht, wenn nicht aufgrund konreter Anhaltspunkte ein berechtigter Verdacht ' +
                       'auf eine rechtswidrige Nutzung besteht und eine weitere Prüfung und Verarbeitung der Informationen aus diesem Grund erforderlich ist.'
+              ),
+            ) : ListTile(
+              title: Text('Analyse-Tools (Google Analytics for Firebase (Google Inc.)'),
+              subtitle: Text(
+                'Ruby Robbery nutzt Google Analytics for Firebase (Google Inc.) als Tracking-Maßnahme auf Grundlage des Art. 6 Abs. 1 S. 1 lit. f DSGVO. Mit den Tracking-Maßnahmen wird eine bedarfsgerechte Gestaltung und fortlaufende Optimierung der App sicherrgestellt. '+
+                  'Weiterhin wirrd durch die Tracking Maßnahmen die Nutzung der App statistisch erfasst und zum Zweck der Optimierung des Angebotes ausgewertet. Diese Interessen sind als berechtigt im Sinne der vorgenannten Vorschrift anzusehen.\n\n'
+                    'Google Analytics für Firebase oder Firebase Analytics ist ein Analyse-Dienst von Google Inc. Weitere Informationen zur Verwendung von Daten bei Google sind in der Partner-Richtlinie von Google einsehbar. Firebase Analytics kann Daten mit anderen '+
+                    'von Firebase bereitgestellten Tools wie Crash Reporting, Authentication, Remote Config oder Notifications gemeinsam nutzen. Der Nutzer kann diese Datenschutzerklärung überprüfen, um eine ausführliche Erläuterung zu den anderen vom Eigentümer verwendeten Tools zu finden.\n'+
+                    'Diese Anwendung verwendet Identifikatoren für mobile Geräte (einschließlich Android Advertising ID bzw. Advertising Identifier für iOS) und Cookie-ähnliche Technologien für die Ausführung des Google Analytics for Firebase-Dienstes.\n'+
+                    'Nutzer können sich über die entsprechenden Geräteeinstellungen mobiler Geräte von bestimmten Firebase-Funktionen abmelden, wie etwa über die Werbeeinstellungen für mobile Geräte, oder indem sie gegebenenfalls den Anweisungen anderer Abschnitte dieser Datenschutzrichtlinie bezüglich Firebase folgen.\n'+
+                    'Erhobene personenbezogene Daten: Cookie, Eindeutige Gerätekennzeichnung für Werbung (Google-Werbe-ID oder IDFA, beispielsweise) und Nutzungsdaten. Verarbeitungsort: Vereinigte Staaten – Datenschutzerklärung. Privacy Shield-Mitglied.'
               ),
             ),
             ListTile(
@@ -110,7 +122,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
             ListTile(
               title: Text('Privacy Policy'),
               subtitle: Text(
-                  'eThe game Ruby Robbery can be used does not raise any data about it’s players. In-app purchases are processed by established plugins as detailed below.\n' +
+                  'The game Ruby Robbery can be used does not raise any data about it’s players. In-app purchases are processed by established plugins as detailed below.\n' +
                       'I will give an overview on the form and scope which is used by processing, as well as direct to the rights given by the european General Data Protection Regulation (GDPR, german DSGVO) and the german Federal Data Protection Act (BDSG).\n' +
                       'In case of questions or suggestions regarding this information or there is need for a contact to make use of the rights given, please contact the developer:\n' +
 
@@ -125,13 +137,24 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
                   'If not specified in more detail, data is stored as long as it is needed to reach their purpose of treatment or the purpose to fulfill my contract or legal duties. Legal duties of storage may grow from instructions of law of trade or taxation.'
               ),
             ),
-            ListTile(
+            kIsWeb ? ListTile(
               title: Text('Processing server log files'),
               subtitle: Text(
                   'When playing Ruby Robbery, the browser automatically transfers general information to the server (that is without any registration). This includes by default: browser type and version, ' +
                       'operating system, the page requested, the page visited before (referer URL), IP address, date and time of the server request, as well as the http response code. The procession is justified through my ' +
                       'legal interests and based on the legal law of Art. 6 Abs. 1 Buchst. f) DSGVO. This procession is needed for technical administration and the web applications security. Saved data will be deleted, ' +
                       'when there is no actual reason to suspect an illegal performance that would require additional examination an procression of the informations for this very reason.'
+              ),
+            ) : ListTile(
+              title: Text('Analysis Tools (Google Analytics for Firebase (Google Inc.)'),
+              subtitle: Text(
+                  'Ruby Robbery uses Google Analytics for Firebase (Google Inc.) for tracking, based on Art. 6 Abs. 1 S. 1 lit. f DSGVO. Mit den Tracking-Maßnahmen wird eine bedarfsgerechte Gestaltung und fortlaufende Optimierung der App sicherrgestellt. '+
+                      'Weiterhin wirrd durch die Tracking Maßnahmen die Nutzung der App statistisch erfasst und zum Zweck der Optimierung des Angebotes ausgewertet. Diese Interessen sind als berechtigt im Sinne der vorgenannten Vorschrift anzusehen.\n\n'
+                          'Google Analytics für Firebase oder Firebase Analytics ist ein Analyse-Dienst von Google Inc. Weitere Informationen zur Verwendung von Daten bei Google sind in der Partner-Richtlinie von Google einsehbar. Firebase Analytics kann Daten mit anderen '+
+                      'von Firebase bereitgestellten Tools wie Crash Reporting, Authentication, Remote Config oder Notifications gemeinsam nutzen. Der Nutzer kann diese Datenschutzerklärung überprüfen, um eine ausführliche Erläuterung zu den anderen vom Eigentümer verwendeten Tools zu finden.\n'+
+                      'Diese Anwendung verwendet Identifikatoren für mobile Geräte (einschließlich Android Advertising ID bzw. Advertising Identifier für iOS) und Cookie-ähnliche Technologien für die Ausführung des Google Analytics for Firebase-Dienstes.\n'+
+                      'Nutzer können sich über die entsprechenden Geräteeinstellungen mobiler Geräte von bestimmten Firebase-Funktionen abmelden, wie etwa über die Werbeeinstellungen für mobile Geräte, oder indem sie gegebenenfalls den Anweisungen anderer Abschnitte dieser Datenschutzrichtlinie bezüglich Firebase folgen.\n'+
+                      'Erhobene personenbezogene Daten: Cookie, Eindeutige Gerätekennzeichnung für Werbung (Google-Werbe-ID oder IDFA, beispielsweise) und Nutzungsdaten. Verarbeitungsort: Vereinigte Staaten – Datenschutzerklärung. Privacy Shield-Mitglied.'
               ),
             ),
             ListTile(
