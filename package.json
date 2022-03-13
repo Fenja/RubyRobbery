@@ -1,6 +1,6 @@
 {
   "name": "ruby_theft",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "firebase": "^9.6.7"
   }
