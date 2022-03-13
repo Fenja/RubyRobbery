@@ -72,8 +72,11 @@ class _LevelsPageState extends State<LevelsPage> {
                 children: [
                   Text(level.nameKey),
                   Text(context.l10n.lockedLevelText),
+                  const Text(' '),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const Text('- '),
                       const Image(
                         width: 20,
                         height: 20,

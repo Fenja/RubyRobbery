@@ -56,8 +56,8 @@ class Preferences {
   String? version;
 
   // sound volume: 1.0 = max; 0.0 = mute
-  double effectVolume = 0.8;
-  double backgroundVolume = 0.7;
+  double effectVolume = 0.5;
+  double backgroundVolume = 0.4;
   bool mute = false;
 
   PuzzleResult? currentPuzzleState;
@@ -83,7 +83,7 @@ class Preferences {
     sharedPreferences.setInt('rubies', this.rubies);
   }
 
-  getRubies() {
+  int getRubies() {
     return rubies;
   }
 

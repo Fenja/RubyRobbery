@@ -189,11 +189,22 @@ class _PuzzleSections extends StatelessWidget {
             title: context.l10n.dialogSolvedPuzzleTitle,
             content: Column(
               children: [
-                Text(
-                    reward.toString()
-                ),
-              ],
-            ), actions: [
+                Text(level.nameKey),
+                Text(context.l10n.solvedLevelText),
+                const Text(' '),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Image(
+                      width: 20,
+                      height: 20,
+                      image: AssetImage('assets/images/ruby.png'),
+                    ),
+                    Text(' '+reward.toString()),
+                ],
+              ),
+            ],
+          ), actions: [
             TextButton(
               onPressed: () => {
                 Navigator.pop(context),
@@ -246,6 +257,7 @@ class _PuzzleSections extends StatelessWidget {
                 Text(level.nameKey),
                 Text(context.l10n.lockedLevelText),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Image(
                       width: 20,
@@ -261,14 +273,14 @@ class _PuzzleSections extends StatelessWidget {
               TextButton(
                 onPressed: () => {
                   Navigator.pop(context),
-                  nextLevel(context, levelId),
+                  toLevelsPage(context),
                 },
                 child: Text(context.l10n.showLevels),
               ),
               TextButton(
                 onPressed: () => {
                   Navigator.pop(context),
-                  nextLevel(context, levelId),
+                  unlockLevel(context, level),
                 },
                 child: Text(context.l10n.unlockLevel),
               ),
@@ -276,6 +288,66 @@ class _PuzzleSections extends StatelessWidget {
           );
         });
       }
+    }
+  }
+
+  toLevelsPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const LevelsPage()),
+    );
+  }
+
+  unlockLevel(BuildContext context, Level level) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return RubyDialog(
+              title: context.l10n.unlockLevel,
+              content: Column(
+                children: [
+                  Text(level.nameKey),
+                  Text(context.l10n.lockedLevelText),
+                  const Text(' '),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('- '),
+                      const Image(
+                        width: 20,
+                        height: 20,
+                        image: AssetImage('assets/images/ruby.png'),
+                      ),
+                      Text(' '+level.rubyCost.toString()),
+                    ],
+                  )
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(context.l10n.buttonCancel),
+                ),
+                TextButton(
+                  onPressed: () => {
+                    Navigator.pop(context),
+                    _unlockLevel(context, level),
+                  },
+                  child: Text(context.l10n.buttonOk),
+                ),
+              ]
+          );
+        }
+    );
+  }
+
+  void _unlockLevel(context, Level level) {
+    bool unlocked = preferences.buyLevel(level);
+    if (unlocked) {
+      playSound();
+
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PuzzlePage(level: level)),
+      );
     }
   }
 

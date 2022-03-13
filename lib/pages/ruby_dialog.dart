@@ -28,7 +28,9 @@ class RubyDialogState extends State <RubyDialog> {
             Text(
               title,
               textAlign: TextAlign.center,
+              textScaleFactor: 1.3,
             ),
+            const Text(' '),
             content,
             (actions != null) ?
               Padding(

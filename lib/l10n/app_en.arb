@@ -35,6 +35,7 @@
     "@dialogSolvedPuzzleTitle": {
         "description": "dialog title after solving a level"
     },
+    "solvedLevelText": "You are rewarded in rubies:",
      "buttonNextLevel": "Next puzzle",
      "@buttonNextLevel": {
          "description": "button label for dialog after a puzzle is solved"
@@ -66,12 +67,19 @@
     "volumeBackground": "Music",
     "credits": "Credits",
     "creditsSounds": "Sounds from mixkit.co",
-    "creditsMusic": "Music created using Sonic Pi",
+    "creditsMusic": "Music created with Sonic Pi",
     "creditsHosting": "Hosted by Firebase",
     "creditsFramework": "Entry for Flutter Puzzle Hack 2022",
 
     "lockedLevel": "Level locked",
-    "lockedLevelText": "Unlock the next level to continue playing.",
+    "lockedLevelText": "Unlock the next level to continue playing. Pay rubies to unlock.",
     "showLevels": "Levels page",
-    "unlockLevel": "Unlock level"
+    "unlockLevel": "Unlock level",
+    "rubyPurse": "Your ruby loot so far:",
+
+    "tutorial1": "Move the ruby to the jewel box golden exit.\nGray blocks block fields and can't be moved.",
+    "tutorial2": "Diamonds are moveable too. Drag them out of your way.",
+    "tutorial3": "Larger diamonds take several fields, but are moveable nonetheless.",
+    "tutorial4": "Opals have at least one counterpart that moves alongside with them in the same direction.",
+    "tutorial5": "Pearls can't be moved by hand.\nTilt your device or use the buttons to let them roll to one side."
 }

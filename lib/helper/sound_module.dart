@@ -16,7 +16,7 @@ class SoundModule {
   String LEVEL_COMPLETE_SOUND = "audio/mixkit-game-level-completed-2059.wav";
   String TILE_MOVED_SOUND = "audio/mixkit-bonus-earned-in-video-game-2058.wav";
 
-  String BACKGROUND_MUSIC = "audio/FenjaMusikSlide.wav";
+  String BACKGROUND_MUSIC = "audio/background_music_loop.mp3";
 
   factory SoundModule() {
     return _soundModule;
@@ -35,7 +35,7 @@ class SoundModule {
     } catch (e) {}
     backgroundPlayer = await backgroundCache.loop(
         BACKGROUND_MUSIC,
-        volume: mute ? 0.0 : preferences.getBackgroundVolume()
+        volume: mute ? 0.0 : preferences.getBackgroundVolume()/3
     );
   }
 
@@ -47,14 +47,14 @@ class SoundModule {
   void playSound(String sound) async {
     if (mute) return;
     try {
-      await effectCache.play( sound, volume: preferences.getEffectVolume() );
+      await effectCache.play( sound, volume: preferences.getEffectVolume()/3 );
     } catch (err) {
       print(err);
     }
   }
 
   void updateBackgroundMusic() async {
-    backgroundPlayer.setVolume(preferences.getBackgroundVolume());
+    backgroundPlayer.setVolume(preferences.getBackgroundVolume()/3);
   }
 
   void muteSound(bool value) {

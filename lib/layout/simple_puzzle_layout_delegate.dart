@@ -45,6 +45,7 @@ class StartSection extends StatelessWidget {
           medium: 16,
           large: 32,
         ),
+        HelpText(levelId),
         /*NumberOfMoves(
           numberOfMoves: state.numberOfMoves,
         ),*/
@@ -56,6 +57,37 @@ class StartSection extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class HelpText extends StatelessWidget {
+  HelpText(
+    this.levelId
+  ) : super(key: const Key('level_help_text')) {}
+
+  final String levelId;
+
+  @override
+  Widget build(BuildContext context) {
+    dynamic textKey;
+    switch (levelId) {
+      case "000": textKey = context.l10n.tutorial1; break;
+      case "001": textKey = context.l10n.tutorial2; break;
+      case "002": textKey = context.l10n.tutorial3; break;
+      case "100": textKey = context.l10n.tutorial4; break; //opals
+      case "200": textKey = context.l10n.tutorial5; break; //pearls
+    }
+
+    if (textKey == null) {
+      return const SizedBox();
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(textKey)
+        ],
+      );
+    }
   }
 }
 

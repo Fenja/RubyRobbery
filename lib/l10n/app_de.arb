@@ -35,6 +35,7 @@
     "@dialogSolvedPuzzleTitle": {
         "description": "dialog title after solving a level"
     },
+    "solvedLevelText": "Zur Belohnung erhältst du Rubine:",
     "buttonNextLevel": "Nächstes Rätsel",
     "@buttonNextLevel": {
         "description": "button label for dialog after a puzzle is solved"
@@ -71,8 +72,14 @@
     "creditsFramework": "Beitrag zum Flutter Puzzle Hack 2022",
 
     "lockedLevel": "Level verschlossen",
-    "lockedLevelText": "Das nächste Level muss erst freigeschaltet werden.",
+    "lockedLevelText": "Das nächste Level ist verschlossen.\nMöchtest du Rubine ausgeben, um es freizuschalten?",
     "showLevels": "Level-Übersicht",
-    "unlockLevel": "Level aufschließen"
+    "unlockLevel": "Level aufschließen",
+    "rubyPurse": "Bisher eingesackte Rubine:",
 
+    "tutorial1": "Bewege den Rubin auf das goldene Ausgangs-Feld.\nGraue Blöcke blockieren ein Feld un können nicht verschoben werden.",
+    "tutorial2": "Diamanten können ebenfalls verschoben werden, um den Weg zum Ausgang frei zu machen.",
+    "tutorial3": "Große Diamanten nehmen mehrere Felder ein, können aber genauso verschoben werden",
+    "tutorial4": "Opale haben mindestens ein Gegenstück, dass sich mit ihnen in die gleiche Richtung bewegt.",
+    "tutorial5": "Perlen können nicht direkt verschoben werden.\nKippe dein Gerät (oder nutze die Steuerelemente), um Perlen zur Seite rollen zu lassen."
 }

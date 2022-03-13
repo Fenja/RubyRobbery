@@ -28,7 +28,24 @@ class _ShopPageState extends State<ShopPage> {
     return PageView(
       scrollDirection: Axis.horizontal,
       children: [
-        Text('here will be content')
+        Column(
+          children: [
+            Text(context.l10n.rubyPurse),
+            const Text(' '),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(preferences.getRubies().toString()+' '),
+                const Image(
+                  width: 20,
+                  height: 20,
+                  image: AssetImage('assets/images/ruby.png'),
+                ),
+              ],
+            )
+          ],
+        )
+
       ],
     );
   }
