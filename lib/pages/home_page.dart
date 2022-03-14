@@ -31,6 +31,25 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   bool startedBackgroundMusic = false;
 
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    SoundModule soundModule = SoundModule();
+    if (
+      state == AppLifecycleState.paused ||
+      state == AppLifecycleState.inactive ||
+      state == AppLifecycleState.detached
+    ) {
+      if (startedBackgroundMusic) {
+        startedBackgroundMusic = false;
+        soundModule.stopBackgroundMusic();
+      }
+    } else if (state == AppLifecycleState.resumed){
+      startedBackgroundMusic = true;
+      soundModule.startBackgroundMusic();
+    }
+  }
+
   @override
   void initState() {
     super.initState();

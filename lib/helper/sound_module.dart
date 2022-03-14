@@ -31,12 +31,19 @@ class SoundModule {
 
   void startBackgroundMusic() async {
     try {
+      // stop if running
       backgroundPlayer.stop();
     } catch (e) {}
     backgroundPlayer = await backgroundCache.loop(
         BACKGROUND_MUSIC,
         volume: mute ? 0.0 : preferences.getBackgroundVolume()/3
     );
+  }
+
+  void stopBackgroundMusic() async {
+    try {
+      backgroundPlayer.stop();
+    } catch (e) {}
   }
 
   void muteBackground() async {
